@@ -1,0 +1,494 @@
+html, body{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+*, *:before, *:after{
+    box-sizing: border-box;
+}
+
+body{
+    background: #909090;
+    position: relative;
+    padding-top: 50px;
+}
+
+.login-content{
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; */
+}
+a{
+    text-decoration: none;
+    color: #1a81c6;
+}
+a:hover, a:focus, a:active{
+    color: #1a81c6;
+    text-decoration: none;  
+}
+
+.login-header{
+    background-color: #0259FE;
+    padding: 15px 50px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.flex-wrapper{
+    display: flex;
+}
+
+.wrap-items{
+    flex-wrap: wrap;
+}
+.half{
+    width: 50%;
+}
+
+.full{
+    width: 100%;
+}
+.form-control input{
+    width: 100%;
+    padding: 10px 15px;
+}
+
+.form-control{
+    margin: 5px 0;
+}
+
+.btn-primary{
+    background: #0259FE;
+    color: white;
+    border: none;
+    padding: 15px 20px;    
+    cursor: pointer;
+    display: inline-block;
+}
+
+.login-form-container{
+    /* padding: 20px; */
+}
+.half{
+    padding: 15px;
+}
+
+.half:first-child{
+    padding-left: 0;
+}
+.half:last-child{
+    padding-right: 0;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.inline-field{
+    width: auto;
+}
+
+input[type=checkbox], input[type="radio"]{
+    width: auto;
+}
+
+select{
+    padding: 10px 15px;
+    width: 100%;
+}
+
+textarea{
+    width: 100%;
+    min-height: 80px;
+}
+
+p.err-msg{
+    color: red;
+}
+
+label.swatch {
+    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: 150px;
+    background: white;
+    margin: 10px;
+    text-align: center;
+}
+
+.swatch img {
+	margin-bottom: 10px;
+	height: 100px;
+}
+
+.swatch input[type="radio"],
+.swatch input[type="checkbox"] {
+	display: none;
+}
+
+input:checked ~ .check {
+	display: inline-block;
+	transform: rotate(45deg);
+	height: 24px;
+	width: 12px;
+	border-bottom: 7px solid red;
+	border-right: 7px solid red;
+	position: absolute;
+	right: 3px;
+}
+
+.species-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.index-page{
+    padding: 30px;
+}
+
+.pull-right{
+    float: right;
+}
+
+.clearfix{
+    float: none;
+    clear: both;
+}
+
+.hide{
+    display: none;
+}
+
+.container{
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: white;
+    margin-top: 50px;
+}
+
+ul{
+    padding-left: 0;
+    margin: 0;
+}
+
+ul li{
+    list-style-type: none;
+    float: left;
+}
+
+ul.slider li{
+    cursor: pointer;
+    padding: 10px 20px;
+    border-left: 1px solid #eee;
+}
+
+ul.slider{
+    display: flex;
+    flex-wrap: wrap;
+    background: white;
+}
+
+ul li:focus, ul li:active{
+    outline: none;
+}
+
+.categories-wrapper{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+li.category.active{
+    color:#1a81c6;
+}
+
+ul.vertical li{
+    float: none;
+    border-bottom: 1px solid #aaa;
+    padding: 10px 0;
+}
+
+ul.vertical li:last-child{
+    border: none;
+}
+.vertical-item img{
+    max-width: 50px;
+    margin-right: 15px;
+}
+
+li.vertical-item label{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+li.vertical-item a{
+    display: flex;
+    align-items: center;
+}
+
+.create-tacklebox-page .container{
+    min-height: 500px;
+}
+
+.slick-slider:active, .slick-slider:focus, .slick-slide:active, .slick-slide:focus{
+    outline: none;
+}
+
+a:active, a:focus{
+    outline:none;
+}
+
+*:active, *:focus{
+    outline: none;
+}
+
+.add_variant{
+    font-size: 30px;
+    border: 1px solid #1a81c6;
+    border-radius: 30px;
+    padding: 2px 7px;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.checkbox-container {
+	display: inline-block;
+	position: relative;
+	padding-left: 25px;
+	cursor: pointer;
+	font-size: 22px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	min-height: 20px;
+}
+  
+  /* Hide the browser's default checkbox */
+.checkbox-container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+  
+  /* Create a custom checkbox */
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 20px;
+	width: 20px;
+	background-color:transparent;
+	border: 2px solid #707070;
+}
+  
+  /* When the checkbox is checked, add a blue background */  
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+  
+  /* Show the checkmark when checked */
+.checkbox-container input:checked ~ .checkmark:after {
+	display: block;
+}
+  
+
+.checkbox-container .checkmark:after {
+	left: 6px;
+	top: 2px;
+	width: 5px;
+	height: 10px;
+	border: solid #8dc73f;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.add_variants{
+    
+}
+
+.page-footer{
+    position: sticky;
+    bottom: 0;
+    padding:20px;
+}
+.btn-primary:hover, .btn-primary:focus{
+    background: #0259FE;
+    color: white;
+    padding: 15px 20px;
+}
+.slick-track
+{
+    display: flex !important;
+}
+
+.slick-slide
+{
+    height: inherit !important;
+    max-height: 560px; 
+    overflow: auto;
+}
+
+.variants-wrapper{
+    position: relative;
+}
+
+.page-content{
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    min-height: 600px;
+    max-height: 800px;
+    overflow-y: hidden;
+    position: relative;
+    height: 100%;
+}
+
+.content{
+    padding: 0px 20px;
+    min-height: 500px;
+    height: calc(100% - 220px);
+}
+.scroll-content{
+    overflow-y: auto;
+    max-height: 560px;
+}
+h1.page-title{
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.rating-stars ul {
+	list-style-type: none;
+	padding: 0;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+}
+
+.rating-stars ul > li.star {
+	display: inline-block;
+}
+.rating-stars ul > li.star > i.fa {
+	font-size: 2.5em;
+	/* Change the size of the stars */
+	color: #ccc;
+	/* Color on idle state */
+}
+.rating-stars ul > li.star.hover > i.fa {
+	color: #FFCC36;
+}
+.rating-stars ul > li.star.selected > i.fa {
+	color: #FF912C;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+
+.slider-buttons-wrapper{
+    /* padding: 20px 0; */
+}
+
+.swatch label.checkbox-container {
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+
+.tacklebox-page .sub-vertical{
+    padding-left: 20px;
+}
+
+.vertical-item div{
+    align-items: center;
+    display: flex;
+}
+
+input.autocomplete{
+    padding:5px 10px 5px 40px;    
+    position: relative;
+    width: 100%;
+    font-size: 20px;
+}
+
+.search-input:after{
+    content: "";
+    background: url(../imgs/Icon_search_black.png) no-repeat center center;
+    background-size: 100%;
+    width: 20px;
+    height: 20px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+}
+
+.search-input{
+    position: relative;
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.btn-secondary{
+    display: inline-block;
+    padding: 15px 20px;    
+    text-align: center;
+    cursor: pointer;
+}
+
+.index-page .btn-primary, .index-page .btn-secondary{
+    margin: 5px 0;
+}
+.invisible{
+    visibility: hidden;
+}
+
+.notification{
+    margin: 5px;    
+    padding: 5px;
+}
+.notifications-wrapper{
+    background:#5ef3002e;
+}
+
+.see_more{
+    margin-top: 10px;
+    display: block;
+}
