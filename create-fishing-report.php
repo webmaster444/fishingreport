@@ -320,7 +320,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <link rel="stylesheet" href="assets/css/styles.css">               
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     </head>
-    <body class="create-tacklebox-page test">
+    <body class="create-tacklebox-page">
         <div class="page-content">
             <div class="login-header text-center"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></div>        
             <h1 class="page-title">Create a fishing report</h1>
@@ -539,6 +539,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             
         $(document).ready(function(){
+            $('[data-toggle="datepicker"]').datepicker({'format':'yyyy/mm/dd'});
             $('[data-toggle="datepicker"]').datepicker('setDate', new Date());
         })
 

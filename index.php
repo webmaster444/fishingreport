@@ -11,12 +11,21 @@ require_once "db.php";
 
 global $conn;
 
-$sql = "SELECT * FROM Member WHERE member_email_id = ".$_SESSION['id'];
+// $sql = "SELECT * FROM Member WHERE member_email_id = ".$_SESSION['id'];
+// $membertypes = $conn->query($sql);
+
+// while($row = $membertypes->fetch_array()){
+//     $rows[] = $row;
+// }
+
+$sql = "SELECT COUNT(*) FROM membertacklebox WHERE member_email_id =  ".$_SESSION['id'];
 $membertypes = $conn->query($sql);
 
 while($row = $membertypes->fetch_array()){
     $rows[] = $row;
 }
+$tackleboxcnt = $rows[0][0];
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -35,9 +44,12 @@ while($row = $membertypes->fetch_array()){
             <h1 class="page-title">Welcome back</h1>
             <div class="content half">
                 <a class="btn-primary full" href="edit-profile.php">Edit profile</a>
-                <a class="btn-primary full" href="create-tacklebox.php">Create a tacklebox</a>
+                <?php if($tackleboxcnt==0){ ?>
+                    <a class="btn-primary full" href="create-tacklebox.php">Create a tacklebox</a>                
+                <?php }else {?>
+                    <a class="btn-primary full" href="tacklebox.php">Your tacklebox</a>                
+                <?php } ?>
                 <a class="btn-primary full" href="create-fishing-report.php">Create a fishing report</a>
-                <a class="btn-primary full" href="tacklebox.php">Your tacklebox</a>
                 <a class="btn-secondary full" href="logout.php">Log out</a>
             </div>
         </div>

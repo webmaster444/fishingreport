@@ -12,7 +12,7 @@ require_once "db.php";
 // get all subcategories
 global $conn;
 
-$sql = "SELECT DISTINCT(sub) FROM core_category";
+$sql = "SELECT DISTINCT(sub) FROM core_category order by sub";
 $subcat_result = $conn->query($sql);
 
 while($row = $subcat_result->fetch_array()){
@@ -58,7 +58,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
         <title>Fish in My Best Life</title>
-        <link rel="stylesheet" href="assets/css/styles.css">        
+        <link rel="stylesheet" href="assets/css/all.min.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     </head>
     <body class="create-tacklebox-page">
@@ -67,24 +68,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <h1 class="page-title">Create a tackle box</h1>
             <div class="content">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                    <div class="categories-wrapper">
-                        <ul class="slider variable-width">                
-                        <?php 
-                            foreach($subcats as $subcat){
-                                echo '<li class="category">'.$subcat[0].'</li>';
-                            }
-                        ?>
-                        </ul>
-                    </div>
                     <div class="slick-slider-wrapper">
+                        <div class="categories-wrapper">
+                            <h2 class="section-title">Category</h2>
+                            <ul class="vertical">                
+                            <?php 
+                                foreach($subcats as $subcat){
+                                    echo '<li class="vertical-item category"><label><span>'.$subcat[0].'</span><i class="fas fa-chevron-right"></i></label></li>';
+                                }
+                            ?>
+                            </ul>
+                        </div>
                         <div class="brands-wrapper">
-                            <h2 class="section-title"></h2>
+                            <h2 class="section-title">Brands</h2>
                             <ul class="vertical">
 
                             </ul>
                         </div>
                         <div class="products-wrapper">
                             <h2 class="section-title">Products</h2>
+                            <div class="search-input"><input type="text" class="autocomplete" tabindex="0"></div>
                             <ul class="vertical">
 
                             </ul>
@@ -107,17 +110,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script type="text/javascript" src="assets/js/common.js"></script>
         <script type="text/javascript">
             let added_gtin = [];
-            $('.variable-width').slick({
-                dots: false,
-                infinite: true,
-                speed: 300,
-                arrows: false,
-                slidesToShow: 2,
-                swipeToSlide: true,
-                centerMode: false,
-                centerPadding: 0,
-                variableWidth: true
-            });
+            // $('.variable-width').slick({
+            //     dots: false,
+            //     infinite: true,
+            //     speed: 300,
+            //     arrows: false,
+            //     slidesToShow: 2,
+            //     swipeToSlide: true,
+            //     centerMode: false,
+            //     centerPadding: 0,
+            //     variableWidth: true
+            // });
 
             $('.slick-slider-wrapper').slick({
                 dots: false,
@@ -125,11 +128,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 speed: 300,
                 arrows: false,
                 slidesToShow: 1,
-                swipeToSlide: true
+                // swipe: false
             });
 
             $(document).on('click','li.category', function(){                
-                let subCatName = $(this).html();
+                let subCatName = $(this).find('span').html();
                 $('.brands-wrapper h2').html(subCatName);
                 $('.brands-wrapper ul').html("");                
                 $(this).siblings().removeClass('active');                
@@ -140,13 +143,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     data: {action: "getBrandsFromCategory", subcat:subCatName},
                     dataType: "json",
                     success: function(result) {
-                        if(result.length > 0){
-                            
+                        if(result.length > 0){                            
                             result.forEach(function(d){
-                                $('.brands-wrapper ul').append('<li brand-id="'+d.id + '">'+d.NAME+'</li>');
+                                $('.brands-wrapper ul').append('<li class="vertical-item" brand-id="'+d.id + '"><label><span><img src="'+d.image_url+'"/>'+d.NAME+'</span><i class="fas fa-chevron-right"></i></label></li>');
                             });                            
                         }
-                        $('.slick-slider-wrapper').slick("slickGoTo", 0);
+                        $('.slick-slider-wrapper').slick("slickNext");
                     },
                     error: function(err) {
                         console.log(err);
@@ -167,7 +169,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     success: function(result) {
                         if(result.length > 0){                            
                             result.forEach(function(d){
-                                $('.products-wrapper ul').append('<li product-id="'+d.id + '">'+d.name+'</li>');
+                                $('.products-wrapper ul').append('<li class="vertical-item" product-id="'+d.id + '"><label>'+d.name+'<i class="fas fa-chevron-right"></i></label></li>');
                             });                            
                         }
                     },
@@ -190,7 +192,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         if(result.length > 0){                            
                             result.forEach(function(d){
                                 let checked = added_gtin.includes(d.gtin)?"checked":"";
-                                $('.variants-wrapper ul').append('<li class="single-variant vertical-item" gtin-id="'+d.gtin+'" variant-id="'+d.variant_id + '"><label><a href="'+d.url+'"><img src="'+d.variant_img+'" alt=""/>'+d.option1_value+'</a><input type="checkbox" '+checked+'></label></li>');
+                                $('.variants-wrapper ul').append('<li class="single-variant vertical-item" gtin-id="'+d.gtin+'" variant-id="'+d.variant_id + '"><label for="input'+d.variant_id+'"><span><img src="'+d.variant_img+'" alt=""/>'+d.option1_value+'</span><input id="input'+d.variant_id+'" type="checkbox" '+checked+'></label></li>');
                             });                            
                         }
                     },

@@ -10,7 +10,6 @@ html, body{
 body{
     background: #909090;
     position: relative;
-    padding-top: 50px;
 }
 
 .login-content{
@@ -199,15 +198,31 @@ ul li:focus, ul li:active{
     outline: none;
 }
 
-.categories-wrapper{
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-li.category.active{
+.horizontal-slider li.active{
     color:#1a81c6;
 }
-
+.tacklebox-page .slick-slide{
+    max-height: 520px;
+}
+.categories-wrapper{
+    /* max-width: 600px;
+    margin: 0 auto; */
+}
+.subcat-wrapper{
+    position: relative;
+}
+.subcat-wrapper .add_more_tackle{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%,-50%);
+}
+li.category.active{
+    /* color:#1a81c6; */
+}
+.add_more_tackle i{
+    padding-right: 10px;
+}
 ul.vertical li{
     float: none;
     border-bottom: 1px solid #aaa;
@@ -228,11 +243,14 @@ li.vertical-item label{
     justify-content: space-between;
 }
 
-li.vertical-item a{
+li.vertical-item a,li.vertical-item span{
     display: flex;
     align-items: center;
 }
-
+.vertical-item i{
+    padding-right: 10px;
+    color: lightgray;
+}
 .create-tacklebox-page .container{
     min-height: 500px;
 }
@@ -353,7 +371,7 @@ a:active, a:focus{
     margin: 0 auto;
     background: white;
     min-height: 600px;
-    max-height: 800px;
+    max-height: 100vh;
     overflow-y: hidden;
     position: relative;
     height: 100%;
@@ -491,4 +509,44 @@ input.autocomplete{
 .see_more{
     margin-top: 10px;
     display: block;
+}
+
+.drawer-bottom{
+    position: fixed;
+    z-index: 110;
+    height: calc(100vh - 100px);
+    bottom: -800px;
+    padding: 20px;
+    background: white;
+    overflow: auto;
+    max-width: 600px;
+    width: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    /* box-shadow: -1px -10px #e8dcdc42; */
+}
+
+.bottom-drawer-open{
+    bottom:0;
+    transition: all 0.3s;
+}
+
+.drawer-header{
+    position: relative;
+}
+
+.drawer-close{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.drawer-overlay{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 101;
+    background: #909090d1;
 }

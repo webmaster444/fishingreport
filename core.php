@@ -64,7 +64,7 @@ function getTechniqueFromCitySpeciesType($city_id, $species_ids_array, $fishing_
 function getBrandsFromSubcategory($subcat){
     global $conn;
 
-    $sql = 'SELECT id, NAME FROM core_brand WHERE id IN (SELECT DISTINCT(brand_id) FROM core_product WHERE category_id IN (SELECT id FROM core_category WHERE sub="'.$subcat.'"))';
+    $sql = 'SELECT id, NAME, image_url FROM core_brand WHERE id IN (SELECT DISTINCT(brand_id) FROM core_product WHERE category_id IN (SELECT id FROM core_category WHERE sub="'.$subcat.'"))';
     $result = $conn->query($sql);
 
     $brands = array();
@@ -80,7 +80,7 @@ function getBrandsFromSubcategory($subcat){
 function getProductsFromBrandAndCat($subcat, $brand){
     global $conn;
 
-    $sql = 'SELECT * FROM core_product WHERE brand_id = '.$brand.' AND category_id IN (SELECT id FROM core_category WHERE sub="'.$subcat.'")';
+    $sql = 'SELECT * FROM core_product WHERE brand_id = '.$brand.' AND category_id IN (SELECT id FROM core_category WHERE sub="'.$subcat.'") ORDER BY NAME';
     $result = $conn->query($sql);
 
     $products = array();
