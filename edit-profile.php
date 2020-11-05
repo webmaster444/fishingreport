@@ -13,7 +13,7 @@ require_once "db.php";
 
 global $conn;
 
-$sql = "SELECT * FROM member WHERE member_email_id = ".$_SESSION['id'];
+$sql = "SELECT * FROM Member WHERE member_email_id = ".$_SESSION['id'];
 
 $loggedin_user = $conn->query($sql);
 
@@ -22,7 +22,7 @@ while($row = $loggedin_user->fetch_array()){
 }
 
 
-$sql = "SELECT member_type_id, member_type FROM membertype WHERE active = 1";
+$sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1";
 $membertypes = $conn->query($sql);
 
 while($row = $membertypes->fetch_array()){
@@ -79,7 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($fname_err) && empty($lname_err) && empty($phone_err)&& empty($nickname_err)&& empty($bio_err)&& empty($address_err)){
                     
         // Prepare an insert statement
-        $sql = "UPDATE SET (first_name, last_name, email, phone, address,city,state,postal_code,country,member_type_id,bio,shopify_customer_id,own_boat, nickname, member_email_id,active) VALUES (?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,1) WHERE member_email_id=".$_SESSION['id'];
+        $sql = "UPDATE Member SET (first_name, last_name, email, phone, address,city,state,postal_code,country,member_type_id,bio,shopify_customer_id,own_boat, nickname, member_email_id,active) VALUES (?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,1) WHERE member_email_id=".$_SESSION['id'];
                  
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
