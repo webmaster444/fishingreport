@@ -18,7 +18,7 @@ global $conn;
 //     $rows[] = $row;
 // }
 
-$sql = "SELECT COUNT(*) FROM membertacklebox WHERE member_email_id =  ".$_SESSION['id'];
+$sql = "SELECT COUNT(*) FROM MemberTackleBox WHERE member_email_id =  ".$_SESSION['id'];
 $membertypes = $conn->query($sql);
 
 while($row = $membertypes->fetch_array()){
