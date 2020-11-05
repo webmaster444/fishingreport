@@ -67,9 +67,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Create a tackle box</h1>
             <div class="content">
+                <div class="scroll-content">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <div class="slick-slider-wrapper">
                         <div class="categories-wrapper">
+                        <div class="scroll-wrapper">
                             <h2 class="section-title">Category</h2>
                             <ul class="vertical">                
                             <?php 
@@ -78,28 +80,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 }
                             ?>
                             </ul>
+                            </div>
                         </div>
                         <div class="brands-wrapper">
+                            <div class="scroll-wrapper">
                             <h2 class="section-title">Brands</h2>
                             <ul class="vertical">
 
                             </ul>
+                            </div>
                         </div>
                         <div class="products-wrapper">
+                        <div class="scroll-wrapper">
                             <h2 class="section-title">Products</h2>
                             <div class="search-input"><input type="text" class="autocomplete" tabindex="0"></div>
                             <ul class="vertical">
 
                             </ul>
+                            </div>
                         </div>
                         <div class="variants-wrapper">
+                        <div class="scroll-wrapper">
                             <h2 class="section-title">Variants</h2>
                             <ul class="vertical"></ul>
-                            <!-- <button type="submit" class="btn-primary add_variants">Add selected variants to tackle box</button> -->
+                            </div>
                         </div>                
                     </div>    
                     <input type="hidden" id="added_gtin" name="added_gtin" />
                 </form>
+                </div>
             </div>       
             <div class="page-footer">
                 <button type="submit" class="btn-primary add_variants full">Add selected variants to tackle box</button>

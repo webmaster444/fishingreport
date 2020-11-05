@@ -66,11 +66,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
         <title>Fish in My Best Life</title>
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <link rel="stylesheet" href="assets/css/styles.css">
         <meta name="google-signin-client_id" content="753213052944-4molte8riclfmm373egkuldknat2buh6.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
-    <body class="index-page">
+    <body class="">
         <div class="page-content">
         <div class="login-header text-center"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></div>        
         <h1 class="page-title">Setup your fishing profile</h1>
@@ -79,12 +80,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="fishing-profile-form">
                 <div class="city-wrapper">
                     <input type="hidden" name="loggedin_user_city" id="city" value='<?php echo $loggedin_user_citys[0]['city_id']; ?>'/>
-                    <?php echo "You are located in ".$loggedin_user_citys[0]['city'];?>
                 </div>
-                <div class="species-wrapper"></div>
-                <div class="fishing-types-wrapper"></div>
-                <div class="technique-wrapper"></div>
-                <div class="tacklbox-wrapper"></div>                
+                <div class="slick-slider-wrapper">
+                    <div class="species-wrapper"></div>
+                    <div class="fishing-types-wrapper"></div>
+                    <div class="technique-wrapper"></div>
+                    <div class="tacklbox-wrapper"></div>                
+                </div>
             </form>
             </div>
         </div> 
@@ -92,9 +94,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="assets/js/common.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function(){
+        $('.slick-slider-wrapper').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows: false,
+            slidesToShow: 1,
+            swipe: false,                
+        });
+
         // $.ajax({
         //     url: "core.php",
         //     type: "POST",
@@ -125,7 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 success: function(result) {
                     if(result.length > 0){                        
                         let selectorHTML='';
-                        selectorHTML+='<div class="search-input"><input type="text" class="autocomplete"/></div>';
+                        selectorHTML+='<div class="scroll-wrapper"><div class="search-input"><input type="text" class="autocomplete"/></div>';
                         selectorHTML+='<ul class="vertical full">';
                         result.forEach(function(d){
                             selectorHTML+='<li class="vertical-item"><label><div>';
@@ -136,6 +148,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             selectorHTML += '</div><input type="checkbox" name="species[]" value="'+d.attribute_id+'" /></label>';
                             selectorHTML += '</li>';
                         });                                  
+                        selectorHTML += '</div>';
                         $('.species-wrapper').append(selectorHTML);
                         $('.page-footer').append('<button type="button" id="getFishingTypesButton" class="btn-primary pull-right">Get Fishing Types</button><div class="clearfix"></div>');
                     }
@@ -148,7 +161,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $(document).on('click', '#getFishingTypesButton', function(){
             $('.fishing-types-wrapper').html('');
-            $('.species-wrapper').addClass('hide'); 
+            // $('.species-wrapper').addClass('hide'); 
+            $('.slick-slider-wrapper').slick('slickNext');
             $(this).addClass('hide');
             var species = new Array();
             $("input[name='species[]']:checked").each(function() {
@@ -161,11 +175,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 dataType: "json",
                 success: function(result) {
                     if(result.length > 0){                        
-                        let selectorHTML='<ul class="vertical">';
+                        let selectorHTML='<div class="scroll-wrapper"><ul class="vertical">';
                         result.forEach(function(d){
                             selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="fishingTypes[]" value="'+d.attribute_id + '"></label></li>';
                         });          
-                        selectorHTML +='</ul>';
+                        selectorHTML +='</ul></div>';
                         $('.page-footer').append('<button type="button" class="btn-primary" id="getTechniqueButton">Get Fishing Techinique</button><div class="clearfix"></div>');
                         $('.fishing-types-wrapper').append(selectorHTML);
                     }
@@ -177,7 +191,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         });
         $(document).on('click', '#getTechniqueButton', function(){
             $('.technique-wrapper').html('');
-            $('.fishing-types-wrapper').addClass('hide');
+            // $('.fishing-types-wrapper').addClass('hide');
+            $('.slick-slider-wrapper').slick('slickNext');
             $(this).addClass('hide');
             var species = new Array();
             $("input[name='species[]']:checked").each(function() {
@@ -196,11 +211,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 dataType: "json",
                 success: function(result) {
                     if(result.length > 0){                        
-                        let selectorHTML='<ul class="vertical">';
+                        let selectorHTML='<div class="scroll-wrapper"><ul class="vertical">';
                         result.forEach(function(d){
                             selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="technique[]" value="'+d.attribute_id + '"></label></li>';
                         });          
-                        selectorHTML +='</ul>';
+                        selectorHTML +='</ul></div>';
                         $('.technique-wrapper').append(selectorHTML);
                         $('.page-footer').append('<button type="submit" class="btn-primary" id="createTacklebox">Save</button><div class="clearfix"></div>');                        
                     }

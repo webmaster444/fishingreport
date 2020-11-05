@@ -12,7 +12,7 @@ require_once "db.php";
 // get all subcategories
 global $conn;
 
-$sql = "SELECT DISTINCT(sub) FROM core_category";
+$sql = "SELECT DISTINCT(sub) FROM core_category order by sub";
 $subcat_result = $conn->query($sql);
 
 while($row = $subcat_result->fetch_array()){
@@ -26,7 +26,46 @@ $tacklebox_result = $conn->query($sql);
 while($row = $tacklebox_result->fetch_array()){
     $variants_in_tacklebox[] = $row;
 }
-// $sql = 'SELECT DISTINCT(sub) FROM core_category WHERE id IN (SELECT DISTINCT(category_id) FROM core_product WHERE id IN (SELECT DISTINCT(product_id) FROM core_fmblvariant WHERE gtin IN (SELECT gtin FROM core_gtin WHERE FIND_IN_SET(gtin, (SELECT variants_array FROM membertacklebox WHERE member_email_id = 1 LIMIT 1)))));';
+
+$sql = "SELECT variants_array from MemberTackleBox where member_email_id='".$_SESSION['id']."' LIMIT 1";
+$gtinresult = $conn->query($sql);
+
+while($row = $gtinresult->fetch_array()){
+    $selected_gtins[] = $row;
+}
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){   
+    $sql = "SELECT * FROM MemberTackleBox WHERE member_email_id ='".$_SESSION['id']."'";
+
+    $tacklebox_result = $conn->query($sql);    
+    if($tacklebox_result->num_rows==0){
+        $sql = "INSERT INTO MemberTackleBox (member_email_id,variants_array) VALUES (?,?)";
+        if($stmt = mysqli_prepare($conn, $sql)){
+            mysqli_stmt_bind_param($stmt, "is", $_SESSION['id'],$_POST['added_gtin']);
+            
+            if(mysqli_stmt_execute($stmt)){                 
+                header("location: tacklebox.php");
+            } else{
+                echo $stmt->error;
+                echo "Something went wrong. Please try again later.";
+            }
+            mysqli_stmt_close($stmt);
+        }
+    }else{
+        $sql = "UPDATE MemberTackleBox SET variants_array=? WHERE member_email_id = ".$_SESSION['id'];
+        if($stmt = mysqli_prepare($conn, $sql)){
+            mysqli_stmt_bind_param($stmt, "s",$_POST['added_gtin']);
+            
+            if(mysqli_stmt_execute($stmt)){                 
+                header("location: tacklebox.php");
+            } else{
+                echo "Something went wrong. Please try again later.";
+            }
+            mysqli_stmt_close($stmt);
+        }
+    }
+};
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -56,14 +95,14 @@ while($row = $tacklebox_result->fetch_array()){
                     </ul>
                 </div>
                 <div class="slick-slider-wrapper">
-                <div class="categories-wrapper">
+                <div class="categories-wrapper"><div class="scroll-wrapper">
                     <ul class="vertical">                
                     <?php 
                         foreach($subcats as $subcat){                        
                             $filtered_vars = array_filter($variants_in_tacklebox, function($var) use ($subcat){
                                 return $var['sub']==$subcat[0];
                             });
-                            echo '<li class="category">'.$subcat[0];
+                            echo '<li class="">'.$subcat[0];
                             echo '<ul class="sub-vertical">';
                             foreach($filtered_vars as $variant){
                                 echo '<li class="vertical-item"><div><img src="'.$variant['variant_img'].'">'.$variant['brandname'].'-'.$variant['option1_value'].'</div></li>';
@@ -73,9 +112,9 @@ while($row = $tacklebox_result->fetch_array()){
                         }
                     ?>
                     </ul>
-                </div>
+                </div></div>
                 <?php foreach($subcats as $subcat){ 
-                    echo '<div class="subcat-wrapper">';
+                    echo '<div class="subcat-wrapper"><div class="scroll-wrapper">';
                     $filtered_vars = array_filter($variants_in_tacklebox, function($var) use ($subcat){
                         return $var['sub']==$subcat[0];
                     });
@@ -88,7 +127,7 @@ while($row = $tacklebox_result->fetch_array()){
                         }
                         echo '</ul>';
                     }
-                    echo '</div>';
+                    echo '</div></div>';
                 }
                 ?>
                 </div>   
@@ -105,6 +144,7 @@ while($row = $tacklebox_result->fetch_array()){
                 </div>
                 <div class="drawer-slick-wrapper">
                     <div class="drawer-slide">
+                        <div class="drawer-scroll-wrapper">
                     <ul class="vertical">                
                     <?php 
                         foreach($subcats as $subcat){
@@ -113,24 +153,36 @@ while($row = $tacklebox_result->fetch_array()){
                     ?>
                     </ul>
                     </div>
+                    </div>
                     <div class="brands-wrapper">
+                    <div class="drawer-scroll-wrapper">
                             <h2 class="section-title">Brands</h2>
                             <ul class="vertical">
 
                             </ul>
+                    </div>
                         </div>
                         <div class="products-wrapper">
+                        <div class="drawer-scroll-wrapper">
                             <h2 class="section-title">Products</h2>
                             <div class="search-input"><input type="text" class="autocomplete" tabindex="0"></div>
                             <ul class="vertical">
 
                             </ul>
+                    </div>
                         </div>
                         <div class="variants-wrapper">
+                        <div class="drawer-scroll-wrapper">
                             <h2 class="section-title">Variants</h2>
-                            <ul class="vertical"></ul>
-                            <input type="hidden" id="added_gtin" name="added_gtin" />
+                            <ul class="vertical"></ul>                            
                         </div>   
+                    </div>
+                </div>
+                <div class="drawer-footer">
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                        <input type="hidden" id="added_gtin" name="added_gtin" value="<?php echo $selected_gtins[0]['variants_array'];?>"/>
+                        <button type="submit" class="btn-primary">Update tacklebox</button>
+                    </form>
                 </div>
             </div>
             <div class="drawer-overlay hide"></div>
@@ -138,7 +190,12 @@ while($row = $tacklebox_result->fetch_array()){
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script type="text/javascript">
-            let added_gtin = [];
+            <?php $added_gtin = explode(",",$selected_gtins[0]['variants_array']); ?>            
+            let added_gtin = new Array();
+            <?php foreach($added_gtin as $key => $val){ ?>
+                added_gtin.push('<?php echo $val; ?>');
+            <?php } ?>
+            
             $('.variable-width').slick({
                 dots: false,
                 infinite: false,
@@ -157,7 +214,8 @@ while($row = $tacklebox_result->fetch_array()){
                 speed: 300,
                 arrows: false,
                 slidesToShow: 1,
-                swipeToSlide: true
+                swipeToSlide: true,
+                swipe: false
             });
             $('.drawer-slick-wrapper').slick({
                 dots: false,

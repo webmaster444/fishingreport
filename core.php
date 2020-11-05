@@ -28,6 +28,16 @@ function getSpeciesFromCity($city_id){
             $species[]=$row;
         }
     }
+    if(empty($species)){
+        $sql = 'SELECT attribute_name,attribute_id,image_url FROM advisor_attribute WHERE attribute_id IN (SELECT DISTINCT(species) FROM advisor_related_attributes)';
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+        // output data of each row    
+            while ( $row = $result->fetch_assoc())  {
+                $species[]=$row;
+            }
+        }
+    }
     echo json_encode($species);
 }
 
@@ -41,6 +51,18 @@ function getFishingTypesFromCityAndSpecies($city_id, $species_ids_array){
     // output data of each row    
         while ( $row = $result->fetch_assoc())  {
             $fishingTypes[]=$row;
+        }
+    }
+    if(empty($fishingTypes)){
+        $sql = 'SELECT attribute_name,attribute_id,image_url FROM advisor_attribute WHERE attribute_id IN (SELECT DISTINCT(fishing_type) FROM advisor_related_attributes WHERE species IN ('.implode(', ', $species_ids_array).'))';
+        $result = $conn->query($sql);
+    
+        $fishingTypes = array();
+        if ($result->num_rows > 0) {
+        // output data of each row    
+            while ( $row = $result->fetch_assoc())  {
+                $fishingTypes[]=$row;
+            }
         }
     }
     echo json_encode($fishingTypes);
@@ -58,13 +80,25 @@ function getTechniqueFromCitySpeciesType($city_id, $species_ids_array, $fishing_
             $technique[]=$row;
         }
     }
+    if(empty($technique)){
+        $sql = 'SELECT attribute_name,attribute_id,image_url FROM advisor_attribute WHERE attribute_id IN (SELECT DISTINCT(technique) FROM advisor_related_attributes WHERE species IN ('.implode(', ', $species_ids_array).') AND fishing_type IN ('.implode(', ', $fishing_types_array).'))';
+        $result = $conn->query($sql);
+    
+        $technique = array();
+        if ($result->num_rows > 0) {
+        // output data of each row    
+            while ( $row = $result->fetch_assoc())  {
+                $technique[]=$row;
+            }
+        }
+    }
     echo json_encode($technique);
 }
 
 function getBrandsFromSubcategory($subcat){
     global $conn;
 
-    $sql = 'SELECT id, NAME, image_url FROM core_brand WHERE id IN (SELECT DISTINCT(brand_id) FROM core_product WHERE category_id IN (SELECT id FROM core_category WHERE sub="'.$subcat.'"))';
+    $sql = 'SELECT id, NAME, image_url FROM core_brand WHERE id IN (SELECT DISTINCT(brand_id) FROM core_product WHERE category_id IN (SELECT id FROM core_category WHERE sub="'.$subcat.'")) order by name';
     $result = $conn->query($sql);
 
     $brands = array();

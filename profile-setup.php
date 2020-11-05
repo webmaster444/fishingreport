@@ -23,8 +23,7 @@ while($row = $membertypes->fetch_array()){
 
 $fname_err = $lname_err = $phone_err = $bio_err = $nickname_err=$address_err= "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-    
+     
     // Validate username
     if(empty(trim($_POST["fname"]))){
         $fname_err = "Please enter your first name.";
@@ -52,15 +51,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $address_err = "Please enter a valid address";
     }
 
-    var_dump($fname_err);
-    var_dump($lname_err);
-    var_dump($phone_err);
-    var_dump($nickname_err);
-    var_dump($bio_err);
-    var_dump($address_err);
+    $sql = "SELECT city_id FROM advisor_city WHERE city = '".$_POST['city']."'";
+    $cityresult = $conn->query($sql);
+
+    if($cityresult->num_rows==0){
+        $sql = "INSERT INTO advisor_city (city, state, country) VALUES (?,?,?)";
+        if($stmt = mysqli_prepare($conn, $sql)){
+            mysqli_stmt_bind_param($stmt, "sss", $_POST['city'],$_POST['state'],$_POST['country']);
+            if(mysqli_stmt_execute($stmt)){ 
+                echo "That city is successfully added";
+            }else{
+                echo "Could't save that city";
+            }
+        }
+    }
+
+
     // Check input errors before inserting in database
-    if(empty($fname_err) && empty($lname_err) && empty($phone_err)&& empty($nickname_err)&& empty($bio_err)&& empty($address_err)){
-        echo "Here";
+    if(empty($fname_err) && empty($lname_err) && empty($phone_err)&& empty($nickname_err)&& empty($bio_err)&& empty($address_err)){    
         // Prepare an insert statement
         $sql = "INSERT INTO Member (first_name, last_name, email, phone, address,city,state,postal_code,country,member_type_id,bio,shopify_customer_id,own_boat, nickname, member_email_id,active) VALUES (?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,1)";
                  

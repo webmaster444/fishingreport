@@ -60,7 +60,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $address_err = "Please enter a valid address";
     }
 
-    
+    $sql = "SELECT city_id FROM advisor_city WHERE city = '".$_POST['city']."'";
+    $cityresult = $conn->query($sql);
+
+    if($cityresult->num_rows==0){
+        $sql = "INSERT INTO advisor_city (city, state, country) VALUES (?,?,?)";
+        if($stmt = mysqli_prepare($conn, $sql)){
+            mysqli_stmt_bind_param($stmt, "sss", $_POST['city'],$_POST['state'],$_POST['country']);
+            if(mysqli_stmt_execute($stmt)){ 
+                echo "That city is successfully added";
+            }else{
+                echo "Could't save that city";
+            }
+        }
+    }
 
     // Check input errors before inserting in database
     if(empty($fname_err) && empty($lname_err) && empty($phone_err)&& empty($nickname_err)&& empty($bio_err)&& empty($address_err)){
