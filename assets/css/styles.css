@@ -524,7 +524,7 @@ input.autocomplete{
     position: fixed;
     z-index: 110;
     height: calc(100vh - 100px);
-    bottom: -800px;
+    bottom: -1000px;
     padding: 20px;
     background: white;
     overflow: auto;
