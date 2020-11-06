@@ -66,13 +66,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Create a tackle box</h1>
+            <p class="err-msg"></p>
             <div class="content">
-                <div class="scroll-content">
+                <div class="scroll-content">                
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <div class="slick-slider-wrapper">
                         <div class="categories-wrapper">
                         <div class="scroll-wrapper">
-                            <h2 class="section-title">Category</h2>
+                            <h2 class="section-title">Category</h2>                            
                             <ul class="vertical">                
                             <?php 
                                 foreach($subcats as $subcat){
@@ -217,7 +218,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 //         console.log($(this).closest('li').attr('variant-id'));
                 //     }
                 // })
-                $('form').submit();
+                if($('#added_gtin').val()!=""){
+                    $('form').submit();
+                }else{
+                    $('.err-msg').html('You need to select at least one variant');
+                }                
             })
 
             $(document).on('change', '.single-variant input', function(){

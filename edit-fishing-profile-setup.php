@@ -14,7 +14,7 @@ global $conn;
 $sql = "SELECT * FROM Member WHERE member_email_id = ".$_SESSION['id'];
 
 $loggedin_user = $conn->query($sql);
-
+$loggedin_users = [];
 while($row = $loggedin_user->fetch_array()){
     $loggedin_users[] = $row;
 }
@@ -24,6 +24,14 @@ $loggedin_user_city = $conn->query($sql);
 
 while($row = $loggedin_user_city->fetch_array()){
     $loggedin_user_citys[] = $row;
+}
+
+$user_fishing_detail = array();
+$sql = "SELECT species,fishing_types,fishing_technique FROM member_detail_fishing WHERE email_id = ".$_SESSION['id'];
+$user_detail_result = $conn->query($sql);
+
+while($row = $user_detail_result->fetch_array()){
+    $user_fishing_detail[] = $row;
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){        
@@ -75,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <body class="">
         <div class="page-content">
         <div class="login-header text-center"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></div>        
-        <h1 class="page-title">Setup your fishing profile</h1>
+        <h1 class="page-title">Edit your fishing profile</h1>
         <div class="back-wrapper hide"><i class="fas fa-chevron-left"></i></div>
         <p class="err-msg"></p>
         <div class="content">
@@ -93,10 +101,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </form>
             </div>
         </div> 
-        <div class="page-footer">
+        <div class="hide hidden-fields-wrapper">
+            <input type="hidden" id="selected_species" value='<?php echo $user_fishing_detail[0]['species'];?>' />
+            <input type="hidden" id="selected_types" value='<?php echo $user_fishing_detail[0]['fishing_types'];?>' />
+            <input type="hidden" id="selected_techniques" value='<?php echo $user_fishing_detail[0]['fishing_technique'];?>' />            
+        </div>
+        <div class="page-footer">            
             <button type="button" id="getFishingTypesButton" class="btn-primary pull-right hide">Get Fishing Types</button><div class="clearfix"></div>
             <button type="button" class="btn-primary hide" id="getTechniqueButton">Get Fishing Techinique</button><div class="clearfix"></div>
-            <button type="submit" class="btn-primary hide" id="createTacklebox">Save</button><div class="clearfix"></div>
+            <button type="submit" class="btn-primary hide" id="createTacklebox">Update Tackle Box</button><div class="clearfix"></div>
         </div>
         </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -104,6 +117,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <script src="assets/js/common.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function(){
+        <?php $selected_species = explode(",",$user_fishing_detail[0]['species']); ?>            
+        let selected_species = new Array();
+        <?php foreach($selected_species as $key => $val){ ?>
+            selected_species.push('<?php echo $val; ?>');
+        <?php } ?>
+
+        <?php $selected_types = explode(",",$user_fishing_detail[0]['fishing_types']); ?>            
+        let selected_types = new Array();
+        <?php foreach($selected_types as $key => $val){ ?>
+            selected_types.push('<?php echo $val; ?>');
+        <?php } ?>
+
+        <?php $selected_technique = explode(",",$user_fishing_detail[0]['fishing_technique']); ?>            
+        let selected_technique = new Array();
+        <?php foreach($selected_technique as $key => $val){ ?>
+            selected_technique.push('<?php echo $val; ?>');
+        <?php } ?>
+
         $('.slick-slider-wrapper').slick({
             dots: false,
             infinite: false,
@@ -151,7 +182,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             if(d.image_url){
                                 selectorHTML+='<img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name;
                             }
-                            selectorHTML += '</div><input type="checkbox" name="species[]" value="'+d.attribute_id+'" /></label>';
+                            let checked = selected_species.includes(d.attribute_id)?"checked":"";
+                            selectorHTML += '</div><input type="checkbox" name="species[]" value="'+d.attribute_id+'" '+checked+'/></label>';
                             selectorHTML += '</li>';
                         });                                  
                         selectorHTML += '</div>';
@@ -170,13 +202,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $("input[name='species[]']:checked").each(function() {
                 species.push($(this).val());
             });
+
             if(species.length!=0){
                 $('.fishing-types-wrapper').html('');
                 // $('.species-wrapper').addClass('hide'); 
                 $('.slick-slider-wrapper').slick('slickNext');
+                $(this).addClass('hide');
                 $('.back-wrapper').removeClass('hide');
                 $('.err-msg').html("");
-                $(this).addClass('hide');
                 $.ajax({
                     url: "core.php",
                     type: "POST",
@@ -186,7 +219,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         if(result.length > 0){                        
                             let selectorHTML='<div class="scroll-wrapper"><ul class="vertical">';
                             result.forEach(function(d){
-                                selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="fishingTypes[]" value="'+d.attribute_id + '"></label></li>';
+                                let checked = selected_types.includes(d.attribute_id)?"checked":"";
+                                selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="fishingTypes[]" '+checked+' value="'+d.attribute_id + '"></label></li>';
                             });          
                             selectorHTML +='</ul></div>';
                             $("#getTechniqueButton").removeClass('hide');
@@ -206,8 +240,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $("input[name='fishingTypes[]']:checked").each(function() {
                 fishingTypes.push($(this).val());
             });
-
-            if(fishingTypes.length !=0){
+            
+            if(fishingTypes.length!=0){
                 $('.technique-wrapper').html('');
                 // $('.fishing-types-wrapper').addClass('hide');
                 $('.slick-slider-wrapper').slick('slickNext');
@@ -216,7 +250,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $("input[name='species[]']:checked").each(function() {
                     species.push($(this).val());
                 });
-
+                $('.err-msg').html("");
                 $.ajax({
                     url: "core.php",
                     type: "POST",
@@ -226,7 +260,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         if(result.length > 0){                        
                             let selectorHTML='<div class="scroll-wrapper"><ul class="vertical">';
                             result.forEach(function(d){
-                                selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="technique[]" value="'+d.attribute_id + '"></label></li>';
+                                let checked = selected_technique.includes(d.attribute_id)?"checked":"";
+                                selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="technique[]" '+checked+' value="'+d.attribute_id + '"></label></li>';
                             });          
                             selectorHTML +='</ul></div>';
                             $('.technique-wrapper').append(selectorHTML);
@@ -252,7 +287,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }else{
                 $('.err-msg').html("Please select at leaset one technique");
             }            
-            // window.location.href = "http://localhost/shopify-fishinmybestlife.com/php-app/create-tacklebox.php";
         });
 
         $(document).on('click','.back-wrapper', function(){

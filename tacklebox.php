@@ -14,7 +14,7 @@ global $conn;
 
 $sql = "SELECT DISTINCT(sub) FROM core_category order by sub";
 $subcat_result = $conn->query($sql);
-
+$subcats = [];
 while($row = $subcat_result->fetch_array()){
     $subcats[] = $row;
 }
@@ -23,13 +23,17 @@ while($row = $subcat_result->fetch_array()){
 $sql = "SELECT cb.name AS brandname, cg.option1_value, cg.variant_img, cg.gtin, cc.sub FROM core_gtin AS cg JOIN core_fmblvariant AS cv ON cv.gtin = cg.gtin JOIN core_product AS cp ON cp.id = cv.product_id JOIN core_brand AS cb ON cp.brand_id = cb.id JOIN core_category AS cc ON cp.category_id = cc.id AND FIND_IN_SET(cg.gtin, (SELECT variants_array FROM MemberTackleBox WHERE member_email_id = '".$_SESSION['id']."' LIMIT 1));";
 $tacklebox_result = $conn->query($sql);
 
-while($row = $tacklebox_result->fetch_array()){
-    $variants_in_tacklebox[] = $row;
+$variants_in_tacklebox = [];
+if($tacklebox_result->num_rows!=0){
+    while($row = $tacklebox_result->fetch_array()){
+        $variants_in_tacklebox[] = $row;
+    }    
 }
 
 $sql = "SELECT variants_array from MemberTackleBox where member_email_id='".$_SESSION['id']."' LIMIT 1";
 $gtinresult = $conn->query($sql);
 
+$selected_gtins = [];
 while($row = $gtinresult->fetch_array()){
     $selected_gtins[] = $row;
 }

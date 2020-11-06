@@ -341,9 +341,10 @@ a:active, a:focus{
 }
 
 .page-footer{
-    position: sticky;
+    position: absolute;
     bottom: 0;
     padding:20px;
+    width: 100%;
 }
 .btn-primary:hover, .btn-primary:focus{
     background: #0259FE;
@@ -354,14 +355,16 @@ a:active, a:focus{
 {
     display: flex !important;
 }
-
+.page-content > p.err-msg{
+    padding: 0 20px;
+}
 .slick-slide
 {
     height: inherit !important;
     overflow: auto;
 }
 .scroll-wrapper{
-    max-height: calc(100vh - 275px) !important;
+    max-height: calc(100vh - 305px) !important;
 }
 
 .drawer-scroll-wrapper{
@@ -388,17 +391,21 @@ a:active, a:focus{
 
 .content{
     padding: 0px 20px;
-    min-height: 500px;
-    height: calc(100% - 220px);
+    /* min-height: 500px; */
+    position: absolute;
+    top: 175px;
+    width: 100%;
+    /* height: calc(100% - 220px); */
 }
 .scroll-content{
     overflow-y: auto;
-    max-height: calc(100vh - 235px);
+    /* max-height: calc(100vh - 235px); */
 }
 h1.page-title{
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
+    margin: 10px 0;
 }
 
 .rating-stars ul {
@@ -558,4 +565,11 @@ input.autocomplete{
     bottom: 0;
     z-index: 101;
     background: #909090d1;
+}
+
+.back-wrapper{
+    position: absolute;
+    top: 95px;
+    left: 30px;
+    cursor: pointer;
 }

@@ -57,10 +57,17 @@ while($row = $tacklebox_result->fetch_array()){
 $sql = "SELECT attribute_id, attribute_name, image_url FROM advisor_attribute WHERE attribute_id IN (SELECT DISTINCT(fishing_type) FROM advisor_related_attributes WHERE city = ".$userCity['city_id'].") ORDER BY attribute_name;";
 $alltype_result = $conn->query($sql);
 
-while($row = $alltype_result->fetch_array()){
-    $alltypes[] = $row;
+if($alltype_result->num_rows!=0){
+    while($row = $alltype_result->fetch_array()){
+        $alltypes[] = $row;
+    }
+}else{
+    $sql = "SELECT attribute_id, attribute_name, image_url FROM advisor_attribute WHERE attribute_id IN (SELECT DISTINCT(fishing_type) FROM advisor_related_attributes) ORDER BY attribute_name;";
+    $alltype_result = $conn->query($sql);
+    while($row = $alltype_result->fetch_array()){
+        $alltypes[] = $row;
+    }
 }
-
 $sql = "SELECT attribute_id, attribute_name, image_url FROM advisor_attribute WHERE attribute_id IN (SELECT DISTINCT(technique) FROM advisor_related_attributes WHERE city = ".$userCity['city_id'].") ORDER BY attribute_name;";
 $alltechnique_result = $conn->query($sql);
 

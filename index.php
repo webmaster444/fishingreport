@@ -42,8 +42,9 @@ $tackleboxcnt = $rows[0][0];
         <div class="page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Welcome back</h1>
-            <div class="content half">
+            <div class="content">
                 <a class="btn-primary full" href="edit-profile.php">Edit profile</a>
+                <a class="btn-primary full" href="edit-fishing-profile-setup.php">Edit fishing profile</a>
                 <?php if($tackleboxcnt==0){ ?>
                     <a class="btn-primary full" href="create-tacklebox.php">Create a tacklebox</a>                
                 <?php }else {?>
