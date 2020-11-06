@@ -82,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </head>
     <body class="">
         <div class="page-content">
-        <div class="login-header text-center"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></div>        
+        <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>        
         <h1 class="page-title">Edit your fishing profile</h1>
         <div class="back-wrapper hide"><i class="fas fa-chevron-left"></i></div>
         <p class="err-msg"></p>

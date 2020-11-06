@@ -115,7 +115,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </head>
     <body class="login-page">
         <div class="login-content page-content">            
-            <div class="login-header text-center"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></div>
+            <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Register</h1>
             <div class="login-form-container flex-wrapper content">
                 <div class="full">

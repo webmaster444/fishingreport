@@ -121,7 +121,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </head>
     <body class="profile-setup">
         <div class="login-content page-content">
-            <div class="login-header text-center"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></div>
+            <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Setup your profile</h2>
             <div class="content">            
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">

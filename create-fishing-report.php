@@ -329,7 +329,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </head>
     <body class="create-tacklebox-page">
         <div class="page-content">
-            <div class="login-header text-center"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></div>        
+            <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>        
             <h1 class="page-title">Create a fishing report</h1>
             <div class="content">
                 <div class="notifications-wrapper">
