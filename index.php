@@ -49,8 +49,8 @@ $tackleboxcnt = $rows[0][0];
                     <a class="btn-primary full" href="create-tacklebox.php">Create a tacklebox</a>                
                 <?php }else {?>
                     <a class="btn-primary full" href="tacklebox.php">Your tacklebox</a>                
-                <?php } ?>
-                <a class="btn-primary full" href="create-fishing-report.php">Create a fishing report</a>
+                    <a class="btn-primary full" href="create-fishing-report.php">Create a fishing report</a>
+                <?php } ?>                
                 <a class="btn-secondary full" href="logout.php">Log out</a>
             </div>
         </div>

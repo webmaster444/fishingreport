@@ -66,6 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Create a tackle box</h1>
+            <div class="back-home"><i class="fas fa-chevron-left"></i></div>
             <p class="err-msg"></p>
             <div class="content">
                 <div class="scroll-content">                

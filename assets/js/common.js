@@ -15,3 +15,7 @@ $(document).on('click','.see_more', function(){
         $(this).removeClass('hide');
     })
 })
+
+$(document).on('click','.back-home', function(){
+    window.location.href = "index.php";
+}) 

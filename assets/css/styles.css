@@ -567,7 +567,7 @@ input.autocomplete{
     background: #909090d1;
 }
 
-.back-wrapper{
+.back-wrapper,.back-home{
     position: absolute;
     top: 95px;
     left: 30px;

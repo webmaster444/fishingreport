@@ -49,7 +49,7 @@ while($row = $technique_result->fetch_array()){
 
 $sql = "SELECT cb.name AS brandname, cg.option1_value, cg.variant_img, cg.gtin, cc.sub FROM core_gtin AS cg JOIN core_fmblvariant AS cv ON cv.gtin = cg.gtin JOIN core_product AS cp ON cp.id = cv.product_id JOIN core_brand AS cb ON cp.brand_id = cb.id JOIN core_category AS cc ON cp.category_id = cc.id AND FIND_IN_SET(cg.gtin, (SELECT variants_array FROM MemberTackleBox WHERE member_email_id = '".$_SESSION['id']."' LIMIT 1));";
 $tacklebox_result = $conn->query($sql);
-
+$variants_in_tacklebox = [];
 while($row = $tacklebox_result->fetch_array()){
     $variants_in_tacklebox[] = $row;
 }
@@ -70,9 +70,18 @@ if($alltype_result->num_rows!=0){
 }
 $sql = "SELECT attribute_id, attribute_name, image_url FROM advisor_attribute WHERE attribute_id IN (SELECT DISTINCT(technique) FROM advisor_related_attributes WHERE city = ".$userCity['city_id'].") ORDER BY attribute_name;";
 $alltechnique_result = $conn->query($sql);
+$alltechnique = [];
 
-while($row = $alltechnique_result->fetch_array()){
-    $alltechnique[] = $row;
+if($alltechnique_result->num_rows!=0){
+    while($row = $alltechnique_result->fetch_array()){
+        $alltechnique[] = $row;
+    }
+}else{
+    $sql = "SELECT attribute_id, attribute_name, image_url FROM advisor_attribute WHERE attribute_id IN (SELECT DISTINCT(technique) FROM advisor_related_attributes) ORDER BY attribute_name;";
+    $alltechnique_result = $conn->query($sql);
+    while($row = $alltechnique_result->fetch_array()){
+        $alltechnique[] = $row;
+    }
 }
 
 $notifications = array();
@@ -330,7 +339,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <body class="create-tacklebox-page">
         <div class="page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>        
-            <h1 class="page-title">Create a fishing report</h1>
+            <h1 class="page-title">Create a fishing report</h1>            
+            <div class="back-home"><i class="fas fa-chevron-left"></i></div>
             <div class="content">
                 <div class="notifications-wrapper">
                 <?php foreach ($notifications as $notification){ ?>
@@ -580,11 +590,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $('.btn-primary.slick-prev').on('click', function(){
             let currentStep = $('.slick-current').index();
-            if(fishingReportValidation(currentStep)==true){
-                $('.slick-slider-wrapper').slick('slickPrev');
-            }else{
-                $('.slick-current .err-msg').html(fishingReportValidation(currentStep));
-            }
+            $('.slick-slider-wrapper').slick('slickPrev');
+            // if(fishingReportValidation(currentStep)==true){
+            //     $('.slick-slider-wrapper').slick('slickPrev');
+            // }else{
+            //     $('.slick-current .err-msg').html(fishingReportValidation(currentStep));
+            // }
         })
 
         $('.btn-primary.slick-next').on('click', function(){

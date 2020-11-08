@@ -84,6 +84,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="page-content">
         <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>        
         <h1 class="page-title">Edit your fishing profile</h1>
+        <div class="back-home"><i class="fas fa-chevron-left"></i></div>
         <div class="back-wrapper hide"><i class="fas fa-chevron-left"></i></div>
         <p class="err-msg"></p>
         <div class="content">
@@ -209,6 +210,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $('.slick-slider-wrapper').slick('slickNext');
                 $(this).addClass('hide');
                 $('.back-wrapper').removeClass('hide');
+                $('.back-home').addClass('hide');
                 $('.err-msg').html("");
                 $.ajax({
                     url: "core.php",
@@ -295,12 +297,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(cuIndex==0){
                 $("#getTechniqueButton").addClass('hide');
                 $('.back-wrapper').addClass('hide');
+                $('.back-home').removeClass('hide');
                 $("#getFishingTypesButton").removeClass("hide");
             }else if(cuIndex==1){
                 $("#createTacklebox").addClass('hide');
                 $("#getTechniqueButton").removeClass('hide');
             }
-        })
+        })        
     });    
 </script>
 </body>
