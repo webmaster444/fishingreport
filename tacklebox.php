@@ -242,6 +242,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             })
 
             $(document).on('click','.add_more_tackle', function(){
+                $('.drawer-slick-wrapper').slick('slickGoTo',0);
                 $('.drawer-bottom').addClass('bottom-drawer-open');
                 $('.drawer-overlay').removeClass('hide');
             })

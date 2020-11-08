@@ -407,6 +407,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>                        
                     </div>
                     <div class="slide species-wrapper">
+                    <div class="scroll-wrapper">
                         <h2 class="section-title">Species</h2>
                         <p class="err-msg"></p>
                         <div class="values-wrapper full">
@@ -419,9 +420,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         ?>
                         </ul>
                         </div>
+                        </div>
                     </div>
 
                     <div class="slide fishing-types-wrapper">
+                    <div class="scroll-wrapper">
                         <h2 class="section-title">Fishing Type</h2>
                         <p class="err-msg"></p>
                         <div class="values-wrapper full">    
@@ -440,9 +443,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </ul>
                             <a href="#" class="see_more">See More</a>
                         </div>
+                            </div>
                     </div>
 
                     <div class="slide fishing-technique-wrapper">
+                        <div class="scroll-wrapper">
                         <h2 class="section-title">Technique</h2>
                         <p class="err-msg"></p>
                         <div class="values-wrapper full">
@@ -459,8 +464,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </ul>
                         <a href="#" class="see_more">See More</a>
                         </div>
+                        </div>
                     </div>
                     <div class="slide your-tackle-box">
+                        <div class="scroll-wrapper">
                         <h2 class="section-title">Your Tacklebox</h2>
                         <p class="err-msg"></p>
                         <div class="values-wrapper">
@@ -483,6 +490,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             ?>
                             </ul>
                         </div>
+                    </div>
                     </div>  
                     <div class="slide memo-box">
                         <h2 class="section-title">Your Memo</h2>

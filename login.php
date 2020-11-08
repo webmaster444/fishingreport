@@ -115,7 +115,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <form action="login.php" method="POST">
                         <div class="form-control">
                             <label for="email">Email</label>
-                            <input type="email" name="email" id="email" required />
+                            <input type="email" name="email" id="email" required value="<?php isset($_POST['email'])?$_POST['email']:""; ?>"/>
                             <p class="err-msg"><?php echo $username_err;?></p>
                         </div>
                         <div class="form-control">
