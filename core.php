@@ -150,7 +150,7 @@ function uploadReportImage(){
     else {
         global $APP_URL;
         move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/reports/' . $_FILES['file']['name']);
-        echo $APP_URL.'fishingreport/uploads/reports/'.$_FILES['file']['name'];
+        echo $APP_URL.'/fishingreport/uploads/reports/'.$_FILES['file']['name'];
     }
 }
 if($_POST['action']=="getAllCities"){
