@@ -319,7 +319,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }else{
         $notification = 'Successfully added report to store';
         $notifications[] = $notification;
-        // mail('jlmobile710@gmail.com','Fishing Report Submission',"One report is created");
+        mail('jlmobile710@gmail.com','Fishing Report Submission',"One report is created");
     }    
 }
 
