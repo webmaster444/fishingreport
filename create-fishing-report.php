@@ -369,7 +369,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="flex-wrapper">
                         <ul class="vertical full">
                         <li class="vertical-item"><label><div><img src="assets/imgs/cloudy.png" class="sea-condition-images"> Cloudy</div><input type="radio" name="weatherconditions" value="cloudy" required /></label></li>
-                        <li class="vertical-item"><label><div><img src="assets/imgs/raining.png" class="sea-condition-images"> Rainy</div><input type="radio" name="weatherconditions" value="rainy" required /></label></li>
+                        <li class="vertical-item"><label><div><img src="assets/imgs/raining.png" class="sea-condition-images"> Rainy</div><input type="radio" name="weatherconditions" value="raining" required /></label></li>
                         <li class="vertical-item"><label><div><img src="assets/imgs/sunny.png" class="sea-condition-images"> Sunny</div><input type="radio" name="weatherconditions" value="sunny" required /></label></li>
                         </ul>                        
                         </div>                        
@@ -381,7 +381,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <ul class="vertical full">
                             <li class="vertical-item"><label><div><img src="assets/imgs/0t2ft.png" class="sea-condition-images"> 0 to 2 FT</div><input type="radio" name="seawaveheight" value="0-2" required /></label></li>
                             <li class="vertical-item"><label><div><img src="assets/imgs/2.5to4ft.png" class="sea-condition-images"> 2.5 to 4 FT</div><input type="radio" name="seawaveheight" value="2.5-4" required /></label></li>
-                            <li class="vertical-item"><label><div><img src="assets/imgs/4.5ft-over.png" class="sea-condition-images"> 4.5 FT  and over</div><input type="radio" name="seawaveheight" value="4.5+" required /></label></li>
+                            <li class="vertical-item"><label><div><img src="assets/imgs/4.5ft-over.png" class="sea-condition-images"> 4.5 FT  and over</div><input type="radio" name="seawaveheight" value="4-4.5" required /></label></li>
                         </ul>
                         </div>                        
                     </div>

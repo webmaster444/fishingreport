@@ -12,7 +12,8 @@ require_once "db.php";
 // get all subcategories
 global $conn;
 
-$sql = "SELECT DISTINCT(sub) FROM core_category order by sub";
+// $sql = "SELECT DISTINCT(sub) FROM core_category order by sub";
+$sql = "SELECT DISTINCT(sub) FROM core_category WHERE sub IN ('Hooks', 'Line', 'Reels', 'Lures', 'Terminal Tackle') ORDER BY sub";
 $subcat_result = $conn->query($sql);
 
 while($row = $subcat_result->fetch_array()){
@@ -67,6 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Create a tackle box</h1>
             <div class="back-home"><i class="fas fa-chevron-left"></i></div>
+            <div class="back-wrapper hide"><i class="fas fa-chevron-left"></i></div>
             <p class="err-msg"></p>
             <div class="content">
                 <div class="scroll-content">                
@@ -74,7 +76,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="slick-slider-wrapper">
                         <div class="categories-wrapper">
                         <div class="scroll-wrapper">
-                            <h2 class="section-title">Category</h2>                            
+                            <h2 class="section-title">Category</h2>    
+                            <div class="search-input"><input type="text" class="autocomplete" /></div>                        
                             <ul class="vertical">                
                             <?php 
                                 foreach($subcats as $subcat){
@@ -87,6 +90,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="brands-wrapper">
                             <div class="scroll-wrapper">
                             <h2 class="section-title">Brands</h2>
+                            <div class="search-input"><input type="text" class="autocomplete" /></div>
                             <ul class="vertical">
 
                             </ul>
@@ -104,6 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="variants-wrapper">
                         <div class="scroll-wrapper">
                             <h2 class="section-title">Variants</h2>
+                            <div class="search-input"><input type="text" class="autocomplete" /></div>
                             <ul class="vertical"></ul>
                             </div>
                         </div>                
@@ -120,18 +125,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script type="text/javascript" src="assets/js/common.js"></script>
         <script type="text/javascript">
-            let added_gtin = [];
-            // $('.variable-width').slick({
-            //     dots: false,
-            //     infinite: true,
-            //     speed: 300,
-            //     arrows: false,
-            //     slidesToShow: 2,
-            //     swipeToSlide: true,
-            //     centerMode: false,
-            //     centerPadding: 0,
-            //     variableWidth: true
-            // });
+            let added_gtin = [];            
 
             $('.slick-slider-wrapper').slick({
                 dots: false,
@@ -139,7 +133,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 speed: 300,
                 arrows: false,
                 slidesToShow: 1,
-                // swipe: false
             });
 
             $(document).on('click','li.category', function(){                
@@ -160,6 +153,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             });                            
                         }
                         $('.slick-slider-wrapper').slick("slickNext");
+                        $('.back-home').addClass('hide');
+                        $('.back-wrapper').removeClass('hide');
                     },
                     error: function(err) {
                         console.log(err);
@@ -214,11 +209,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             })
 
             $('.add_variants').on('click', function(){
-                // $('.variants-wrapper input[type="checkbox"]').each(function(){
-                //     if($(this).prop('checked')){
-                //         console.log($(this).closest('li').attr('variant-id'));
-                //     }
-                // })
                 if($('#added_gtin').val()!=""){
                     $('form').submit();
                 }else{
@@ -237,6 +227,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     added_gtin.push(cuGtin);
                 }
                 $("#added_gtin").val(added_gtin.join(","));
+            })
+            
+            $(document).on('click','.back-wrapper', function(){
+                $('.slick-slider-wrapper').slick('slickPrev');
+                let cuIndex = $('.slick-current').index();
+                if(cuIndex==0){                    
+                    $('.back-wrapper').addClass('hide');
+                    $('.back-home').removeClass('hide');
+                }else{
+                    $('.back-home').addClass('hide');
+                }
             })
         </script>
     </body>

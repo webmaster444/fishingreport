@@ -27,7 +27,6 @@ while($row = $loggedin_user_city->fetch_array()){
 }
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){        
-    // implode(",", $array);
     $sql = "SELECT * FROM member_detail_fishing WHERE email_id ='".$_SESSION['id']."'";
 
     $fishing_profile_detail = $conn->query($sql);
@@ -113,57 +112,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             swipe: false,                
         });
 
-        // $.ajax({
-        //     url: "core.php",
-        //     type: "POST",
-        //     data: {action: "getAllCities"},
-        //     dataType: "json",
-        //     success: function(result) {
-        //         if(result.length > 0){
-        //             let selectorHTML = '<select id="citySelect" name="city">';
-        //             result.forEach(function(d){
-        //                 selectorHTML+='<option value="'+d.city_id + '">'+d.city+'</option>';
-        //             });
-        //             selectorHTML+='</select>';
-        //             $('.city-wrapper').append(selectorHTML);
-        //         }
-        //     },
-        //     error: function(err) {
-        //         console.log(err);
-        //     }
-        // });
-
-        // $(document).on('change','#citySelect', function(){
-            $('.species-wrapper').html('');      
-            $.ajax({
-                url: "core.php",
-                type: "POST",
-                data: {action: "getSpecies", city_id:$('#city').val()},
-                dataType: "json",
-                success: function(result) {
-                    if(result.length > 0){                        
-                        let selectorHTML='';
-                        selectorHTML+='<div class="scroll-wrapper"><div class="search-input"><input type="text" class="autocomplete"/></div>';
-                        selectorHTML+='<ul class="vertical full">';
-                        result.forEach(function(d){
-                            selectorHTML+='<li class="vertical-item"><label><div>';
-                            
-                            if(d.image_url){
-                                selectorHTML+='<img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name;
-                            }
-                            selectorHTML += '</div><input type="checkbox" name="species[]" value="'+d.attribute_id+'" /></label>';
-                            selectorHTML += '</li>';
-                        });                                  
-                        selectorHTML += '</div>';
-                        $('.species-wrapper').append(selectorHTML);
-                        $("#getFishingTypesButton").removeClass('hide');
-                    }
-                },
-                error: function(err) {
-                    console.log(err);
+        
+        $('.species-wrapper').html('');      
+        $.ajax({
+            url: "core.php",
+            type: "POST",
+            data: {action: "getSpecies", city_id:$('#city').val()},
+            dataType: "json",
+            success: function(result) {
+                if(result.length > 0){                        
+                    let selectorHTML='';
+                    selectorHTML+='<div class="scroll-wrapper"><div class="search-input"><input type="text" class="autocomplete"/></div>';
+                    selectorHTML+='<ul class="vertical full">';
+                    result.forEach(function(d){
+                        selectorHTML+='<li class="vertical-item"><label><div>';
+                        
+                        if(d.image_url){
+                            selectorHTML+='<img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name;
+                        }
+                        selectorHTML += '</div><input type="checkbox" name="species[]" value="'+d.attribute_id+'" /></label>';
+                        selectorHTML += '</li>';
+                    });                                  
+                    selectorHTML += '</div>';
+                    $('.species-wrapper').append(selectorHTML);
+                    $("#getFishingTypesButton").removeClass('hide');
                 }
+            },
+            error: function(err) {
+                console.log(err);
+            }
         });
-        // })
+
 
         $(document).on('click', '#getFishingTypesButton', function(){
             var species = new Array();
@@ -172,7 +151,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             });
             if(species.length!=0){
                 $('.fishing-types-wrapper').html('');
-                // $('.species-wrapper').addClass('hide'); 
                 $('.slick-slider-wrapper').slick('slickNext');
                 $('.back-wrapper').removeClass('hide');
                 $('.err-msg').html("");
@@ -209,7 +187,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             if(fishingTypes.length !=0){
                 $('.technique-wrapper').html('');
-                // $('.fishing-types-wrapper').addClass('hide');
                 $('.slick-slider-wrapper').slick('slickNext');
                 $(this).addClass('hide');
                 var species = new Array();
@@ -251,8 +228,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $("#fishing-profile-form").submit();
             }else{
                 $('.err-msg').html("Please select at leaset one technique");
-            }            
-            // window.location.href = "http://localhost/shopify-fishinmybestlife.com/php-app/create-tacklebox.php";
+            }
         });
 
         $(document).on('click','.back-wrapper', function(){

@@ -11,13 +11,6 @@ require_once "db.php";
 
 global $conn;
 
-// $sql = "SELECT * FROM Member WHERE member_email_id = ".$_SESSION['id'];
-// $membertypes = $conn->query($sql);
-
-// while($row = $membertypes->fetch_array()){
-//     $rows[] = $row;
-// }
-
 $sql = "SELECT COUNT(*) FROM MemberTackleBox WHERE member_email_id =  ".$_SESSION['id'];
 $membertypes = $conn->query($sql);
 

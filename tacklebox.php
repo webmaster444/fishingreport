@@ -12,14 +12,14 @@ require_once "db.php";
 // get all subcategories
 global $conn;
 
-$sql = "SELECT DISTINCT(sub) FROM core_category order by sub";
+// $sql = "SELECT DISTINCT(sub) FROM core_category order by sub";
+$sql = "SELECT DISTINCT(sub) FROM core_category WHERE sub IN ('Hooks', 'Line', 'Reels', 'Lures', 'Terminal Tackle') ORDER BY sub";
 $subcat_result = $conn->query($sql);
 $subcats = [];
 while($row = $subcat_result->fetch_array()){
     $subcats[] = $row;
 }
 
-// $sql = "SELECT cg.option1_value, cg.variant_img, cg.gtin, cc.sub FROM core_gtin AS cg JOIN core_fmblvariant AS cv ON cv.gtin = cg.gtin JOIN core_product AS cp ON cp.id = cv.product_id JOIN core_category AS cc ON cp.category_id = cc.id AND FIND_IN_SET(cg.gtin, (SELECT variants_array FROM membertacklebox WHERE member_email_id = '".$_SESSION['id']."' LIMIT 1));";
 $sql = "SELECT cb.name AS brandname, cg.option1_value, cg.variant_img, cg.gtin, cc.sub FROM core_gtin AS cg JOIN core_fmblvariant AS cv ON cv.gtin = cg.gtin JOIN core_product AS cp ON cp.id = cv.product_id JOIN core_brand AS cb ON cp.brand_id = cb.id JOIN core_category AS cc ON cp.category_id = cc.id AND FIND_IN_SET(cg.gtin, (SELECT variants_array FROM MemberTackleBox WHERE member_email_id = '".$_SESSION['id']."' LIMIT 1));";
 $tacklebox_result = $conn->query($sql);
 
@@ -149,6 +149,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="drawer-slick-wrapper">
                     <div class="drawer-slide">
                         <div class="drawer-scroll-wrapper">
+                        <div class="search-input"><input type="text" class="autocomplete" /></div>
                     <ul class="vertical">                
                     <?php 
                         foreach($subcats as $subcat){
@@ -161,6 +162,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="brands-wrapper">
                     <div class="drawer-scroll-wrapper">
                             <h2 class="section-title">Brands</h2>
+                            <div class="search-input"><input type="text" class="autocomplete" /></div>
                             <ul class="vertical">
 
                             </ul>
@@ -178,6 +180,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="variants-wrapper">
                         <div class="drawer-scroll-wrapper">
                             <h2 class="section-title">Variants</h2>
+                            <div class="search-input"><input type="text" class="autocomplete" /></div>
                             <ul class="vertical"></ul>                            
                         </div>   
                     </div>
@@ -193,6 +196,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <script type="text/javascript" src="assets/js/common.js"></script>
         <script type="text/javascript">
             <?php $added_gtin = explode(",",$selected_gtins[0]['variants_array']); ?>            
             let added_gtin = new Array();
