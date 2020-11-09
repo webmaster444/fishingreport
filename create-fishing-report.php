@@ -332,6 +332,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
         <title>Fish in My Best Life</title>
         <link rel="stylesheet" href="assets/css/datepicker.min.css">        
+        <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
+		<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
         <link rel="stylesheet" href="assets/css/all.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">               
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
@@ -354,6 +356,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="form-control">
                             <label for="trip_date">Upload Image<span class="required">*</span></label>
                             <input id="report_image" type="file" name="report_image" accept="image/x-png,image/gif,image/jpeg"/>
+                            <img src="assets/imgs/loader.gif" alt="Loading" class="img-loader loader hide"/>
+                            <div class="thumbnail hide"><img src="" alt="Preview"/></div>
                         </div>
                     </div>
                     <div class="slide">
@@ -531,11 +535,40 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>         
             </div>
             </div>
+            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+			  	<div class="modal-dialog modal-lg" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<h5 class="modal-title">Crop Image Before Upload</h5>
+			        		<a href="#" class="modal-close"><i class="fas fa-times"></i></a>
+			      		</div>
+			      		<div class="modal-body">
+			        		<div class="img-container">
+			            		<div class="row">
+			                		<div class="col-md-8">
+			                    		<img src="" id="sample_image" />
+			                		</div>
+			                		<div class="col-md-4">
+			                    		<div class="preview"></div>
+			                		</div>
+			            		</div>
+			        		</div>
+			      		</div>
+			      		<div class="modal-footer">
+			      			<button type="button" id="crop" class="btn btn-primary">Crop</button>
+			        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			      		</div>
+			    	</div>
+			  	</div>
+			</div>	
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <script src="assets/js/datepicker.min.js"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.popupoverlay.js"></script>
         <script type="text/javascript" src="assets/js/common.js"></script>
+        <script src="https://unpkg.com/dropzone"></script>
+		<script src="https://unpkg.com/cropperjs"></script>
         <script type="text/javascript">
             var item_length = $('.slick-slider-wrapper > div').length - 1;
             $('.slick-slider-wrapper').slick({
@@ -561,13 +594,106 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $('.slick-next').removeClass('hide');
                 }
             })
-
+            
             
         $(document).ready(function(){
             $('[data-toggle="datepicker"]').datepicker({'format':'yyyy/mm/dd'});
             $('[data-toggle="datepicker"]').datepicker('setDate', new Date());
+
+            var $modal = $('#modal');
+
+            var image = document.getElementById('sample_image');
+
+            var cropper;
+
+            $modal.popup({
+                onopen:function(){
+                    cropper = new Cropper(image, {
+                        aspectRatio: 1,
+                        viewMode: 3,
+                        preview:'.preview'
+                    });
+                },
+                onclose:function(){
+                    cropper.destroy();
+   		            cropper = null;
+                }
+            })
+
+            $('#crop').click(function(){
+                canvas = cropper.getCroppedCanvas({
+                    width:800,
+                    height:800
+                });
+
+                canvas.toBlob(function(blob){
+                    url = URL.createObjectURL(blob);
+                    var reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = function(){
+                        var base64data = reader.result;
+                        $.ajax({
+                            url:'core.php',
+                            method:'POST',
+                            data:{image:base64data,action:'upload-report-image'},
+                            success:function(data)
+                            {
+                                $modal.popup('hide');
+                                $('.thumbnail').removeClass("hide");
+                                $('.thumbnail img').attr('src', data);
+                            }
+                        });
+                    };
+                });
+            });
+
+            $("#memo_video").on('change', function(){
+                var file_data = $(this).prop('files')[0];   
+                let fileElementorId = $(this).attr('id');
+                var form_data = new FormData();                  
+                form_data.append('file', file_data);
+                form_data.append('action', 'upload-report-memo');
+                                     
+                $.ajax({
+                    url: 'core.php', // point to server-side PHP script 
+                    dataType: 'text',  // what to expect back from the PHP script, if anything
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: form_data,                         
+                    type: 'post',
+                    beforeSend:function(){
+                        $(".img-loader").removeClass('hide');
+                        $(".slick-next").prop('disabled',true);
+                        $(".thumbnail").html('');
+                    },
+                    success: function(php_script_response){
+                        $("#hidden_memo_uploaded").val(php_script_response);
+                    }
+                });
+            })
+            
+            $("#report_image").on('change', function(){
+                var files = event.target.files;
+
+                var done = function(url){
+                    image.src = url;
+                    $modal.popup('show');
+                };
+
+                if(files && files.length > 0)
+                {
+                    reader = new FileReader();
+                    reader.onload = function(event)
+                    {
+                        done(reader.result);
+                    };
+                    reader.readAsDataURL(files[0]);
+                }
+            })
         })
 
+    
         $('#stars li').on('mouseover', function() {
             var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
             // Now highlight all the stars that's not after the current hovered star
@@ -704,33 +830,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }
         
-        $(document).ready(function()
-        {
-            $("#report_image, #memo_video").on('change', function(){
-                var file_data = $(this).prop('files')[0];   
-                let fileElementorId = $(this).attr('id');
-                var form_data = new FormData();                  
-                form_data.append('file', file_data);
-                form_data.append('action', 'upload-report-image');
-                                     
-                $.ajax({
-                    url: 'core.php', // point to server-side PHP script 
-                    dataType: 'text',  // what to expect back from the PHP script, if anything
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,                         
-                    type: 'post',
-                    success: function(php_script_response){
-                        if(fileElementorId=="report_image"){
-                            $("#hidden_img_uploaded").val(php_script_response);
-                        }else{
-                            $("#hidden_memo_uploaded").val(php_script_response);
-                        }                                                
-                    }
-                });
-            })
-        });
         if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );
         }

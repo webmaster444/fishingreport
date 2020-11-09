@@ -142,8 +142,9 @@ function getVariantsFromProduct($product_id){
     }
     echo json_encode($variants);
 }
-// upload report image
-function uploadReportImage(){
+
+// upload report memo
+function uploadReportMemo(){
     if ( 0 < $_FILES['file']['error'] ) {
         echo "failed";
     }
@@ -151,6 +152,28 @@ function uploadReportImage(){
         global $APP_URL;
         move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/reports/' . $_FILES['file']['name']);
         echo $APP_URL.'/fishingreport/uploads/reports/'.$_FILES['file']['name'];
+    }
+}
+
+function uploadReportImage(){
+    if(isset($_POST['image'])){
+        $data = $_POST['image'];
+        
+        $image_array_1 = explode(";", $data);
+        
+        $image_array_2 = explode(",", $image_array_1[1]);
+        
+        $data = base64_decode($image_array_2[1]);
+        global $APP_URL;
+        
+        $image_name = time().'.png';
+        // $image_loc = $_SERVER['DOCUMENT_ROOT'].'/shopify-fishinmybestlife.com/fishingreport/uploads/reports/' .$image_name;
+        $image_loc = $_SERVER['DOCUMENT_ROOT'].'/fishingreport/uploads/reports/' .$image_name;
+
+        file_put_contents($image_loc, $data);
+
+        $image_url = $APP_URL.'/fishingreport/uploads/reports/'.$image_name;
+        echo $image_url;
     }
 }
 if($_POST['action']=="getAllCities"){
@@ -209,9 +232,17 @@ if($_POST['action']=="getAllCities"){
         header('Content-Type: application/json; charset=UTF-8');
         die(json_encode(array('message' => 'product_id is required', 'code' => 1337)));
     }
-}else if($_POST['action']=="upload-report-image"){    
+}else if($_POST['action']=="upload-report-memo"){    
     // if($_POST['file']!=""){
     if(isset($_FILES['file']['name'])){
+        uploadReportMemo();
+    }else{
+        header('HTTP/1.1 500 Internal Server Booboo');
+        header('Content-Type: application/json; charset=UTF-8');
+        die(json_encode(array('message' => 'file is required', 'code' => 1337)));
+    }
+}else if($_POST['action']=="upload-report-image"){
+    if(isset($_POST['image'])){
         uploadReportImage();
     }else{
         header('HTTP/1.1 500 Internal Server Booboo');

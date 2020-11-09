@@ -157,7 +157,7 @@ input:checked ~ .check {
 }
 
 .hide{
-    display: none;
+    display: none !important;
 }
 
 .container{
@@ -401,6 +401,15 @@ a:active, a:focus{
     overflow-y: auto;
     /* max-height: calc(100vh - 235px); */
 }
+.slick-slide img.img-loader{
+    width: 30px;
+    display: inline-block;
+}
+
+.thumbnail img{
+    max-width: 100%;
+    height: auto;
+}
 h1.page-title{
     text-align: center;
     padding-left: 20px;
@@ -572,4 +581,39 @@ input.autocomplete{
     top: 95px;
     left: 30px;
     cursor: pointer;
+}
+
+/* crop modal */
+#modal{
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+}
+
+#modal img{
+    max-width: 100%;
+}
+
+.preview {
+    overflow: hidden;
+    width: 160px;
+    height: 160px;
+    margin: 10px;
+    border: 1px solid red;
+}
+
+#modal .img-container{
+    padding: 20px;
+}
+
+.modal-close{
+    position: absolute;
+    color: black;
+    right: 10px;
+    top: 10px;
+}
+
+h5.modal-title{
+    font-size: 25px;
+    margin: 0;
 }
