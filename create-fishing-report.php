@@ -641,6 +641,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 $modal.popup('hide');
                                 $('.thumbnail').removeClass("hide");
                                 $('.thumbnail img').attr('src', data);
+                                $("#hidden_img_uploaded").val(data);
                             }
                         });
                     };
