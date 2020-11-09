@@ -332,11 +332,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
         <title>Fish in My Best Life</title>
         <link rel="stylesheet" href="assets/css/datepicker.min.css">        
-        <link rel="stylesheet" href="https://unpkg.com/dropzone/dist/dropzone.css" />
-		<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="assets/css/dropzone.min.css" />
+		<link href="assets/css/cropper.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="assets/css/all.min.css">
-        <link rel="stylesheet" href="assets/css/styles.css">               
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+        <link rel="stylesheet" href="assets/css/styles.css">                       
     </head>
     <body class="create-tacklebox-page">
         <div class="page-content">
@@ -567,8 +567,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.popupoverlay.js"></script>
         <script type="text/javascript" src="assets/js/common.js"></script>
-        <script src="https://unpkg.com/dropzone"></script>
-		<script src="https://unpkg.com/cropperjs"></script>
+        <script src="assets/js/dropzone.js"></script>
+		<script src="assets/js/cropper.js"></script>
         <script type="text/javascript">
             var item_length = $('.slick-slider-wrapper > div').length - 1;
             $('.slick-slider-wrapper').slick({
