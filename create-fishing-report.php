@@ -718,7 +718,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 $("#hidden_img_uploaded").val(data);
                             },
                             error: function(err){
-                                alert('Sorry but file is too large to be uploaded, could you make it a bit smaller please?');
+                                alert('Sorry but croped image is too large to be uploaded, could you make it a bit smaller please? Thank you');
                             }
                         });
                     };
