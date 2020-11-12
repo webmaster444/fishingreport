@@ -1023,7 +1023,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     html += '<li class="vertical-item"><label><div><img src="'+variant['variant_img']+'">'+variant['brandname']+'-'+variant['option1_value']+'</div><input type="checkbox" name="selected_variants[]" value="'+variant['gtin']+'"></label></li>';
                                 })
                                 html += '</ul></li>';
-                                $('.your-tackle-box .values-wrapper ul').append(html);
+                                $('.your-tackle-box .values-wrapper ul.vertical').append(html);
                             }                                 
                         })                                                
                     }
