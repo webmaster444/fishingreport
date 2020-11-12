@@ -263,7 +263,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(techniques.length!=0){
                 $("#fishing-profile-form").submit();
             }else{
-                $('.err-msg').html("Please select at leaset one technique");
+                $('.err-msg').html("Please select at least one technique");
             }            
         });
 

@@ -176,6 +176,47 @@ function uploadReportImage(){
         echo $image_url;
     }
 }
+
+function updateTackleBoxAjax(){
+    global $conn;
+    $sql = "SELECT * FROM MemberTackleBox WHERE member_email_id ='".$_POST['email_id']."'";
+
+    $tacklebox_result = $conn->query($sql);    
+    if($tacklebox_result->num_rows==0){
+        $sql = "INSERT INTO MemberTackleBox (member_email_id,variants_array) VALUES (?,?)";
+        if($stmt = mysqli_prepare($conn, $sql)){
+            mysqli_stmt_bind_param($stmt, "is", $_POST['email_id'],$_POST['added_gtin']);
+            
+            if(mysqli_stmt_execute($stmt)){                 
+                // header("location: tacklebox.php");
+            } else{
+                echo $stmt->error;
+                echo "Something went wrong. Please try again later.";
+            }
+            mysqli_stmt_close($stmt);
+        }
+    }else{
+        $sql = "UPDATE MemberTackleBox SET variants_array=? WHERE member_email_id = ".$_POST['email_id'];
+        if($stmt = mysqli_prepare($conn, $sql)){
+            mysqli_stmt_bind_param($stmt, "s",$_POST['added_gtin']);
+            
+            if(mysqli_stmt_execute($stmt)){                 
+                // header("location: tacklebox.php");
+            } else{
+                echo "Something went wrong. Please try again later.";
+            }
+            mysqli_stmt_close($stmt);
+        }
+    }
+
+    $sql = "SELECT cb.name AS brandname, cg.option1_value, cg.variant_img, cg.gtin, cc.sub FROM core_gtin AS cg JOIN core_fmblvariant AS cv ON cv.gtin = cg.gtin JOIN core_product AS cp ON cp.id = cv.product_id JOIN core_brand AS cb ON cp.brand_id = cb.id JOIN core_category AS cc ON cp.category_id = cc.id AND FIND_IN_SET(cg.gtin, (SELECT variants_array FROM MemberTackleBox WHERE member_email_id = '".$_POST['email_id']."' LIMIT 1));";
+    $tacklebox_result = $conn->query($sql);
+    $variants_in_tacklebox = [];
+    while($row = $tacklebox_result->fetch_array()){
+        $variants_in_tacklebox[] = $row;
+    }
+    echo json_encode($variants_in_tacklebox);
+}
 if($_POST['action']=="getAllCities"){
     getAllCities();
 }else if($_POST['action']=="getFishingTypes"){
@@ -244,6 +285,14 @@ if($_POST['action']=="getAllCities"){
 }else if($_POST['action']=="upload-report-image"){
     if(isset($_POST['image'])){
         uploadReportImage();
+    }else{
+        header('HTTP/1.1 500 Internal Server Booboo');
+        header('Content-Type: application/json; charset=UTF-8');
+        die(json_encode(array('message' => 'file is required', 'code' => 1337)));
+    }
+}else if($_POST['action']=="update-tacklebox-ajax"){
+    if(isset($_POST['email_id'])){
+        updateTackleBoxAjax();
     }else{
         header('HTTP/1.1 500 Internal Server Booboo');
         header('Content-Type: application/json; charset=UTF-8');

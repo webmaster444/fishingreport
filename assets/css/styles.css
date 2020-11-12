@@ -617,3 +617,13 @@ h5.modal-title{
     font-size: 25px;
     margin: 0;
 }
+
+.your-tackle-box .scroll-wrapper{
+    position: relative;
+}
+
+.your-tackle-box .scroll-wrapper .add_more_tackle{
+    position: absolute;
+    right: 0;
+    top: -10px;
+}
