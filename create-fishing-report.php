@@ -91,7 +91,7 @@ $selected_gtins = [];
 while($row = $gtinresult->fetch_array()){
     $selected_gtins[] = $row;
 }
-
+var_dump($selected_gtins);
 $notifications = array();
 if($_SERVER["REQUEST_METHOD"] == "POST"){ 
         
