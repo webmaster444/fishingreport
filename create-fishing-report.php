@@ -716,6 +716,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 $('.thumbnail').removeClass("hide");
                                 $('.thumbnail img').attr('src', data);
                                 $("#hidden_img_uploaded").val(data);
+                            },
+                            error: function(err){
+                                alert('Sorry but file is too large to be uploaded, could you make it a bit smaller please?');
                             }
                         });
                     };
