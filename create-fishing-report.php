@@ -709,8 +709,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         $.ajax({
                             url:'core.php',
                             method:'POST',
-                            processData: false,
-                            contentType: 'application/octet-stream',
                             data:{image:base64data,action:'upload-report-image'},
                             success:function(data)
                             {
