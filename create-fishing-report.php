@@ -91,7 +91,7 @@ $selected_gtins = [];
 while($row = $gtinresult->fetch_array()){
     $selected_gtins[] = $row;
 }
-var_dump($selected_gtins);
+
 $notifications = array();
 if($_SERVER["REQUEST_METHOD"] == "POST"){ 
         
@@ -202,11 +202,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['namespace'] = "global";
     $metafields[] = $metafield;
     
-    $selected_gtins = implode(",", $_POST['selected_variants']);    
+    $selected_gtins_str = implode(",", $_POST['selected_variants']);    
     // store it to db
     $sql = "INSERT INTO member_fishing_report (member_email_id,trip_date,used_gtin,city) VALUES (?,?,?,?)";
     if($stmt = mysqli_prepare($conn, $sql)){
-        mysqli_stmt_bind_param($stmt, "isss", $_SESSION['id'],$formated_trip_date, $selected_gtins, $location_city);
+        mysqli_stmt_bind_param($stmt, "isss", $_SESSION['id'],$formated_trip_date, $selected_gtins_str, $location_city);
         
         if(mysqli_stmt_execute($stmt)){                 
             // header("location: tacklebox.php");
