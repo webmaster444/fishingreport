@@ -92,6 +92,14 @@ while($row = $gtinresult->fetch_array()){
     $selected_gtins[] = $row;
 }
 
+$sql = 'SELECT body_of_water_id, body_of_water FROM advisor_body_of_water WHERE city_id IN (SELECT city_id FROM advisor_city);';
+$bodies_result = $conn->query($sql);
+
+$bodies_of_water = [];
+while($row = $bodies_result->fetch_array()){
+    $bodies_of_water[] = $row;
+}
+
 $notifications = array();
 if($_SERVER["REQUEST_METHOD"] == "POST"){ 
         
@@ -164,9 +172,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
-        
+    
+    $wind_finders = array();
+    $sql = "SELECT windfinder_station FROM advisor_body_of_water WHERE body_of_water_id =".$_POST['body_of_water']." LIMIT 1";
+    $windfinder_station_query = $conn->query($sql);
+
+    while($row = $windfinder_station_query->fetch_array()){
+        $wind_finders[] = $row;
+    }
+
+    $wind_finder = $wind_finders[0]['windfinder_station'];
+    
+    //windfinder_location
+    $metafield = array();
+    $metafield['key'] = 'windfinder_location';
+    $metafield['value'] = $wind_finder;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
     $loggedin_user_citys = array();
-    $sql = "SELECT city_id, city FROM advisor_city WHERE city IN (SELECT city FROM Member WHERE member_email_id = ".$_SESSION['id'].')';
+    $sql = "SELECT city FROM advisor_city WHERE city_id = (SELECT city_id FROM advisor_body_of_water WHERE body_of_water_id = ".$_POST['body_of_water']." LIMIT 1)";
     $loggedin_user_city = $conn->query($sql);
 
     while($row = $loggedin_user_city->fetch_array()){
@@ -403,8 +429,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="flex-wrapper values-wrapper">
                                 <ul class="vertical full">
                                 <li class="vertical-item"><label><div><input type="radio" name="fishingdepth" value="0-50" /> 0'-50'</div></label></li>
-                                <li class="vertical-item"><label><div>
-                                    <input type="radio" name="fishingdepth" value="50-80" /> 50'-80'</div></label></li>
+                                <li class="vertical-item">
+                                    <label>
+                                    <div><input type="radio" name="fishingdepth" value="50-80" /> 50'-80'</div>
+                                    </label>
+                                </li>
                                     <li class="vertical-item"><label><div>
                                     <input type="radio" name="fishingdepth" value="80-100" /> 80'-100'</div></label></li>
                                     <li class="vertical-item"><label><div>
@@ -504,6 +533,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                         </div>
                         </div>  
+                        <div class="slide">
+                            <div class="scroll-wrapper">
+                            <h2 class="section-title">Select body of water</h2>
+                            <p class="err-msg"></p>
+                            <div class="values-wrapper">
+                            <ul class="vertical full">                
+                                <?php 
+                                    foreach($bodies_of_water as $body){                                                                                                        
+                                        echo '<li><label><div><input type="radio" name="body_of_water" value="'.$body['body_of_water_id'].'" />'.$body['body_of_water'].'</div></label></li>';
+                                    }
+                                ?>
+                                </ul>
+                            </div>
+                            </div>
+                        </div>
                         <div class="slide memo-box">
                             <h2 class="section-title">Your Memo</h2>
                             <p class="err-msg"></p>
@@ -885,6 +929,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 return true;
             }else if(index==9){
+                if($('input[name="body_of_water"]:checked').val()==undefined){
+                    return "Please select at least one body of water";
+                }
+                return true;
+            }else if(index==10){
                 if($("#hidden_memo_uploaded").val()=="false"){
                     if($("#description").val()==""){
                         return "Sorry but failed to upload memo, could you upload it again please?";
@@ -900,7 +949,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }else{
                     return true;
                 }
-            }else if(index==10){
+            }else if(index==11){
                 if($('input#hidden_rating').val()==""){
                     return "Please rate your fishing experience";
                 }
