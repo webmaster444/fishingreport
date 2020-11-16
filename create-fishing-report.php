@@ -92,7 +92,7 @@ while($row = $gtinresult->fetch_array()){
     $selected_gtins[] = $row;
 }
 
-$sql = 'SELECT body_of_water_id, body_of_water FROM advisor_body_of_water WHERE city_id IN (SELECT city_id FROM advisor_city);';
+$sql = 'SELECT body_of_water_id, body_of_water FROM advisor_body_of_water WHERE city_id IN (SELECT city_id FROM advisor_city) ORDER BY body_of_water;';
 $bodies_result = $conn->query($sql);
 
 $bodies_of_water = [];
