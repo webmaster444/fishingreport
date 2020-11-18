@@ -123,9 +123,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         
         function checkLoginState() {
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
+            FB.login(function(response) {
+                console.log(response);
+            // handle the response
+            }, {scope: 'public_profile,email'});
         }
 
         function statusChangeCallback(response){
