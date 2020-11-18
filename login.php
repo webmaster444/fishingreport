@@ -96,8 +96,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
         <title>Fish in My Best Life</title>
-        <link rel="stylesheet" href="assets/css/styles.css">
-        <meta name="google-signin-client_id" content="753213052944-4molte8riclfmm373egkuldknat2buh6.apps.googleusercontent.com">
+        <link rel="stylesheet" href="assets/css/styles.css">        
+        <meta name="google-signin-client_id" content="1083339568092-tngtmitfqhl5tvoqflcs14aq9ddjrhss.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         
         <script>
@@ -182,8 +182,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     onlogin="checkLoginState();">
                     </fb:login-button>
                 </div>
-                <!-- <div class="half"> -->
-                <div class="full">
+                <div class="half">
                     <span>Sign in with your email and password</span>
                     <form action="login.php" method="POST">
                         <div class="form-control">
