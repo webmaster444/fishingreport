@@ -136,13 +136,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
   function checkLoginState() {               // Called when a person is finished with the Login Button.
-    FB.getLoginStatus(function(response) {   // See the onlogin handler
-      statusChangeCallback(response);
-    });
-//     FB.login(function(response) {
-//   // handle the response
-//   console.log(response);
-// }, {scope: 'email'});
+    // FB.getLoginStatus(function(response) {   // See the onlogin handler
+    //   statusChangeCallback(response);
+    // });
+    FB.login(function(response) {
+  // handle the response
+  console.log(response);
+    }, {scope: 'public_profile,email'});
   }
 
 
