@@ -136,13 +136,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
   function checkLoginState() {               // Called when a person is finished with the Login Button.
-    // FB.getLoginStatus(function(response) {   // See the onlogin handler
-    //   statusChangeCallback(response);
-    // });
-    FB.login(function(response) {
-  // handle the response
-  console.log(response);
-    }, {scope: 'public_profile,email'});
+    FB.getLoginStatus(function(response) {   // See the onlogin handler
+      statusChangeCallback(response);
+    });
+//     FB.login(function(response) {
+//   // handle the response
+//   console.log(response);
+//     }, {scope: 'public_profile,email'});
   }
 
 
@@ -162,11 +162,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
   function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
+    FB.api('/me', {fields: 'name,email' }, function(response) {
         console.log(response);
-      console.log('Successful login for: ' + response.name);
-      document.getElementById('status').innerHTML =
-        'Thanks for logging in, ' + response.name + '!';
+      console.log('Successful login for: ' + response.name);      
     });
   }
         </script>
