@@ -99,15 +99,48 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <link rel="stylesheet" href="assets/css/styles.css">
         <meta name="google-signin-client_id" content="753213052944-4molte8riclfmm373egkuldknat2buh6.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
+        
+        <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+            appId      : '374272643779763',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v9.0'
+            });
+            
+            FB.AppEvents.logPageView();   
+            
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+            }
+        </script>
     </head>
     <body class="login-page">
         <div class="login-content page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Sign in</h1>
             <div class="login-form-container flex-wrapper content">
-                <div class="half hide">
+                <div class="half">
                     <span>Sign In with your social account</span>
                     <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <fb:login-button 
+                    scope="public_profile,email"
+                    onlogin="checkLoginState();">
+                    </fb:login-button>
                 </div>
                 <!-- <div class="half"> -->
                 <div class="full">

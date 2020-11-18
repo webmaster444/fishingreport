@@ -34,6 +34,13 @@ while($row = $species_result->fetch_array()){
     $species[] = $row;
 }
 
+$sql = 'SELECT attribute_id, attribute_name,image_url FROM advisor_attribute WHERE attribute_id IN (SELECT DISTINCT(species) FROM advisor_related_attributes) ORDER BY attribute_name';
+$allspecies_result = $conn->query($sql);
+$allspecies = [];
+while($row = $allspecies_result->fetch_array()){
+    $allspecies[] = $row;
+}
+
 $sql = 'SELECT attribute_id, attribute_name,image_url FROM advisor_attribute WHERE FIND_IN_SET(attribute_id, (SELECT fishing_types FROM member_detail_fishing WHERE email_id = "'.$_SESSION['id'].'" LIMIT 1))';
 $fishingtype_result = $conn->query($sql);
 while($row = $fishingtype_result->fetch_array()){
@@ -455,11 +462,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="search-input"><input type="text" class="autocomplete" /></div>
                                 <ul class="vertical full">
                             <?php 
-                                foreach($species as $specie){
-                                    echo '<li class="vertical-item"><label><div><img src="'.$specie['image_url'].'" alt="'.$specie['attribute_name'].'"/>'.$specie['attribute_name'].'</div><input type="checkbox" name="species[]" value="'.$specie['attribute_id'].'" /></label></li>';
+                                foreach($allspecies as $specie){
+                                    $individualClass = in_array($specie, $species)?"tacklebox":'all hide';     
+                                    echo '<li class="vertical-item '.$individualClass.'"><label><div><img src="'.$specie['image_url'].'" alt="'.$specie['attribute_name'].'"/>'.$specie['attribute_name'].'</div><input type="checkbox" name="species[]" value="'.$specie['attribute_id'].'" /></label></li>';
                                 }
                             ?>
                             </ul>
+                            <a href="#" class="see_more">See More</a>
                             </div>
                             </div>
                         </div>
@@ -715,7 +724,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             
         $(document).ready(function(){
-            $('[data-toggle="datepicker"]').datepicker({'format':'yyyy/mm/dd'});
+            $('[data-toggle="datepicker"]').datepicker({'format':'yyyy-mm-dd'});
             $('[data-toggle="datepicker"]').datepicker('setDate', new Date());
 
             var $modal = $('#modal');
