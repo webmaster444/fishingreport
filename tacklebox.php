@@ -13,7 +13,7 @@ require_once "db.php";
 global $conn;
 
 // $sql = "SELECT DISTINCT(sub) FROM core_category order by sub";
-$sql = "SELECT DISTINCT(sub) FROM core_category WHERE sub IN ('Hooks', 'Line', 'Reels', 'Lures', 'Terminal Tackle') ORDER BY sub";
+$sql = "SELECT DISTINCT(sub) FROM core_category WHERE sub IN ('Hooks', 'Line', 'Reels', 'Lures', 'Rods','Terminal Tackle') ORDER BY sub";
 $subcat_result = $conn->query($sql);
 $subcats = [];
 while($row = $subcat_result->fetch_array()){

@@ -123,15 +123,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         
         
-  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-    console.log('statusChangeCallback');
-    console.log(response);                   // The current login status of the person.
+  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().    
     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
       testAPI();  
-    } else {                                 // Not logged into your webpage or we are unable to tell.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this webpage.';
-    }
+    } 
   }
 
 
@@ -139,32 +134,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     FB.getLoginStatus(function(response) {   // See the onlogin handler
       statusChangeCallback(response);
     });
-//     FB.login(function(response) {
-//   // handle the response
-//   console.log(response);
-//     }, {scope: 'public_profile,email'});
   }
-
-
-//   window.fbAsyncInit = function() {
-//     FB.init({
-//       appId      : '{app-id}',
-//       cookie     : true,                     // Enable cookies to allow the server to access the session.
-//       xfbml      : true,                     // Parse social plugins on this webpage.
-//       version    : '{api-version}'           // Use this Graph API version for this call.
-//     });
-
-
-//     FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-//       statusChangeCallback(response);        // Returns the login status.
-//     });
-//   };
  
   function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', {fields: 'name,email' }, function(response) {
         console.log(response);
-      console.log('Successful login for: ' + response.name);      
     });
   }
         </script>
@@ -180,7 +155,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <fb:login-button 
                     scope="public_profile,email"
                     onlogin="checkLoginState();">
-                    </fb:login-button>
+                    </fb:login-button>                    
                 </div>
                 <div class="half">
                     <span>Sign in with your email and password</span>

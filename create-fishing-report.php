@@ -13,7 +13,7 @@ require_once "config.php";
 // get all subcategories
 global $conn;
 
-$sql = "SELECT DISTINCT(sub) FROM core_category WHERE sub IN ('Hooks', 'Line', 'Reels', 'Lures', 'Terminal Tackle') ORDER BY sub";
+$sql = "SELECT DISTINCT(sub) FROM core_category WHERE sub IN ('Hooks', 'Line', 'Reels', 'Rods','Lures', 'Terminal Tackle') ORDER BY sub";
 $subcat_result = $conn->query($sql);
 
 while($row = $subcat_result->fetch_array()){
