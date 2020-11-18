@@ -126,7 +126,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             FB.getLoginStatus(function(response) {
                 statusChangeCallback(response);
             });
-            }
+        }
+
+        function statusChangeCallback(response){
+            console.log(response);
+        }
         </script>
     </head>
     <body class="login-page">
