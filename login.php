@@ -142,7 +142,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     FB.login(function(response) {
   // handle the response
   console.log(response);
-}, {scope: 'email,user_likes'});
+}, {scope: 'email'});
   }
 
 
