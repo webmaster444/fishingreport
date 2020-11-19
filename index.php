@@ -19,6 +19,9 @@ while($row = $membertypes->fetch_array()){
 }
 $tackleboxcnt = $rows[0][0];
 
+$sql = "SELECT species,fishing_types,fishing_technique FROM member_detail_fishing WHERE email_id = ".$_SESSION['id'];
+$member_detail_result = $conn->query($sql);  
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -38,7 +41,11 @@ $tackleboxcnt = $rows[0][0];
             <div class="content">
                 <a class="btn-primary full" href="edit-profile.php">Edit profile</a>
                 <a class="btn-primary full" href="reset-password.php">Reset password</a>
-                <a class="btn-primary full" href="edit-fishing-profile-setup.php">Edit fishing profile</a>
+                <?php if($member_detail_result->num_rows==0){ ?>
+                    <a class="btn-primary full" href="fishing-profile-setup.php">Create fishing profile</a>
+                <?php } else { ?>
+                    <a class="btn-primary full" href="edit-fishing-profile-setup.php">Edit fishing profile</a>
+                <?php } ?>
                 <?php if($tackleboxcnt==0){ ?>
                     <a class="btn-primary full" href="create-tacklebox.php">Create a tacklebox</a>                
                 <?php }else {?>
