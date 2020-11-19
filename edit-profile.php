@@ -16,11 +16,10 @@ global $conn;
 $sql = "SELECT * FROM Member WHERE member_email_id = ".$_SESSION['id'];
 
 $loggedin_user = $conn->query($sql);
-
+$loggedin_users=[];
 while($row = $loggedin_user->fetch_array()){
     $loggedin_users[] = $row;
 }
-
 
 $sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1";
 $membertypes = $conn->query($sql);
@@ -54,11 +53,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $bio_err = "Please enter your bio";
     }
 
-    if(empty(trim($_POST["address_changed"]))){
-        $address_err = "Please enter your address";
-    }else if($_POST['address_changed']=="inputchanges"){
-        $address_err = "Please enter a valid address";
-    }
+    // if(empty(trim($_POST["address_changed"]))){
+    //     $address_err = "Please enter your address";
+    // }else if($_POST['address_changed']=="inputchanges"){
+    //     $address_err = "Please enter a valid address";
+    // }
 
     $sql = "SELECT city_id FROM advisor_city WHERE city = '".$_POST['city']."'";
     $cityresult = $conn->query($sql);
@@ -74,45 +73,82 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }
     }
-
+    
     // Check input errors before inserting in database
     if(empty($fname_err) && empty($lname_err) && empty($phone_err)&& empty($nickname_err)&& empty($bio_err)&& empty($address_err)){
-                    
-        // Prepare an insert statement
-        $sql = "UPDATE Member SET (first_name, last_name, email, phone, address,city,state,postal_code,country,member_type_id,bio,shopify_customer_id,own_boat, nickname, member_email_id,active) VALUES (?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,1) WHERE member_email_id=".$_SESSION['id'];
+        $sql = "SELECT member_id FROM Member WHERE member_email_id = '".$_SESSION['id']."'";
+        $member_result = $conn->query($sql);
+    
+        if($member_result->num_rows==0){
+            $sql = "INSERT INTO Member (first_name, last_name, email, phone, address,city,state,postal_code,country,member_type_id,bio,shopify_customer_id,own_boat, nickname, member_email_id,active) VALUES (?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,1)";
                  
-        if($stmt = mysqli_prepare($conn, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssssssssissisi", $param_fname,$param_lname,$param_email,$param_phone,$param_address,$param_city,$param_state,$param_postalcode,$param_country,$param_member_type_id,$param_bio,$param_shopify_customer_id,$param_own_boat,$param_nickname,$param_member_email_id);
-            
-            // Set parameters
-            $param_fname = $_POST['fname'];
-            $param_lname = $_POST['lname'];
-            $param_email = $_SESSION["username"];
-            $param_phone = $_POST['fname'];
-            $param_address = $_POST['address'];
-            $param_city = $_POST['city'];
-            $param_state = $_POST['state'];
-            $param_postalcode = $_POST['zipcode'];
-            $param_country = $_POST['country'];
-            $param_member_type_id = $_POST['membertype'];
-            $param_bio = $_POST['bio'];            
-            $param_nickname = $_POST['nickname'];
-            $param_member_email_id = $_SESSION["id"];
-            $param_shopify_customer_id = 11111;
-            $param_own_boat = isset($_POST['ownboat'])?1:0;
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){   
-                $page_msg = 'Updated Successfully';
-                // header("location: index.php");
-            } else{
-                echo "Something went wrong. Please try again later.";
-                echo $stmt->error;
+            if($stmt = mysqli_prepare($conn, $sql)){
+                // Bind variables to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "sssssssssissisi", $param_fname,$param_lname,$param_email,$param_phone,$param_address,$param_city,$param_state,$param_postalcode,$param_country,$param_member_type_id,$param_bio,$param_shopify_customer_id,$param_own_boat,$param_nickname,$param_member_email_id);
+                
+                // Set parameters
+                $param_fname = $_POST['fname'];
+                $param_lname = $_POST['lname'];
+                $param_email = $_SESSION["username"];
+                $param_phone = $_POST['fname'];
+                $param_address = $_POST['address'];
+                $param_city = $_POST['city'];
+                $param_state = $_POST['state'];
+                $param_postalcode = $_POST['zipcode'];
+                $param_country = $_POST['country'];
+                $param_member_type_id = $_POST['membertype'];
+                $param_bio = $_POST['bio'];            
+                $param_nickname = $_POST['nickname'];
+                $param_member_email_id = $_SESSION["id"];
+                $param_shopify_customer_id = 11111;
+                $param_own_boat = isset($_POST['ownboat'])?1:0;
+                // Attempt to execute the prepared statement
+                if(mysqli_stmt_execute($stmt)){                 
+                    header("location: fishing-profile-setup.php");
+                } else{
+                    echo "Something went wrong. Please try again later.";
+                }
+                // echo $stmt->error;
+                // Close statement
+                mysqli_stmt_close($stmt);
             }
-            echo $stmt->error;
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
+        }else{
+            // Prepare an insert statement
+            $sql = "UPDATE Member SET first_name=?, last_name=?, email=?, phone=?, address=?,city=?,state=?,postal_code=?,country=?,member_type_id=?,bio=?,shopify_customer_id=?,own_boat=?, nickname=?,active=1 WHERE member_email_id='".$_SESSION['id']."'";
+            
+            if($stmt = mysqli_prepare($conn, $sql)){
+                // Bind variables to the prepared statement as parameters
+                mysqli_stmt_bind_param($stmt, "sssssssssissis", $param_fname,$param_lname,$param_email,$param_phone,$param_address,$param_city,$param_state,$param_postalcode,$param_country,$param_member_type_id,$param_bio,$param_shopify_customer_id,$param_own_boat,$param_nickname);
+                
+                // Set parameters
+                $param_fname = $_POST['fname'];
+                $param_lname = $_POST['lname'];
+                $param_email = $_SESSION["username"];
+                $param_phone = $_POST['fname'];
+                $param_address = $_POST['address'];
+                $param_city = $_POST['city'];
+                $param_state = $_POST['state'];
+                $param_postalcode = $_POST['zipcode'];
+                $param_country = $_POST['country'];
+                $param_member_type_id = $_POST['membertype'];
+                $param_bio = $_POST['bio'];            
+                $param_nickname = $_POST['nickname'];
+                $param_member_email_id = $_SESSION["id"];
+                $param_shopify_customer_id = 11111;
+                $param_own_boat = isset($_POST['ownboat'])?1:0;
+                // Attempt to execute the prepared statement
+                if(mysqli_stmt_execute($stmt)){   
+                    $page_msg = 'Updated Successfully';
+                    // header("location: index.php");
+                } else{
+                    echo "Something went wrong. Please try again later.";
+                    echo $stmt->error;
+                }
+                echo $stmt->error;
+                // Close statement
+                mysqli_stmt_close($stmt);
+            }
+        }       
     }
     
     // Close connection
@@ -140,28 +176,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="full">
                     <?php echo isset($page_msg)?$page_msg:"";?>
                     <div class="form-control">
-                        <label for="fname">First name <span class="required">*</span></label>
-                        <input type="text" name="fname" id="fname" required  value="<?php echo isset($_POST['fname'])?$_POST['fname']:$loggedin_users[0]['first_name']; ?>"/>
+                        <label for="fname">First name <span class="required">*</span></label>                        
+                        <input type="text" name="fname" id="fname" required  value="<?php echo isset($_POST['fname'])?$_POST['fname']:(isset($loggedin_users[0])?$loggedin_users[0]['first_name']:""); ?>"/>
                         <p class="err-msg"><?php echo $fname_err; ?></p>
                     </div>
                     <div class="form-control">
                         <label for="lname">Last name <span class="required">*</span></label>
-                        <input type="text" name="lname" id="lname" required  value="<?php echo isset($_POST['lname'])?$_POST['lname']:$loggedin_users[0]['last_name']; ?>"/>
+                        <input type="text" name="lname" id="lname" required  value="<?php echo isset($_POST['lname'])?$_POST['lname']:(isset($loggedin_users[0])?$loggedin_users[0]['last_name']:""); ?>"/>
                         <p class="err-msg"><?php echo $lname_err; ?></p>
                     </div>
                     <div class="form-control">
                         <label for="phone">Phone<span class="required">*</span></label>
-                        <input type="text" name="phone" id="phone" required  value="<?php echo isset($_POST['phone'])?$_POST['phone']:$loggedin_users[0]['phone']; ?>"/>
+                        <input type="text" name="phone" id="phone" required  value="<?php echo isset($_POST['phone'])?$_POST['phone']:(isset($loggedin_users[0])?$loggedin_users[0]['phone']:""); ?>"/>
                         <p class="err-msg"><?php echo $phone_err; ?></p>
                     </div>
                     <div class="form-control">
                         <label for="completeaddress">Address<span class="required">*</span></label>
-                        <input type="text" name="completeaddress" id="autocomplete" onFocus="geolocate()" required  value="<?php echo isset($_POST['completeaddress'])?$_POST['completeaddress']:$loggedin_users[0]['address'].' '.$loggedin_users[0]['city'].' '.$loggedin_users[0]['state'].' '.$loggedin_users[0]['country']; ?>"/>
+                        <input type="text" name="completeaddress" id="autocomplete" onFocus="geolocate()" required  value="<?php echo isset($_POST['completeaddress'])?$_POST['completeaddress']:(isset($loggedin_users[0])?$loggedin_users[0]['address'].' '.$loggedin_users[0]['city'].' '.$loggedin_users[0]['state'].' '.$loggedin_users[0]['country']:""); ?>"/>
                         <p class="err-msg"><?php echo $address_err; ?></p>
                     </div>
                     <div class="form-control">
                         <label for="nickname">Display name<span class="required">*</span></label>
-                        <input type="text" name="nickname" id="nickname" required  value="<?php echo isset($_POST['nickname'])?$_POST['nickname']:$loggedin_users[0]['nickname']; ?>"/>
+                        <input type="text" name="nickname" id="nickname" required  value="<?php echo isset($_POST['nickname'])?$_POST['nickname']:(isset($loggedin_users[0])?$loggedin_users[0]['nickname']:""); ?>"/>
                         <p class="err-msg"><?php echo $nickname_err; ?></p>
                     </div>
                     <div class="form-control">
@@ -169,7 +205,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <select name="membertype" id="membertype">
                             <?php
                             foreach ($rows as $row) {
-                                $selected = ($row['member_type_id']==$_POST['membertype']||$row['member_type_id']==$loggedin_users[0]['member_type_id'])?'selected':'';
+                                $selected = ((isset($_POST['membertype']) && $row['member_type_id']==$_POST['membertype'])||$row['member_type_id']==(isset($loggedin_users[0])?$loggedin_users[0]['member_type_id']:""))?'selected':'';
                                 echo '<option value="'.$row['member_type_id'].'" '.$selected.'>'.$row['member_type'].'</option>';
                             }
                             ?>
@@ -177,14 +213,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                     <div class="form-control">
                         <label for="nickname">Bio<span class="required">*</span></label>
-                        <textarea name="bio" id="bio" required><?php echo isset($_POST['bio'])?$_POST['bio']:$loggedin_users[0]['bio']; ?></textarea>
+                        <textarea name="bio" id="bio" required><?php echo isset($_POST['bio'])?$_POST['bio']:(isset($loggedin_users[0])?$loggedin_users[0]['bio']:""); ?></textarea>
                         <p class="err-msg"><?php echo $bio_err; ?></p>
                     </div>
-                    <input type="hidden" name="city" id="locality" required value="<?php echo isset($_POST['city'])?$_POST['city']:$loggedin_users[0]['city']; ?>"/>
-                    <input type="hidden" name="state" id="administrative_area_level_1" required value="<?php echo isset($_POST['state'])?$_POST['state']:$loggedin_users[0]['state']; ?>"/>
-                    <input type="hidden" name="zipcode" id="postal_code" required value="<?php echo isset($_POST['zipcode'])?$_POST['zipcode']:$loggedin_users[0]['postal_code']; ?>"/>
-                    <input type="hidden" name="address" id="route" required value="<?php echo isset($_POST['address'])?$_POST['address']:$loggedin_users[0]['address']; ?>"/>
-                    <input type="hidden" name="country" id="country" required value="<?php echo isset($_POST['country'])?$_POST['country']:$loggedin_users[0]['country']; ?>"/>
+                    <input type="hidden" name="city" id="locality" required value="<?php echo isset($_POST['city'])?$_POST['city']:(isset($loggedin_users[0])?$loggedin_users[0]['city']:""); ?>"/>
+                    <input type="hidden" name="state" id="administrative_area_level_1" required value="<?php echo isset($_POST['state'])?$_POST['state']:(isset($loggedin_users[0])?$loggedin_users[0]['state']:""); ?>"/>
+                    <input type="hidden" name="zipcode" id="postal_code" required value="<?php echo isset($_POST['zipcode'])?$_POST['zipcode']:(isset($loggedin_users[0])?$loggedin_users[0]['postal_code']:""); ?>"/>
+                    <input type="hidden" name="address" id="route" required value="<?php echo isset($_POST['address'])?$_POST['address']:(isset($loggedin_users[0])?$loggedin_users[0]['address']:""); ?>"/>
+                    <input type="hidden" name="country" id="country" required value="<?php echo isset($_POST['country'])?$_POST['country']:(isset($loggedin_users[0])?$loggedin_users[0]['country']:""); ?>"/>
                     <input type="hidden" name="address_changed" id="address_changed" value="<?php echo isset($_POST['address_changed'])?$_POST['address_changed']:'autocompleted' ?>" />
                     <div class="form-control">
                         <label for="ownboat"><input type="checkbox" name="ownboat" id="ownboat" <?php echo isset($_POST['ownboat'])?'checked':''?> />Own boat</label>                        

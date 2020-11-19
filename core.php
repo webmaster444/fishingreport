@@ -151,7 +151,7 @@ function uploadReportMemo(){
     else {
         global $APP_URL;
         move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/reports/' . $_FILES['file']['name']);
-        echo $APP_URL.'/fishingreport/uploads/reports/'.$_FILES['file']['name'];
+        echo $APP_URL.'/uploads/reports/'.$_FILES['file']['name'];
     }
 }
 
@@ -166,13 +166,12 @@ function uploadReportImage(){
         $data = base64_decode($image_array_2[1]);
         global $APP_URL;
         
-        $image_name = time().'.png';
-        // $image_loc = $_SERVER['DOCUMENT_ROOT'].'/shopify-fishinmybestlife.com/fishingreport/uploads/reports/' .$image_name;
-        $image_loc = $_SERVER['DOCUMENT_ROOT'].'/fishingreport/uploads/reports/' .$image_name;
+        $image_name = time().'.png';        
+        $image_loc = $_SERVER['DOCUMENT_ROOT'].'/uploads/reports/' .$image_name;
 
         file_put_contents($image_loc, $data);
 
-        $image_url = $APP_URL.'/fishingreport/uploads/reports/'.$image_name;
+        $image_url = $APP_URL.'/uploads/reports/'.$image_name;
         echo $image_url;
     }
 }
@@ -217,6 +216,58 @@ function updateTackleBoxAjax(){
     }
     echo json_encode($variants_in_tacklebox);
 }
+
+function ajaxSocialLogin(){
+    global $conn;
+    global $APP_URL;
+    $sql = "SELECT * FROM memberemails WHERE email ='".$_POST['email']."'";
+
+    $member_result = $conn->query($sql);    
+    if($member_result->num_rows==0){
+        $sql = "INSERT INTO memberemails (email, password) VALUES (?, ?)";
+         
+        if($stmt = mysqli_prepare($conn, $sql)){
+            // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            
+            // Set parameters
+            $param_username = $_POST['email'];
+            $param_password = password_hash("12345temp", PASSWORD_DEFAULT); // Creates a password hash
+            
+            // Attempt to execute the prepared statement
+            if(mysqli_stmt_execute($stmt)){
+                // Redirect to login page                      
+                session_start();
+                            
+                // // Store data in session variables
+                $_SESSION["loggedin"] = true;
+                $_SESSION["id"] = mysqli_insert_id($conn);
+                $_SESSION["username"] = $param_username;   
+                echo $APP_URL."/profile-setup.php";
+                exit;
+            } else{
+                echo "Something went wrong. Please try again later.";
+            }
+
+            // Close statement
+            mysqli_stmt_close($stmt);
+        }
+    }else{
+        session_start();
+
+        $cumember = [];
+        while($row = $member_result->fetch_array()){
+            $cumember[] = $row;
+        }
+        // // Store data in session variables
+        $_SESSION["loggedin"] = true;
+        $_SESSION["id"] = $cumember[0]['id'];
+        $_SESSION["username"] = $_POST['email'];  
+        echo $APP_URL."/index.php";
+        exit;
+    }
+};
+
 if($_POST['action']=="getAllCities"){
     getAllCities();
 }else if($_POST['action']=="getFishingTypes"){
@@ -297,6 +348,14 @@ if($_POST['action']=="getAllCities"){
         header('HTTP/1.1 500 Internal Server Booboo');
         header('Content-Type: application/json; charset=UTF-8');
         die(json_encode(array('message' => 'file is required', 'code' => 1337)));
+    }
+}else if($_POST['action']=="social-login-ajax"){
+    if(isset($_POST['email'])){
+        ajaxSocialLogin();
+    }else{
+        header('HTTP/1.1 500 Internal Server Booboo');
+        header('Content-Type: application/json; charset=UTF-8');
+        die(json_encode(array('message' => 'email is required', 'code' => 1337)));
     }
 }
 ?>

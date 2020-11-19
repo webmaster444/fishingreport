@@ -45,11 +45,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $bio_err = "Please enter your bio";
     }
 
-    if(empty(trim($_POST["address_changed"]))){
-        $address_err = "Please enter your address";
-    }else if($_POST['address_changed']=="inputchanges"){
-        $address_err = "Please enter a valid address";
-    }
+    // if(empty(trim($_POST["address_changed"]))){
+    //     $address_err = "Please enter your address";
+    // }else if($_POST['address_changed']=="inputchanges"){
+    //     $address_err = "Please enter a valid address";
+    // }
 
     $sql = "SELECT city_id FROM advisor_city WHERE city = '".$_POST['city']."'";
     $cityresult = $conn->query($sql);

@@ -96,10 +96,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
         <title>Fish in My Best Life</title>
+        <link rel="stylesheet" href="assets/css/all.min.css">        
         <link rel="stylesheet" href="assets/css/styles.css">        
-        <meta name="google-signin-client_id" content="1083339568092-tngtmitfqhl5tvoqflcs14aq9ddjrhss.apps.googleusercontent.com">
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        
+        <!-- <meta name="google-signin-client_id" content="1083339568092-tngtmitfqhl5tvoqflcs14aq9ddjrhss.apps.googleusercontent.com">
+        <script src="https://apis.google.com/js/platform.js" async defer></script> -->        
         <script>
         window.fbAsyncInit = function() {
             FB.init({
@@ -120,44 +120,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-
-        
-        
-  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().    
-    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-      testAPI();  
-    } 
-  }
-
-
-  function checkLoginState() {               // Called when a person is finished with the Login Button.
-    FB.getLoginStatus(function(response) {   // See the onlogin handler
-      statusChangeCallback(response);
-    });
-  }
- 
-  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', {fields: 'name,email' }, function(response) {
-        console.log(response);
-    });
-  }
-        </script>
+    </script>
     </head>
     <body class="login-page">
         <div class="login-content page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Sign in</h1>
-            <div class="login-form-container flex-wrapper content">
-                <div class="half">
-                    <span>Sign In with your social account</span>
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                    <fb:login-button 
-                    scope="public_profile,email"
-                    onlogin="checkLoginState();">
-                    </fb:login-button>                    
-                </div>
-                <div class="half">
+            <div class="login-form-container content">
+                <div class="full">
                     <span>Sign in with your email and password</span>
                     <form action="login.php" method="POST">
                         <div class="form-control">
@@ -174,8 +144,101 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <p><span>Need an account? </span><a href="signup.php">Sign up</a></p>
                     </form>
                 </div>
+                <div class="full">
+                    <p>Sign In with your social account</p>
+                    <!-- <div class="g-signin2" data-longtitle="true"></div>                     -->
+                    <!-- <fb:login-button 
+                    data-scope="public_profile,email"
+                    data-max-rows="1"
+                    data-size="large"
+                    data-button-type="continue_with"
+                    
+                    onlogin="checkLoginState();">
+                    </fb:login-button>                     -->
+                    <button id="customBtn" class="social-login google"><i class="fab fa-google"></i><div>Continue with Google</div></button>
+                    <button class="social-login facebook" onclick="facebookLogin();"><i class="fab fa-facebook-f"></i><div>Continue with facebook</div></button>
+                </div>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://apis.google.com/js/api:client.js"></script>
+        <script>
+        var googleUser = {};
+        var startApp = function() {
+            gapi.load('auth2', function(){
+            // Retrieve the singleton for the GoogleAuth library and set up the client.
+            auth2 = gapi.auth2.init({
+                client_id: '1083339568092-tngtmitfqhl5tvoqflcs14aq9ddjrhss.apps.googleusercontent.com',
+                cookiepolicy: 'single_host_origin',
+                // Request scopes in addition to 'profile' and 'email'
+                // scope: 'https://www.googleapis.com/auth/userinfo.email,https://www.googleapis.com/auth/userinfo.profile'
+            });
+            attachSignin(document.getElementById('customBtn'));
+            });
+        };
+
+        function attachSignin(element) {
+            auth2.attachClickHandler(element, {},
+            function(googleUser) {
+                let email = googleUser.wt.cu;
+                $.ajax({
+                    url: "core.php",
+                    type: "POST",
+                    data: {action: "social-login-ajax", email:email},
+                    success: function(result) {
+                        window.location.href = result;
+                    },
+                    error: function(err) {
+                        console.log(err);
+                    }
+                });
+            }, function(error) {
+                console.log(JSON.stringify(error, undefined, 2));
+            });
+        }
+
+
+
+        
+        
+//   function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().    
+//     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+//       testAPI();  
+//     } 
+//   }
+
+
+//   function checkLoginState() {               // Called when a person is finished with the Login Button.
+//     FB.getLoginStatus(function(response) {   // See the onlogin handler
+//       statusChangeCallback(response);
+//     });
+//   }
+ 
+  function testAPI() {
+    FB.api('/me', {fields: 'name,email' }, function(response) {
+        $.ajax({
+            url: "core.php",
+            type: "POST",
+            data: {action: "social-login-ajax", email:response.email},
+            success: function(result) {
+                window.location.href = result;
+            },
+            error: function(err) {
+                console.log(err);
+            }
+        });
+    });
+  }
+  function facebookLogin(){
+    FB.login(function(response) {
+        if(response.status=="connected"){
+            testAPI();
+        }
+    }, {scope: 'public_profile,email'});
+  }
+
+  startApp();
+        </script>
         <script type="text/javascript">
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
