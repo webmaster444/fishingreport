@@ -64,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta charset="utf-8"> 
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
-        <title>Fish in My Best Life</title>
+        <title>Fishing Profile | Fish in My Best Life</title>
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <link rel="stylesheet" href="assets/css/all.min.css">
         <link rel="stylesheet" href="assets/css/styles.css">

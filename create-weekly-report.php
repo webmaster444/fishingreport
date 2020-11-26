@@ -119,23 +119,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
-
-    // weather_conditions
-    $metafield = array();
-    $metafield['key'] = 'weather_conditions';
-    $metafield['value'] = $_POST['weatherconditions'];
-    $metafield['value_type'] = "string";
-    $metafield['namespace'] = "report";
-    $metafields[] = $metafield;
-
-    // sea_conditions
-    $metafield = array();
-    $metafield['key'] = 'sea_conditions';
-    $metafield['value'] = $_POST['seawaveheight'];
-    $metafield['value_type'] = "string";
-    $metafield['namespace'] = "report";
-    $metafields[] = $metafield;
-
+    
     //fishing_depth
     $metafield = array();
     $metafield['key'] = 'fishing_depth';
@@ -219,14 +203,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //global description
     $metafield = array();
     $metafield['key'] = 'description_tag';
-    $metafield['value'] = "Find Fishing Reports, Charters, Tackle and information to create the best fishing memories of a lifetime for you and your family and friends.  Fishin' My Best Life";
+    $metafield['value'] = "Find weekly ".$location_city." fishing reports and forecasts, daily catch reports, and all of the information that you need to create memories for you and your fmaily and friends.  See exactly what fish are being caught, where they are being caught and even the bait and tackle used to catch them.";
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "global";
     $metafields[] = $metafield;
 
     $formated_trip_date = date_format(date_create($_POST['trip_date']),"n/j/y");
 
-    $title = $location_city.' '.$formated_trip_date.' | Daily Fishing Report | What\'s Biting Now';
+    $title = $location_city.' Fishing Report '.$formated_trip_date.' | Fishing Forecast';
 
     $metafield = array();
     $metafield['key'] = 'title_tag';
@@ -237,32 +221,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     $selected_gtins_str = implode(",", $_POST['selected_variants']);    
     // store it to db
-    $sql = "INSERT INTO member_fishing_report (member_email_id,trip_date,used_gtin,city) VALUES (?,?,?,?)";
-    if($stmt = mysqli_prepare($conn, $sql)){
-        mysqli_stmt_bind_param($stmt, "isss", $_SESSION['id'],$formated_trip_date, $selected_gtins_str, $location_city);
+    // $sql = "INSERT INTO member_fishing_report (member_email_id,trip_date,used_gtin,city) VALUES (?,?,?,?)";
+    // if($stmt = mysqli_prepare($conn, $sql)){
+    //     mysqli_stmt_bind_param($stmt, "isss", $_SESSION['id'],$formated_trip_date, $selected_gtins_str, $location_city);
         
-        if(mysqli_stmt_execute($stmt)){                 
-            // header("location: tacklebox.php");
-            $mapping_id = mysqli_insert_id($conn);
-            $notification = "Fishing report is successfully created";
-            $notifications[] = $notification;
-        } else{
-            echo $stmt->error;
-            echo "Something went wrong. Please try again later.";
-        }
-        mysqli_stmt_close($stmt);
-    }
+    //     if(mysqli_stmt_execute($stmt)){                 
+    //         // header("location: tacklebox.php");
+    //         $mapping_id = mysqli_insert_id($conn);
+    //         $notification = "Fishing report is successfully created";
+    //         $notifications[] = $notification;
+    //     } else{
+    //         echo $stmt->error;
+    //         echo "Something went wrong. Please try again later.";
+    //     }
+    //     mysqli_stmt_close($stmt);
+    // }
 
-    $metafield = array();
-    $metafield['key'] = 'mapping_id';
-    $metafield['value'] = $mapping_id;
-    $metafield['value_type'] = "string";
-    $metafield['namespace'] = "report";
-    $metafields[] = $metafield;
+    // $metafield = array();
+    // $metafield['key'] = 'mapping_id';
+    // $metafield['value'] = $mapping_id;
+    // $metafield['value_type'] = "string";
+    // $metafield['namespace'] = "report";
+    // $metafields[] = $metafield;
 
     $metafield = array();
     $metafield['key'] = 'ad_block_1';
-    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/files/imgpsh_fullsize_anim.png?v=1595934383';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/files/imgpsh_fullsize_anim.png?v=1595929216';    
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -304,25 +288,201 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafields[] = $metafield;
 
     $metafield = array();
-    $metafield['key'] = 'memo_url';
-    $metafield['value'] = $_POST['memo_uploaded'];
+    $metafield['key'] = 'Address';
+    $metafield['value'] = '807 US-1 STE 8 WEST PALM BEACH, FL 33403';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
-    $description = $_POST['description'];
+    $metafield = array();
+    $metafield['key'] = 'Monday';
+    $metafield['value'] = 'Monday;8am - 6pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+    $metafield = array();
+
+    $metafield['key'] = 'Tuesday';
+    $metafield['value'] = 'Tuesday;8am - 6pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Wendesday';
+    $metafield['value'] = 'Wendesday;8am - 6pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Thursday';
+    $metafield['value'] = 'Thursday;8am - 6pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Friday';
+    $metafield['value'] = 'Friday;8am - 6pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Saturday';
+    $metafield['value'] = 'Saturday;8am - 6pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Sunday';
+    $metafield['value'] = 'Sunday;8am - 5pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Specialties';
+    $metafield['value'] = 'Fishing Reels|https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-fishing-reels;Fishing Rods|https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-fishing-rods;Fishing Reel Repair| ';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Header1';
+    $metafield['value'] = isset($_POST['header1'])?$_POST['header1']:'';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Header2';
+    $metafield['value'] = isset($_POST['header2'])?$_POST['header2']:'';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Header3';
+    $metafield['value'] = isset($_POST['header3'])?$_POST['header3']:'';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Header4';
+    $metafield['value'] = isset($_POST['header4'])?$_POST['header4']:'';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'HeaderText1';
+    $metafield['value'] = isset($_POST['headertext1'])?$_POST['headertext1']:'';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'HeaderText2';
+    $metafield['value'] = isset($_POST['headertext2'])?$_POST['headertext2']:'';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'HeaderText3';
+    $metafield['value'] = isset($_POST['headertext3'])?$_POST['headertext3']:'';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'HeaderText4';
+    $metafield['value'] = isset($_POST['headertext4'])?$_POST['headertext4']:'';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_1_name';
+    $metafield['value'] = 'Alex King';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_2_name';
+    $metafield['value'] = 'Chase Mako';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_3_name';
+    $metafield['value'] = 'Megan Powell';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_4_name';
+    $metafield['value'] = 'Dru Pio';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_1_image';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/AlexKing-headshot.jpg?v=1598369017';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_2_image';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/ChaseMako-Headshot.jpg?v=1598369017';    
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_3_image';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/MeganPowell-Headshot.jpg?v=1598369017';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_4_image';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/DruPio-Headshot.jpg?v=1598369017';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Addressiframe';
+    $metafield['value'] = '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14245.071665710575!2d-80.0552835!3d26.7995966!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfb8ba543d2f448e6!2sFishin&#39;%20My%20Best%20Life!5e0!3m2!1sen!2sus!4v1594918202017!5m2!1sen!2sus" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+    
     $product_images =  array();
     $tmp_image = array();
     $tmp_image['src'] = $_POST['image_uploaded'];
+    $tmp_image['alt'] = $location_city.', Fl Fishing Report '.$formated_trip_date.' | What\'s Biting | Fishing Forecast';
     $product_images[] = $tmp_image;
+    $handle = preg_replace('/\s+/', '-', strtolower($title));
     $products_array = array(
         "product" => array( 
             "title"        => $title,
-            "body_html"    => $description,
-            "handle"       => 'catch-logs-view-'.$mapping_id,
-            "template_suffix" => "report",
+            "body_html"    => "",
+            "handle"       => $handle,
+            "template_suffix" => "tackel-shop",
             "vendor"       => "FishinMyBestLife",
-            "product_type" => "Angler Advisor | Fishing Reports | Catch Logs",
+            "product_type" => "Angler Advisor | City | Weekly Reports",
             "tags"         => "AnglerAdvisor:JotformFishingReports",
             "published"    => false ,
             "images"       =>$product_images,
@@ -360,7 +520,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }else{
         $notification = 'Successfully added report to store';
         $notifications[] = $notification;
-        mail('jlmobile710@gmail.com','Fishing Report Submission',"One report is created");
+        // mail('jlmobile710@gmail.com','Fishing Report Submission',"One report is created");
     }    
 }
 
@@ -371,7 +531,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta charset="utf-8"> 
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
-        <title>Create a fishing report | Fish in My Best Life</title>
+        <title>Create a weekly report | Fish in My Best Life</title>
         <link rel="stylesheet" href="assets/css/datepicker.min.css">        
         <link rel="stylesheet" href="assets/css/dropzone.min.css" />
 		<link href="assets/css/cropper.min.css" rel="stylesheet"/>
@@ -382,7 +542,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <body class="create-tacklebox-page">
         <div class="page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>        
-            <h1 class="page-title">Create a fishing report</h1>            
+            <h1 class="page-title">Create a weekly report</h1>            
             <div class="back-home"><i class="fas fa-chevron-left"></i></div>
             <div class="content">
                 <div class="notifications-wrapper">
@@ -408,28 +568,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <input id="trip_date" type="text" name="trip_date" data-toggle="datepicker" />
                             </div>
                         </div>
-                        <div class="slide">
-                        <p class="err-msg"></p>
-                            <label class="form-field-title"> Whether conditions <span class="required">*</span></label>
-                            <div class="flex-wrapper">
-                            <ul class="vertical full">
-                            <li class="vertical-item"><label><div><img src="assets/imgs/cloudy.png" class="sea-condition-images"> Cloudy</div><input type="radio" name="weatherconditions" value="cloudy" required /></label></li>
-                            <li class="vertical-item"><label><div><img src="assets/imgs/raining.png" class="sea-condition-images"> Rainy</div><input type="radio" name="weatherconditions" value="raining" required /></label></li>
-                            <li class="vertical-item"><label><div><img src="assets/imgs/sunny.png" class="sea-condition-images"> Sunny</div><input type="radio" name="weatherconditions" value="sunny" required /></label></li>
-                            </ul>                        
-                            </div>                        
-                        </div>
-                        <div class="slide">
-                            <p class="err-msg"></p>
-                            <label class="form-field-title"> Sea Wave Height</label>
-                            <div class="flex-wrapper values-wrapper">
-                            <ul class="vertical full">
-                                <li class="vertical-item"><label><div><img src="assets/imgs/0t2ft.png" class="sea-condition-images"> 0 to 2 FT</div><input type="radio" name="seawaveheight" value="0-2" required /></label></li>
-                                <li class="vertical-item"><label><div><img src="assets/imgs/2.5to4ft.png" class="sea-condition-images"> 2.5 to 4 FT</div><input type="radio" name="seawaveheight" value="2.5-4" required /></label></li>
-                                <li class="vertical-item"><label><div><img src="assets/imgs/4.5ft-over.png" class="sea-condition-images"> 4.5 FT  and over</div><input type="radio" name="seawaveheight" value="4-4.5" required /></label></li>
-                            </ul>
-                            </div>                        
-                        </div>
+                        
                         <div class="slide">
                             <p class="err-msg"></p>
                             <label class="form-field-title"> Fishing Depth </label>
@@ -557,16 +696,39 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                             </div>
                         </div>
-                        <div class="slide memo-box">
-                            <h2 class="section-title">Your Memo</h2>
+                        <div class="slide">
                             <p class="err-msg"></p>
                             <div class="form-control">
-                            <label for="description">Description</label>
-                            <textarea id="description" name="description"></textarea>
+                                <label for="trip_date">Header 1</label>
+                                <input id="header1" type="text" name="header1" />
                             </div>
                             <div class="form-control">
-                            <label for="description">Video</label>
-                            <input type="file" id="memo_video" name="memo_video" accept="video/mp4,video/x-m4v,video/*"/>
+                                <label for="headertext1">Header Text 1</label>
+                                <input id="headertext1" type="text" name="headertext1" />
+                            </div>
+                            <div class="form-control">
+                                <label for="header2">Header 2</label>
+                                <input id="header2" type="text" name="header2" />
+                            </div>
+                            <div class="form-control">
+                                <label for="headertext2">Header Text 2</label>
+                                <input id="headertext2" type="text" name="headertext2" />
+                            </div>
+                            <div class="form-control">
+                                <label for="header3">Header 3</label>
+                                <input id="header3" type="text" name="header3" />
+                            </div>
+                            <div class="form-control">
+                                <label for="headertext3">Header Text 3</label>
+                                <input id="headertext3" type="text" name="headertext3" />
+                            </div>
+                            <div class="form-control">
+                                <label for="header4">Header 4</label>
+                                <input id="header4" type="text" name="header4" />
+                            </div>
+                            <div class="form-control">
+                                <label for="headertext4">Header Text 4</label>
+                                <input id="headertext4" type="text" name="headertext4" />
                             </div>
                         </div>
                         <div class="rating-wrapper">
@@ -882,6 +1044,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         })
         
         function fishingReportValidation(index){
+            return true;
             if(index==0){
                 if($("#hidden_img_uploaded").val()=="false"){
                     return "Sorry but failed to upload image, could you upload it again please?";
@@ -1072,7 +1235,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 success: function(result) {
                     $('.your-tackle-box .values-wrapper ul').html("");
                     if(result.length>0){
-                        let definedSubCats = ['Hooks','Line','Lures','Reels','Rods','Terminal Tackle'];
+                        let definedSubCats = ['Hooks','Line','Lures','Reels','Terminal Tackle'];
                         definedSubCats.sort();
                         let filteredResult = result.filter(function(d){return definedSubCats.includes(d.sub)});
                         

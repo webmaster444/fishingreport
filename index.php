@@ -22,6 +22,19 @@ $tackleboxcnt = $rows[0][0];
 $sql = "SELECT species,fishing_types,fishing_technique FROM member_detail_fishing WHERE email_id = ".$_SESSION['id'];
 $member_detail_result = $conn->query($sql);  
 
+$sql = "SELECT member_type_id FROM Member WHERE member_email_id = ".$_SESSION['id'];
+$member_type = $conn->query($sql);  
+
+$row = $member_type->fetch_array();
+$member_role_no = $row[0];
+
+$sql = "SELECT member_type FROM MemberType WHERE member_type_id = ".$member_role_no;
+$member_type_query= $conn->query($sql);
+
+$row = $member_type_query->fetch_array();
+$member_role = $row[0];
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -52,6 +65,10 @@ $member_detail_result = $conn->query($sql);
                     <a class="btn-primary full" href="tacklebox.php">Your tacklebox</a>                
                     <a class="btn-primary full" href="create-fishing-report.php">Create a fishing report</a>
                 <?php } ?>                
+
+                <?php if($member_role == 'Administrator'){?>
+                    <a class="btn-primary full" href="create-weekly-report.php">Create a weekly report</a>
+                <?php } ?>
                 <a class="btn-secondary full" href="logout.php">Log out</a>
             </div>
         </div>

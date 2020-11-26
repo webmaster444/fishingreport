@@ -167,7 +167,7 @@ function uploadReportImage(){
         global $APP_URL;
         
         $image_name = time().'.png';        
-        $image_loc = $_SERVER['DOCUMENT_ROOT'].'/uploads/reports/' .$image_name;
+        $image_loc = $_SERVER['DOCUMENT_ROOT'].'/fishingreport/uploads/reports/' .$image_name;
 
         file_put_contents($image_loc, $data);
 

@@ -95,7 +95,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta charset="utf-8"> 
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
-        <title>Fish in My Best Life</title>
+        <title>Log in | Fish in My Best Life</title>
         <link rel="stylesheet" href="assets/css/all.min.css">        
         <link rel="stylesheet" href="assets/css/styles.css">        
         <!-- <meta name="google-signin-client_id" content="1083339568092-tngtmitfqhl5tvoqflcs14aq9ddjrhss.apps.googleusercontent.com">

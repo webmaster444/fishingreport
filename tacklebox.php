@@ -242,11 +242,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             $('.drawer-close').on('click', function(){
                 $('.drawer-bottom').removeClass('bottom-drawer-open');
+                $('.drawer-slick-wrapper').slick('slickGoTo',0);
                 $('.drawer-overlay').addClass('hide');
             })
 
-            $(document).on('click','.add_more_tackle', function(){
-                $('.drawer-slick-wrapper').slick('slickGoTo',0);
+            $(document).on('click','.add_more_tackle', function(e){
+                if($(this).parent().parent().hasClass('subcat-wrapper')){
+                    
+                    let pageIndex = $(this).parent().parent().index();
+                    console.log(pageIndex);
+                    $('.drawer-slide > .drawer-scroll-wrapper > ul > li:nth-child('+pageIndex+')').trigger('click');
+                    // $('.drawer-slick-wrapper').slick('slickGoTo',0);
+                }else{
+                    $('.drawer-slick-wrapper').slick('slickGoTo',0);
+                }                
                 $('.drawer-bottom').addClass('bottom-drawer-open');
                 $('.drawer-overlay').removeClass('hide');
             })
@@ -291,6 +300,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             result.forEach(function(d){
                                 $('.products-wrapper ul').append('<li class="vertical-item" product-id="'+d.id + '"><label>'+d.name+'<i class="fas fa-chevron-right"></i></label></li>');
                             });                            
+                        }else{
+
                         }
                     },
                     error: function(err) {
@@ -314,6 +325,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 let checked = added_gtin.includes(d.gtin)?"checked":"";
                                 $('.variants-wrapper ul').append('<li class="single-variant vertical-item" gtin-id="'+d.gtin+'" variant-id="'+d.variant_id + '"><label for="input'+d.variant_id+'"><span><img src="'+d.variant_img+'" alt=""/>'+d.option1_value+'</span><input id="input'+d.variant_id+'" type="checkbox" '+checked+'></label></li>');
                             });                            
+                        }else{
+                            $('.variants-wrapper').append('No variant for this project');
                         }
                     },
                     error: function(err) {
