@@ -697,6 +697,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                         </div>
                         <div class="slide">
+                            <div class="scroll-wrapper">
+                            <h2 class="section-title">Fill the content</h2>
                             <p class="err-msg"></p>
                             <div class="form-control">
                                 <label for="trip_date">Header 1</label>
@@ -729,6 +731,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="form-control">
                                 <label for="headertext4">Header Text 4</label>
                                 <input id="headertext4" type="text" name="headertext4" />
+                            </div>
                             </div>
                         </div>
                         <div class="rating-wrapper">
@@ -1043,8 +1046,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         })
         
-        function fishingReportValidation(index){
-            return true;
+        function fishingReportValidation(index){            
             if(index==0){
                 if($("#hidden_img_uploaded").val()=="false"){
                     return "Sorry but failed to upload image, could you upload it again please?";
@@ -1066,62 +1068,41 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     return "Please fill all required fields";
                 }
             }else if(index==2){
-                if($('input[name="weatherconditions"]:checked').val()==undefined){
-                    return "Please fill all required fields";
-                }
-                return true;
-            }else if(index==3){
-                if($('input[name="seawaveheight"]:checked').val()==undefined){
-                    return "Please fill all required fields";
-                }
-                return true;
-            }else if(index==4){
                 if($('input[name="fishingdepth"]:checked').val()==undefined){
                     return "Please fill all required fields";
                 }
                 return true;
-            }else if(index==5){
+            }else if(index==3){
                 if($('input[name="species[]"]:checked').val()==undefined){
                     return "Please select at least one species";
                 }
                 return true;            
-            }else if(index==6){
+            }else if(index==4){
                 if($('input[name="fishing_types[]"]:checked').val()==undefined){
                     return "Please select at least one fishing type";
                 }
                 return true;
-            }else if(index==7){
+            }else if(index==5){
                 if($('input[name="fishing_technique[]"]:checked').val()==undefined){
                     return "Please select at least one fishing technique";
                 }
                 return true;
-            }else if(index==8){
+            }else if(index==6){
                 if($('input[name="selected_variants[]"]:checked').val()==undefined){
                     return "Please select at least one variant";
                 }
                 return true;
-            }else if(index==9){
+            }else if(index==7){
                 if($('input[name="body_of_water"]:checked').val()==undefined){
                     return "Please select at least one body of water";
                 }
                 return true;
-            }else if(index==10){
-                if($("#hidden_memo_uploaded").val()=="false"){
-                    if($("#description").val()==""){
-                        return "Sorry but failed to upload memo, could you upload it again please?";
-                    }else{
-                        return true;
-                    }
-                }else if($("#hidden_memo_uploaded").val()==""){
-                    if($("#description").val()==""){
-                        return "You need to upload memo file or fill the comment box";   
-                    }else{
-                        return true;
-                    }                
-                }else{
-                    return true;
+            }else if(index==8){
+                if($('input[name="header1"]').val()==""){
+                    return "Please fill at least Header 1";
                 }
-            }else if(index==11){
+                return true;
+            }else if(index==9){
                 if($('input#hidden_rating').val()==""){
                     return "Please rate your fishing experience";
                 }
