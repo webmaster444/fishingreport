@@ -223,18 +223,70 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "global";
     $metafields[] = $metafield;
-
+    
     $formated_trip_date = date_format(date_create($_POST['trip_date']),"n/j/y");
-
     $title = $location_city.' '.$formated_trip_date.' | Daily Fishing Report | What\'s Biting Now';
 
+    $title_formated_trip_date = date_format(date_create($_POST['trip_date']),"Y-m-d");
+    
+    $title_tag_str = $location_city.' '.$title_formated_trip_date.' | Daily Fishing Report | What\'s Biting Now - Fish in Season';
     $metafield = array();
     $metafield['key'] = 'title_tag';
-    $metafield['value'] = $title;
+    $metafield['value'] = trim($title_tag_str);
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "global";
     $metafields[] = $metafield;
     
+    $metafield = array();
+    $metafield['key'] = 'sortDate';
+    $today = new DateTime();
+    $metafield['value'] = $today->format('Y-m-d');
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "global";
+    $metafields[] = $metafield;
+    
+    $metafield = array();
+    $metafield['key'] = 'body_of_water';
+    $body_of_water_value = "";
+    foreach($bodies_of_water as $body){                                                                                                        
+        if($body['body_of_water_id']==$_POST['body_of_water']){
+            $body_of_water_value = $body['body_of_water'];
+        }
+    }
+    $metafield['value'] = $body_of_water_value;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'slider_species';
+    $metafield['value'] = $title;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'slider_type';
+    $metafield['value'] = $title;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'slider_technique';
+    $metafield['value'] = $title;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'slider_charters';
+    $metafield['value'] = $title;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+
     $selected_gtins_str = implode(",", $_POST['selected_variants']);    
     // store it to db
     $sql = "INSERT INTO member_fishing_report (member_email_id,trip_date,used_gtin,city) VALUES (?,?,?,?)";
@@ -288,8 +340,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
-
     $metafield = array();
+
     $metafield['key'] = 'box_3_url';
     $metafield['value'] = 'https://www.fishinmybestlife.com/collections/charter-boats';
     $metafield['value_type'] = "string";
