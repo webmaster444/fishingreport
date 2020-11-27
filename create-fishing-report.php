@@ -151,7 +151,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
-
+    
     $species_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['species'])));    
     $fishing_types_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_types'])));
     $fishing_technique_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_technique'])));
@@ -281,7 +281,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'slider_charters';
-    $metafield['value'] = $title;
+    $metafield['value'] = 'charter-fishing-boats-us-fl-jupiter-bottom-fishing|charter-fishing-boats-us-fl-jupiter-deep-sea-fishing|charter-fishing-boats-us-fl-jupiter-inshore-fishing|charter-fishing-boats-us-fl-boynton-beach-bottom-fishing|charter-fishing-boats-us-fl-palm-beach-deep-sea-fishing|charter-fishing-boats-us-fl-palm-beach-inshore-fishing|charter-fishing-boats-us-fl-palm-beach-bottom-fishing|charter-fishing-boats-us-fl-boynton-beach-deep-sea-fishing';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
