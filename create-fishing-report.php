@@ -928,6 +928,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             let currentStep = $('.slick-current').index();
             if(fishingReportValidation(currentStep)==true){                
                 $('form').submit();
+                $(this).prop('disabled',true);
             }else{
                 $('.slick-current .err-msg').html(fishingReportValidation(currentStep));
             }

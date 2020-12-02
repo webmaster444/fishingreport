@@ -399,7 +399,10 @@ a:active, a:focus{
 }
 .scroll-content{
     overflow-y: auto;
-    /* max-height: calc(100vh - 235px); */
+    
+}
+.no-slider .scroll-content{
+    max-height: calc(100vh - 235px);
 }
 .slick-slide img.img-loader{
     width: 30px;
@@ -686,4 +689,8 @@ h5.modal-title{
 .facebook i{
     font-size: 20px;
     padding-top: 10px;
+}
+
+button[disabled] {
+    opacity: 0.5;
 }

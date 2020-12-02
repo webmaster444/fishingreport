@@ -165,12 +165,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <link rel="stylesheet" href="assets/css/styles.css">        
         <link rel="stylesheet" href="assets/css/all.min.css">        
     </head>
-    <body class="profile-setup">
+    <body class="profile-setup no-slider">
         <div class="login-content page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>            
             <h1 class="page-title">Edit your profile</h2>
             <div class="back-home"><i class="fas fa-chevron-left"></i></div>
             <div class="content">
+            <div class="scroll-content">
+            
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div class="login-form-container flex-wrapper">            
                 <div class="full">
@@ -229,6 +231,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>                                                                                
             </div>
             </form>
+            
+            </div>
             </div>
         </div>        
         

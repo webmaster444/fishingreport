@@ -482,7 +482,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             "handle"       => $handle,
             "template_suffix" => "tackel-shop",
             "vendor"       => "FishinMyBestLife",
-            "product_type" => "Angler Advisor | City | Weekly Reports",
+            "product_type" => "Angler Advisor | Fishing Reports | Weekly Reports",
             "tags"         => "AnglerAdvisor:JotformFishingReports",
             "published"    => false ,
             "images"       =>$product_images,
@@ -1041,6 +1041,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             let currentStep = $('.slick-current').index();
             if(fishingReportValidation(currentStep)==true){                
                 $('form').submit();
+                $(this).prop('disabled',true);
             }else{
                 $('.slick-current .err-msg').html(fishingReportValidation(currentStep));
             }
