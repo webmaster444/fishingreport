@@ -1,7 +1,7 @@
 <?php
 set_time_limit(0);
 // insert products from shopify to core_gtin
-require_once "db.php";
+require_once "../db.php";
 
 global $conn;
 

@@ -1,7 +1,7 @@
 <?php
 
 // set image_url in advisor_attribute
-require_once "db.php";
+require_once "../db.php";
 
 global $conn;
 
