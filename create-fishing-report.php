@@ -27,7 +27,12 @@ $loggedin_user_city = $conn->query($sql);
 while($row = $loggedin_user_city->fetch_array()){
     $loggedin_user_citys[] = $row;
 }
-$userCity = $loggedin_user_citys[0];
+if(sizeof($loggedin_user_citys)==0){
+    $userCity = 1;
+}else{
+    $userCity = $loggedin_user_citys[0];
+}
+
 $sql = 'SELECT attribute_id, attribute_name,image_url FROM advisor_attribute WHERE FIND_IN_SET(attribute_id, (SELECT species FROM member_detail_fishing WHERE email_id = "'.$_SESSION['id'].'" LIMIT 1)) ORDER BY attribute_name';
 $species_result = $conn->query($sql);
 while($row = $species_result->fetch_array()){
