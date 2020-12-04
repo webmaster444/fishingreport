@@ -28,7 +28,7 @@ while($row = $loggedin_user_city->fetch_array()){
     $loggedin_user_citys[] = $row;
 }
 if(sizeof($loggedin_user_citys)==0){
-    $userCity = 1;
+    $userCity['city_id'] = 1;
 }else{
     $userCity = $loggedin_user_citys[0];
 }
