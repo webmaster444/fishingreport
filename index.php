@@ -66,8 +66,10 @@ if($member_type_query){
                 <?php if($tackleboxcnt==0){ ?>
                     <a class="btn-primary full" href="create-tacklebox.php">Create a tacklebox</a>                
                 <?php }else {?>
-                    <a class="btn-primary full" href="tacklebox.php">Your tacklebox</a>                
-                    <a class="btn-primary full" href="create-fishing-report.php">Create a fishing report</a>
+                    <a class="btn-primary full" href="tacklebox.php">Your tacklebox</a>        
+                    <?php if($member_role!="") {?>
+                        <a class="btn-primary full" href="create-fishing-report.php">Create a fishing report</a>
+                    <?php } ?>                    
                 <?php } ?>                
 
                 <?php if($member_role == 'Administrator'){?>
