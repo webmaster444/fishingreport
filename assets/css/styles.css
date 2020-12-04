@@ -402,7 +402,7 @@ a:active, a:focus{
     
 }
 .no-slider .scroll-content{
-    max-height: calc(100vh - 235px);
+    max-height: calc(100vh - 195px);
 }
 .slick-slide img.img-loader{
     width: 30px;
@@ -693,4 +693,10 @@ h5.modal-title{
 
 button[disabled] {
     opacity: 0.5;
+}
+
+@media screen and (max-width:767px){
+    /* body{
+        margin-bottom: 50px;
+    } */
 }

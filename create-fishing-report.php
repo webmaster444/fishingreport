@@ -152,6 +152,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
     
+    
+    $slider_species_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['species']));
+    $slider_fishing_types_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['fishing_types']));
+    $slider_fishing_technique_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['fishing_technique']));
+
     $species_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['species'])));    
     $fishing_types_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_types'])));
     $fishing_technique_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_technique'])));
@@ -260,21 +265,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'slider_species';
-    $metafield['value'] = $title;
+    $metafield['value'] = $slider_species_meta_value;
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
     $metafield = array();
     $metafield['key'] = 'slider_type';
-    $metafield['value'] = $title;
+    $metafield['value'] = $slider_fishing_types_meta_value;
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
     $metafield = array();
     $metafield['key'] = 'slider_technique';
-    $metafield['value'] = $title;
+    $metafield['value'] = $slider_fishing_technique_meta_value;
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -285,7 +290,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
-
 
     $selected_gtins_str = implode(",", $_POST['selected_variants']);    
     // store it to db
@@ -325,7 +329,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
-
 
     $metafield = array();
     $metafield['key'] = 'box_1_url';
