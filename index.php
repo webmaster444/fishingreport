@@ -29,6 +29,7 @@ $row = $member_type->fetch_array();
 $member_role_no = $row[0];
 
 $sql = "SELECT member_type FROM MemberType WHERE member_type_id = ".$member_role_no;
+echo $sql;
 $member_type_query= $conn->query($sql);
 
 $member_role = "";
