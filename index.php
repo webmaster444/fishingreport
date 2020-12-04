@@ -29,15 +29,15 @@ $row = $member_type->fetch_array();
 $member_role_no = $row[0];
 
 $sql = "SELECT member_type FROM MemberType WHERE member_type_id = ".$member_role_no;
-echo $sql;
 $member_type_query= $conn->query($sql);
 
 $member_role = "";
-if($member_type_query->num_rows==0){
-    $row = $member_type_query->fetch_array();
-    $member_role = $row[0];
+if($member_type_query){
+    if($member_type_query->num_rows==0){
+        $row = $member_type_query->fetch_array();
+        $member_role = $row[0];
+    }    
 }
-
 
 ?>
 <!doctype html>
