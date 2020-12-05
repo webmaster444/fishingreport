@@ -1209,12 +1209,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $('#update-tacklebox').on('click', function(){
             let added_gtin_str =$("#added_gtin").val();
             let email_id = '<?php echo $_SESSION['id'];?>';
+            $(this).prop('disabled',true);
+            $(this).html('Updating...');
             $.ajax({
                 url: "core.php",
                 type: "POST",
                 data: {action: "update-tacklebox-ajax", added_gtin:added_gtin_str, email_id:email_id},
                 dataType: "json",
                 success: function(result) {
+                    $(this).prop('disabled',false);
+                    $(this).html('Update tacklebox');
                     $('.your-tackle-box .values-wrapper ul').html("");
                     if(result.length>0){
                         let definedSubCats = ['Baits', 'Lures', 'Reels','Rods', 'Terminal Tackle', 'Accessories'];
@@ -1237,6 +1241,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $('.drawer-overlay').addClass('hide');
                 },
                 error: function(err) {
+                    $(this).prop('disabled',false);
+                    $(this).html('Update tacklebox');
                     console.log(err);
                 }
             });

@@ -495,7 +495,10 @@ input.autocomplete{
     position: relative;
     width: 100%;
 }
-
+#description{
+    resize: none;
+    font-size: 20px;
+}
 input[type='checkbox'] ,input[type='radio'] {
     -webkit-appearance:none;
     width:30px;
