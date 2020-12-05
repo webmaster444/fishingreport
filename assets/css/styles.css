@@ -712,6 +712,6 @@ h2{
     }
 
     .tacklebox-page .scroll-wrapper{
-        max-height: calc(100vh - 275px) !important;
+        max-height: calc(100vh - 355px) !important;
     }
 }
