@@ -402,7 +402,7 @@ a:active, a:focus{
     
 }
 .no-slider .scroll-content{
-    max-height: calc(100vh - 195px);
+    max-height: calc(100vh - 155px);
 }
 .slick-slide img.img-loader{
     width: 30px;
@@ -695,8 +695,18 @@ button[disabled] {
     opacity: 0.5;
 }
 
+.no-slider .content{
+    top: 140px;
+}
 @media screen and (max-width:767px){
     /* body{
         margin-bottom: 50px;
     } */
+    h1{
+        font-size: 25px;
+    }
+
+    .no-slider .scroll-content form{
+        padding-bottom: 50px;
+    }
 }
