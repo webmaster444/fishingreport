@@ -33,8 +33,7 @@ $member_type_query= $conn->query($sql);
 
 $member_role = "";
 if($member_type_query!=false){
-    echo "not false";
-    if($member_type_query->num_rows==0){
+    if($member_type_query->num_rows!=0){
         $row = $member_type_query->fetch_array();
         $member_role = $row[0];
     }    
