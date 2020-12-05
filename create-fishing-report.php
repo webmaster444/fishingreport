@@ -446,9 +446,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="back-home"><i class="fas fa-chevron-left"></i></div>
             <div class="content">
                 <div class="notifications-wrapper">
-                <?php foreach ($notifications as $notification){ ?>
-                    <div class="notification"><?php echo $notification;?></div>
-                <?php } ?>       
+                    <?php foreach ($notifications as $notification){ ?>
+                        <div class="notification"><?php echo $notification;?></div>
+                    <?php } ?>       
                 </div>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <div class="slick-slider-wrapper">
@@ -469,7 +469,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                         </div>
                         <div class="slide">
-                        <p class="err-msg"></p>
+                            <p class="err-msg"></p>
                             <label class="form-field-title"> Whether conditions <span class="required">*</span></label>
                             <div class="flex-wrapper">
                             <ul class="vertical full">
@@ -495,12 +495,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <label class="form-field-title"> Fishing Depth </label>
                             <div class="flex-wrapper values-wrapper">
                                 <ul class="vertical full">
-                                <li class="vertical-item"><label><div><input type="radio" name="fishingdepth" value="0-50" /> 0'-50'</div></label></li>
-                                <li class="vertical-item">
-                                    <label>
-                                    <div><input type="radio" name="fishingdepth" value="50-80" /> 50'-80'</div>
-                                    </label>
-                                </li>
+                                    <li class="vertical-item"><label><div><input type="radio" name="fishingdepth" value="0-50" /> 0'-50'</div></label></li>
+                                    <li class="vertical-item">
+                                        <label>
+                                        <div><input type="radio" name="fishingdepth" value="50-80" /> 50'-80'</div>
+                                        </label>
+                                    </li>
                                     <li class="vertical-item"><label><div>
                                     <input type="radio" name="fishingdepth" value="80-100" /> 80'-100'</div></label></li>
                                     <li class="vertical-item"><label><div>
@@ -808,6 +808,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             })
 
             $('#crop').click(function(){
+                $(this).prop('disabled',true);
+                $(this).html("Uploading...");
                 canvas = cropper.getCroppedCanvas({
                     width:800,
                     height:800
@@ -831,6 +833,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 $("#hidden_img_uploaded").val(data);
                             },
                             error: function(err){
+                                $(this).prop('disabled',false);
+                                $(this).html("Crop");
                                 alert('Sorry but croped image is too large to be uploaded, could you make it a bit smaller please? Thank you');
                             }
                         });
