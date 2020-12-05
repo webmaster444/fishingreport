@@ -13,7 +13,7 @@ require_once "config.php";
 // get all subcategories
 global $conn;
 
-$sql = "SELECT DISTINCT(sub) FROM core_category WHERE sub IN ('Hooks', 'Line', 'Reels', 'Rods','Lures', 'Terminal Tackle') ORDER BY sub";
+$sql = "SELECT DISTINCT(sub) FROM core_category WHERE sub IN ('Baits', 'Lures', 'Reels','Rods', 'Terminal Tackle', 'Accessories') ORDER BY sub";
 $subcat_result = $conn->query($sql);
 
 while($row = $subcat_result->fetch_array()){
@@ -1217,7 +1217,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 success: function(result) {
                     $('.your-tackle-box .values-wrapper ul').html("");
                     if(result.length>0){
-                        let definedSubCats = ['Hooks','Line','Lures','Reels','Terminal Tackle'];
+                        let definedSubCats = ['Baits', 'Lures', 'Reels','Rods', 'Terminal Tackle', 'Accessories'];
                         definedSubCats.sort();
                         let filteredResult = result.filter(function(d){return definedSubCats.includes(d.sub)});
                         
