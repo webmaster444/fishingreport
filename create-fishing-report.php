@@ -519,7 +519,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <h2 class="section-title">Species</h2>
                             <p class="err-msg"></p>
                             <div class="values-wrapper full">
-                            <div class="search-input"><input type="text" class="autocomplete" /></div>
+                            <div class="search-input"><input type="text" class="autocomplete" placeholder="Search" /></div>
                                 <ul class="vertical full">
                             <?php 
                                 foreach($allspecies as $specie){
@@ -538,7 +538,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <h2 class="section-title">Fishing Type</h2>
                             <p class="err-msg"></p>
                             <div class="values-wrapper full">    
-                                <div class="search-input"><input type="text" class="autocomplete" /></div>                    
+                                <div class="search-input"><input type="text" class="autocomplete" placeholder="Search"  /></div>                    
                                 <ul class="vertical full">
                                 <?php                                 
                                     foreach($alltypes as $specie){    
@@ -561,7 +561,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <h2 class="section-title">Technique</h2>
                             <p class="err-msg"></p>
                             <div class="values-wrapper full">
-                            <div class="search-input"><input type="text" class="autocomplete" /></div>
+                            <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" /></div>
                                 <ul class="vertical full">
                             <?php 
                                 foreach($alltechnique as $specie){     
@@ -663,7 +663,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="drawer-slick-wrapper">
                     <div class="drawer-slide">
                         <div class="drawer-scroll-wrapper">
-                        <div class="search-input"><input type="text" class="autocomplete" /></div>
+                        <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" /></div>
                     <ul class="vertical">                
                     <?php 
                         foreach($subcats as $subcat){
@@ -676,7 +676,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="brands-wrapper">
                     <div class="drawer-scroll-wrapper">
                             <h2 class="section-title">Brands</h2>
-                            <div class="search-input"><input type="text" class="autocomplete" /></div>
+                            <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" /></div>
                             <ul class="vertical">
 
                             </ul>
@@ -685,7 +685,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="products-wrapper">
                         <div class="drawer-scroll-wrapper">
                             <h2 class="section-title">Products</h2>
-                            <div class="search-input"><input type="text" class="autocomplete" tabindex="0"></div>
+                            <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" tabindex="0"></div>
                             <ul class="vertical">
 
                             </ul>
@@ -694,7 +694,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="variants-wrapper">
                         <div class="drawer-scroll-wrapper">
                             <h2 class="section-title">Variants</h2>
-                            <div class="search-input"><input type="text" class="autocomplete" /></div>
+                            <div class="search-input"><input type="text" class="autocomplete" placeholder="Search" /></div>
                             <ul class="vertical"></ul>                            
                         </div>   
                     </div>
@@ -727,7 +727,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			      		</div>
 			      		<div class="modal-footer">
 			      			<button type="button" id="crop" class="btn btn-primary">Crop</button>
-			        		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+			        		<button type="button" class="btn btn-secondary modal-close" data-dismiss="modal">Cancel</button>
 			      		</div>
 			    	</div>
 			  	</div>
@@ -807,6 +807,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
             })
 
+            $('.modal-close').click(function(){
+                $modal.popup('hide');
+            })
             $('#crop').click(function(){
                 $(this).prop('disabled',true);
                 $(this).html("Uploading...");
