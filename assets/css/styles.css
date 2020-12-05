@@ -251,9 +251,9 @@ li.vertical-item a,li.vertical-item span{
     padding-right: 10px;
     color: lightgray;
 }
-.create-tacklebox-page .container{
+/* .create-tacklebox-page .container{
     min-height: 500px;
-}
+} */
 
 .slick-slider:active, .slick-slider:focus, .slick-slide:active, .slick-slide:focus{
     outline: none;
@@ -717,7 +717,7 @@ h2{
         padding-bottom: 50px;
     }
 
-    .tacklebox-page .scroll-wrapper, .create-tacklebox-page .scroll-wrapper{
+    .tacklebox-page .scroll-wrapper{
         max-height: calc(100vh - 355px) !important;
     }
 }
