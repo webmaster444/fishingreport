@@ -721,4 +721,10 @@ h2{
     h5.modal-title{
         font-size: 22px;        
     }
+    #modal{
+        width: 95%;       
+    }
+    .thumbnail img {
+        max-height: calc(100vh - 300px);
+    }
 }

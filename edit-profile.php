@@ -67,9 +67,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if($stmt = mysqli_prepare($conn, $sql)){
             mysqli_stmt_bind_param($stmt, "sss", $_POST['city'],$_POST['state'],$_POST['country']);
             if(mysqli_stmt_execute($stmt)){ 
-                echo "That city is successfully added";
+                // city added successfully
             }else{
-                echo "Could't save that city";
+                
             }
         }
     }
