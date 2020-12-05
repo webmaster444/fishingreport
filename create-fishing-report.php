@@ -439,7 +439,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <link rel="stylesheet" href="assets/css/styles.css">                       
     </head>
-    <body class="create-tacklebox-page">
+    <body class="fishing-report-page" id="create-fishing-report-page">
         <div class="page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>        
             <h1 class="page-title">Create a fishing report</h1>            

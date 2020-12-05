@@ -122,7 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }(document, 'script', 'facebook-jssdk'));
     </script>
     </head>
-    <body class="login-page">
+    <body class="login-page" id="login-page">
         <div class="login-content page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Sign in</h1>

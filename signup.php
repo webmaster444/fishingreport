@@ -113,7 +113,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <title>Fish in My Best Life</title>
         <link rel="stylesheet" href="assets/css/styles.css">
     </head>
-    <body class="login-page">
+    <body class="login-page" id="signup-page">
         <div class="login-content page-content">            
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
             <h1 class="page-title">Register</h1>

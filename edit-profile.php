@@ -165,7 +165,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <link rel="stylesheet" href="assets/css/styles.css">        
         <link rel="stylesheet" href="assets/css/all.min.css">        
     </head>
-    <body class="profile-setup no-slider">
+    <body class="profile-setup no-slider" id="edit-profile-page">
         <div class="login-content page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>            
             <h1 class="page-title">Edit your profile</h2>

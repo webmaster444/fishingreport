@@ -83,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta name="google-signin-client_id" content="753213052944-4molte8riclfmm373egkuldknat2buh6.apps.googleusercontent.com">
         <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
-    <body class="reset-password-page">
+    <body class="reset-password-page" id="reset-password-page">
     <div class="page-content">
         <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>
         <h1 class="page-title">Welcome back</h1>

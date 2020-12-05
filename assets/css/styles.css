@@ -706,9 +706,6 @@ h2{
     padding: 0 3px;
 }
 @media screen and (max-width:767px){
-    /* body{
-        margin-bottom: 50px;
-    } */
     h1{
         font-size: 25px;
     }
@@ -717,7 +714,11 @@ h2{
         padding-bottom: 50px;
     }
 
-    .tacklebox-page .scroll-wrapper{
+    .tacklebox-page .scroll-wrapper,.fishing-report-page .scroll-wrapper{
         max-height: calc(100vh - 355px) !important;
+    }
+
+    h5.modal-title{
+        font-size: 22px;        
     }
 }
