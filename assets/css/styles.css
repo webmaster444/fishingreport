@@ -510,10 +510,13 @@ input.autocomplete{
 }
 
 .btn-secondary{
-    display: inline-block;
-    padding: 15px 20px;    
-    text-align: center;
+    background: white;
+    color: #0259FE;
+    border: none;
+    padding: 15px 20px;
     cursor: pointer;
+    display: inline-block;
+    text-align: center;
 }
 
 .index-page .btn-primary, .index-page .btn-secondary{
