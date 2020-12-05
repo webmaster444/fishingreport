@@ -707,10 +707,6 @@ button[disabled] {
         padding-bottom: 50px;
     }
 
-    .scroll-wrapper{
-        max-height: calc(100vh - 230px) !important;
-    }
-
     .tacklebox-page .scroll-wrapper{
         max-height: calc(100vh - 275px) !important;
     }
