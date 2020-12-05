@@ -391,15 +391,12 @@ a:active, a:focus{
 
 .content{
     padding: 0px 20px;
-    /* min-height: 500px; */
     position: absolute;
-    top: 175px;
+    top: 140px;
     width: 100%;
-    /* height: calc(100% - 220px); */
 }
 .scroll-content{
-    overflow-y: auto;
-    
+    overflow-y: auto;    
 }
 .no-slider .scroll-content{
     max-height: calc(100vh - 155px);
@@ -708,5 +705,13 @@ button[disabled] {
 
     .no-slider .scroll-content form{
         padding-bottom: 50px;
+    }
+
+    .scroll-wrapper{
+        max-height: calc(100vh - 230px) !important;
+    }
+
+    .tacklebox-page .scroll-wrapper{
+        max-height: calc(100vh - 275px) !important;
     }
 }
