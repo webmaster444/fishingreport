@@ -695,6 +695,10 @@ button[disabled] {
 .no-slider .content{
     top: 140px;
 }
+h2{
+    margin-top: 0;
+}
+.slick-slide {outline: none;}
 @media screen and (max-width:767px){
     /* body{
         margin-bottom: 50px;
