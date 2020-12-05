@@ -701,7 +701,10 @@ button[disabled] {
 h2{
     margin-top: 0;
 }
-.slick-slide {outline: none;}
+.slick-slide {
+    outline: none;
+    padding: 0 3px;
+}
 @media screen and (max-width:767px){
     /* body{
         margin-bottom: 50px;
@@ -714,7 +717,7 @@ h2{
         padding-bottom: 50px;
     }
 
-    .tacklebox-page .scroll-wrapper{
+    .tacklebox-page .scroll-wrapper, .create-tacklebox-page .scroll-wrapper{
         max-height: calc(100vh - 355px) !important;
     }
 }
