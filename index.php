@@ -31,7 +31,8 @@ $member_role_no = $row[0];
 $sql = "SELECT member_type FROM MemberType WHERE member_type_id = ".$member_role_no;
 $member_type_query= $conn->query($sql);
 
-if(!$member_type_query){
+$member_role = "";
+if($member_type_query!=false){
     if($member_type_query->num_rows==0){
         $row = $member_type_query->fetch_array();
         $member_role = $row[0];
