@@ -240,6 +240,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSVxstLlVUrrzSNSbZbp-646V3w8TH6PM&callback=initAutocomplete&libraries=places&v=weekly" defer></script>
         <script src="assets/js/common.js"></script>
         <script type="text/javascript">
+        $('.no-slider .scroll-content').css('max-height',($(window).height()-150));
         let placeSearch;
         let autocomplete;
         const componentForm = {            

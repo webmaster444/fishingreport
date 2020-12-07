@@ -742,6 +742,9 @@ button[disabled] {
 .no-slider .content{
     top: 140px;
 }
+.login-form-container.content{
+    padding-bottom: 20px;
+}
 h2{
     font-size: 28px;
     line-height: 30px;
