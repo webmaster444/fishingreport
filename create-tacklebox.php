@@ -125,6 +125,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script type="text/javascript" src="assets/js/common.js"></script>
         <script type="text/javascript">
+            $('.scroll-wrapper').css('max-height',($(window).height()-260));
+
             let added_gtin = [];            
 
             $('.slick-slider-wrapper').slick({

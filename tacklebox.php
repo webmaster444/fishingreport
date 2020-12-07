@@ -198,6 +198,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script type="text/javascript" src="assets/js/common.js"></script>
         <script type="text/javascript">
+            $('.scroll-wrapper').css('max-height',($(window).height()-260));
+            
             <?php $added_gtin = explode(",",$selected_gtins[0]['variants_array']); ?>            
             let added_gtin = new Array();
             <?php foreach($added_gtin as $key => $val){ ?>

@@ -94,10 +94,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="hidden" name="loggedin_user_city" id="city" value='<?php echo $loggedin_user_citys[0]['city_id']; ?>'/>
                 </div>
                 <div class="slick-slider-wrapper">
-                    <div class="species-wrapper"></div>
-                    <div class="fishing-types-wrapper"></div>
-                    <div class="technique-wrapper"></div>
-                    <div class="tacklbox-wrapper"></div>                
+                    <div class="species-wrapper"><div class="scroll-wrapper"></div></div>
+                    <div class="fishing-types-wrapper"><div class="scroll-wrapper"></div></div>
+                    <div class="technique-wrapper"><div class="scroll-wrapper"></div></div>
                 </div>
             </form>
             </div>
@@ -118,6 +117,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <script src="assets/js/common.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function(){
+        $('.scroll-wrapper').css('max-height',($(window).height()-260));
         <?php $selected_species = explode(",",$user_fishing_detail[0]['species']); ?>            
         let selected_species = new Array();
         <?php foreach($selected_species as $key => $val){ ?>
@@ -145,7 +145,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             swipe: false,                
         });
         
-        $('.species-wrapper').html('');      
+        $('.species-wrapper .scroll-wrapper').html('');      
         $.ajax({
             url: "core.php",
             type: "POST",
@@ -154,7 +154,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             success: function(result) {
                 if(result.length > 0){                        
                     let selectorHTML='';
-                    selectorHTML+='<div class="scroll-wrapper"><div class="search-input"><input type="text" class="autocomplete" placeholder="Search" /></div>';
+                    selectorHTML+='<div class="search-input"><input type="text" class="autocomplete" placeholder="Search" /></div>';
                     selectorHTML+='<ul class="vertical full">';
                     result.forEach(function(d){
                         selectorHTML+='<li class="vertical-item"><label><div>';
@@ -166,8 +166,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         selectorHTML += '</div><input type="checkbox" name="species[]" value="'+d.attribute_id+'" '+checked+'/></label>';
                         selectorHTML += '</li>';
                     });                                  
-                    selectorHTML += '</div>';
-                    $('.species-wrapper').append(selectorHTML);
+                    selectorHTML += '</ul>';
+                    $('.species-wrapper .scroll-wrapper').append(selectorHTML);
                     $("#getFishingTypesButton").removeClass('hide');
                 }
             },
@@ -183,7 +183,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             });
 
             if(species.length!=0){
-                $('.fishing-types-wrapper').html('');
+                $('.fishing-types-wrapper .scroll-wrapper').html('');
                 $('.slick-slider-wrapper').slick('slickNext');
                 $(this).addClass('hide');
                 $('.back-wrapper').removeClass('hide');
@@ -196,14 +196,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     dataType: "json",
                     success: function(result) {
                         if(result.length > 0){                        
-                            let selectorHTML='<div class="scroll-wrapper"><ul class="vertical">';
+                            let selectorHTML='<ul class="vertical">';
                             result.forEach(function(d){
                                 let checked = selected_types.includes(d.attribute_id)?"checked":"";
                                 selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="fishingTypes[]" '+checked+' value="'+d.attribute_id + '"></label></li>';
                             });          
-                            selectorHTML +='</ul></div>';
+                            selectorHTML +='</ul>';
                             $("#getTechniqueButton").removeClass('hide');
-                            $('.fishing-types-wrapper').append(selectorHTML);
+                            $('.fishing-types-wrapper .scroll-wrapper').append(selectorHTML);
                         }
                     },
                     error: function(err) {
@@ -221,7 +221,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             });
             
             if(fishingTypes.length!=0){
-                $('.technique-wrapper').html('');
+                $('.technique-wrapper .scroll-wrapper').html('');
                 $('.slick-slider-wrapper').slick('slickNext');
                 $(this).addClass('hide');
                 var species = new Array();
@@ -236,13 +236,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     dataType: "json",
                     success: function(result) {
                         if(result.length > 0){                        
-                            let selectorHTML='<div class="scroll-wrapper"><ul class="vertical">';
+                            let selectorHTML='<ul class="vertical">';
                             result.forEach(function(d){
                                 let checked = selected_technique.includes(d.attribute_id)?"checked":"";
                                 selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="technique[]" '+checked+' value="'+d.attribute_id + '"></label></li>';
                             });          
-                            selectorHTML +='</ul></div>';
-                            $('.technique-wrapper').append(selectorHTML);
+                            selectorHTML +='</ul>';
+                            $('.technique-wrapper .scroll-wrapper').append(selectorHTML);
                             $("#createTacklebox").removeClass('hide');
                         }
                     },
