@@ -280,6 +280,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
+    // seo
+    $metafield = array();
+    $metafield['key'] = 'hidden';
+    $metafield['value'] = 1;
+    $metafield['value_type'] = "integer";
+    $metafield['namespace'] = "seo";
+    $metafields[] = $metafield;
+
     $metafield = array();
     $metafield['key'] = 'book_url';
     $metafield['value'] = 'https://www.fishinmybestlife.com/collections/charter-boats';

@@ -165,7 +165,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $slider_fishing_types_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['fishing_types']));
     $slider_fishing_technique_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['fishing_technique']));
     $slider_tacklebox_meta_value = implode("|", getProductsHandleFromGtins($_POST['selected_variants']));
-    
+
     $species_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['species'])));    
     $fishing_types_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_types'])));
     $fishing_technique_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_technique'])));
@@ -277,6 +277,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['value'] = $slider_species_meta_value;
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    // seo
+    $metafield = array();
+    $metafield['key'] = 'hidden';
+    $metafield['value'] = 1;
+    $metafield['value_type'] = "integer";
+    $metafield['namespace'] = "seo";
     $metafields[] = $metafield;
 
     $metafield = array();
