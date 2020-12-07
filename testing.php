@@ -20,6 +20,7 @@
             left:0;
             right: 0;
             background: red;
+            height: 150px;
         }
 
         footer{
@@ -29,6 +30,7 @@
             left:0;
             right: 0;
             background: green;
+            height: 50px;
         }
         main {
             flex: 1;
