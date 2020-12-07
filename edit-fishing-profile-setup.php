@@ -85,8 +85,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>        
         <h1 class="page-title">Edit your fishing profile</h1>
         <div class="back-home"><i class="fas fa-chevron-left"></i></div>
-        <div class="back-wrapper hide"><i class="fas fa-chevron-left"></i></div>
-        <p class="err-msg"></p>
+        <div class="back-wrapper hide"><i class="fas fa-chevron-left"></i></div>        
         <div class="content">
             <div class="scroll-content">
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="fishing-profile-form">
@@ -94,7 +93,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="hidden" name="loggedin_user_city" id="city" value='<?php echo $loggedin_user_citys[0]['city_id']; ?>'/>
                 </div>
                 <div class="slick-slider-wrapper">
-                    <div class="species-wrapper"><div class="scroll-wrapper"></div></div>
+                    <div class="species-wrapper"><div class="scroll-wrapper"><p class="err-msg"></p></div></div>
                     <div class="fishing-types-wrapper"><div class="scroll-wrapper"></div></div>
                     <div class="technique-wrapper"><div class="scroll-wrapper"></div></div>
                 </div>
@@ -154,7 +153,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             success: function(result) {
                 if(result.length > 0){                        
                     let selectorHTML='';
-                    selectorHTML+='<div class="search-input"><input type="text" class="autocomplete" placeholder="Search" /></div>';
+                    selectorHTML+='<p class="err-msg"></p><div class="search-input"><input type="text" class="autocomplete" placeholder="Search" /></div>';
                     selectorHTML+='<ul class="vertical full">';
                     result.forEach(function(d){
                         selectorHTML+='<li class="vertical-item"><label><div>';
@@ -188,7 +187,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $(this).addClass('hide');
                 $('.back-wrapper').removeClass('hide');
                 $('.back-home').addClass('hide');
-                $('.err-msg').html("");
+                $('.species-wrapper .err-msg').html("");
                 $.ajax({
                     url: "core.php",
                     type: "POST",
@@ -196,7 +195,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     dataType: "json",
                     success: function(result) {
                         if(result.length > 0){                        
-                            let selectorHTML='<ul class="vertical">';
+                            let selectorHTML='<p class="err-msg"></p><ul class="vertical">';
                             result.forEach(function(d){
                                 let checked = selected_types.includes(d.attribute_id)?"checked":"";
                                 selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="fishingTypes[]" '+checked+' value="'+d.attribute_id + '"></label></li>';
@@ -211,7 +210,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     }
                 });
             }else{
-                $('.err-msg').html('Please select at least one species');
+                $('.species-wrapper .err-msg').html('Please select at least one species');
             }            
         });
         $(document).on('click', '#getTechniqueButton', function(){
@@ -228,7 +227,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $("input[name='species[]']:checked").each(function() {
                     species.push($(this).val());
                 });
-                $('.err-msg').html("");
+                $('.fishing-types-wrapper .err-msg').html("");
                 $.ajax({
                     url: "core.php",
                     type: "POST",
@@ -236,7 +235,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     dataType: "json",
                     success: function(result) {
                         if(result.length > 0){                        
-                            let selectorHTML='<ul class="vertical">';
+                            let selectorHTML='<p class="err-msg"></p><ul class="vertical">';
                             result.forEach(function(d){
                                 let checked = selected_technique.includes(d.attribute_id)?"checked":"";
                                 selectorHTML+='<li class="vertical-item"><label><div><img src="'+d.image_url+'" alt="'+d.attribute_name+'"/>'+d.attribute_name+'</div><input type="checkbox" name="technique[]" '+checked+' value="'+d.attribute_id + '"></label></li>';
@@ -251,7 +250,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     }
                 });
             }else{
-                $('.err-msg').html('Please select at least one fishing type');
+                $('.fishing-types-wrapper .err-msg').html('Please select at least one fishing type');
             }            
         });
 
@@ -263,7 +262,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if(techniques.length!=0){
                 $("#fishing-profile-form").submit();
             }else{
-                $('.err-msg').html("Please select at least one technique");
+                $('.technique-wrapper .err-msg').html("Please select at least one technique");
             }            
         });
 

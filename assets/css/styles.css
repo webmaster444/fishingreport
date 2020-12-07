@@ -620,6 +620,7 @@ input[type='checkbox']:checked,input[type='radio']:checked {
     top: 90px;
     left: 30px;
     cursor: pointer;
+    z-index: 150;
 }
 
 /* crop modal */
