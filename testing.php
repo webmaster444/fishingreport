@@ -15,15 +15,24 @@
 
         header{
             flex-basis: 150px;
+            position: fixed;
+            top:0;
+            left:0;
+            right: 0;
         }
 
         footer{
             flex-basis: 50px;
+            position: fixed;
+            bottom: 0;
+            left:0;
+            right: 0;
         }
         main {
             flex: 1;
             overflow: auto;
             max-height: calc(100vh - 200px);
+            padding-bottom: 50px;
         }
 
         body {
@@ -43,6 +52,7 @@
         </header>
         <main>
             <ul>
+            <li>Testing 1</li>
             <li>Testing</li>
             <li>Testing</li>
             <li>Testing</li>
@@ -121,8 +131,7 @@
             <li>Testing</li>
             <li>Testing</li>
             <li>Testing</li>
-            <li>Testing</li>
-            <li>Testing</li>
+            <li>Testing End</li>
             </ul>            
         </main>
         <footer>
