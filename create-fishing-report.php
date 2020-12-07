@@ -500,7 +500,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                         <div class="slide">
                             <p class="err-msg"></p>
-                            <label class="form-field-title"> Sea Wave Height</label>
+                            <h2 class="section-title"> Sea Wave Height</h2>
                             <div class="flex-wrapper values-wrapper">
                             <ul class="vertical full">
                                 <li class="vertical-item"><label><div><img src="assets/imgs/0t2ft.png" class="sea-condition-images"> 0 to 2 FT</div><input type="radio" name="seawaveheight" value="0-2" required /></label></li>
@@ -510,8 +510,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>                        
                         </div>
                         <div class="slide">
+                        <div class="scroll-wrapper">
                             <p class="err-msg"></p>
-                            <label class="form-field-title"> Fishing Depth </label>
+                            <h2 class="section-title"> Fishing Depth </h2>
                             <div class="flex-wrapper values-wrapper">
                                 <ul class="vertical full">
                                     <li class="vertical-item"><label><div><input type="checkbox" name="fishingdepth[]" value="0-50" /> 0'-50'</div></label></li>
@@ -531,7 +532,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                     <li class="vertical-item"><label><div>
                                     <input type="checkbox" name="fishingdepth[]" value="800+" /> 800' or more</div></label></li>
                                 </ul>
-                            </div>                        
+                            </div>    
+                            </div>                    
                         </div>
                         <div class="slide species-wrapper">
                         <div class="scroll-wrapper">
@@ -764,7 +766,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script src="assets/js/dropzone.js"></script>
 		<script src="assets/js/cropper.js"></script>
         <script type="text/javascript">
-            $('.scroll-wrapper').css('max-height',$(window).height()-260);
+            
             <?php $added_gtin = explode(",",$selected_gtins[0]['variants_array']); ?>            
             let added_gtin = new Array();
             <?php foreach($added_gtin as $key => $val){ ?>

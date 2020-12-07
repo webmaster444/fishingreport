@@ -372,11 +372,13 @@ a:active, a:focus{
     overflow: auto;
 }
 .scroll-wrapper{
-    /* max-height: calc(100vh - 305px) !important; */
+    max-height: calc(100vh - 275px);
+    overflow: auto;
 }
 
 .drawer-scroll-wrapper{
-    /* max-height: calc(100vh - 280px) !important; */
+    max-height: calc(100vh - 255px);
+    overflow: auto;
 }
 .drawer-footer{
     position: absolute;
@@ -767,9 +769,6 @@ body {
 html {
 height: -webkit-fill-available;
 }
-.scroll-wrapper{
-    overflow: auto;
-}
 @media screen and (max-width:767px){
     h1{
         font-size: 25px;
@@ -780,9 +779,6 @@ height: -webkit-fill-available;
         padding-bottom: 50px;
     }
 
-    .tacklebox-page .scroll-wrapper,.fishing-report-page .scroll-wrapper{
-        /* max-height: calc(100vh - 355px) !important; */
-    }
 
     h5.modal-title{
         font-size: 22px;        
