@@ -77,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="categories-wrapper">
                         <div class="scroll-wrapper">
                             <h2 class="section-title">Category</h2>    
-                            <div class="search-input"><input type="text" class="autocomplete" /></div>                        
+                            <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" /></div>                        
                             <ul class="vertical">                
                             <?php 
                                 foreach($subcats as $subcat){
@@ -90,7 +90,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="brands-wrapper">
                             <div class="scroll-wrapper">
                             <h2 class="section-title">Brands</h2>
-                            <div class="search-input"><input type="text" class="autocomplete" /></div>
+                            <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" /></div>
                             <ul class="vertical">
 
                             </ul>
@@ -99,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="products-wrapper">
                         <div class="scroll-wrapper">
                             <h2 class="section-title">Products</h2>
-                            <div class="search-input"><input type="text" class="autocomplete" tabindex="0"></div>
+                            <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" tabindex="0"></div>
                             <ul class="vertical">
 
                             </ul>
@@ -108,7 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="variants-wrapper">
                         <div class="scroll-wrapper">
                             <h2 class="section-title">Variants</h2>
-                            <div class="search-input"><input type="text" class="autocomplete" /></div>
+                            <div class="search-input"><input type="text" class="autocomplete" placeholder="Search"  /></div>
                             <ul class="vertical"></ul>
                             </div>
                         </div>                
