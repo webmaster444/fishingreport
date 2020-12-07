@@ -751,6 +751,15 @@ input[type="text"]{
 .fishing-report-page .your-tackle-box .add_more_tackle i{
     padding-right: 0;
 }
+body {
+    min-height: 100vh;
+    /* mobile viewport bug fix */
+    min-height: -webkit-fill-available;
+  }
+  
+html {
+height: -webkit-fill-available;
+}
 @media screen and (max-width:767px){
     h1{
         font-size: 25px;
