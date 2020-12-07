@@ -41,9 +41,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $nickname_err = "Please enter your display name";
     }
 
-    if(empty(trim($_POST["bio"]))){
-        $bio_err = "Please enter your bio";
-    }
+    // if(empty(trim($_POST["bio"]))){
+    //     $bio_err = "Please enter your bio";
+    // }
 
     // if(empty(trim($_POST["address_changed"]))){
     //     $address_err = "Please enter your address";
@@ -165,8 +165,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </select>
                     </div>
                     <div class="form-control">
-                        <label for="nickname">Bio<span class="required">*</span></label>
-                        <textarea name="bio" id="bio" required><?php echo isset($_POST['bio'])?$_POST['bio']:'' ?></textarea>
+                        <label for="nickname">Bio</label>
+                        <textarea name="bio" id="bio"><?php echo isset($_POST['bio'])?$_POST['bio']:'' ?></textarea>
                         <p class="err-msg"><?php echo $bio_err; ?></p>
                     </div>
                     <input type="hidden" name="city" id="locality" required value="<?php echo isset($_POST['city'])?$_POST['city']:'' ?>"/>

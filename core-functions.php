@@ -60,6 +60,29 @@ function getAdvisorProductHandlesFromIds($array){
     return $handles;    
 }
 
+function getProductsHandleFromGtins($gtins){
+    global $conn;
+    $sqlArray = implode(',', $gtins);
+    $sql = 'SELECT handle FROM core_gtin WHERE gtin IN ('.$sqlArray.')';
+    
+    $result = $conn->query($sql);
+
+    $variants = array();
+    if ($result->num_rows > 0) {
+    // output data of each row    
+        while ( $row = $result->fetch_assoc())  {
+            $variants[]=$row;
+        }
+    }
+
+    $handles = array();
+    foreach($variants as $variant){
+        $handle = $variant['handle'];
+        $handles[] = $handle;
+    }
+    return $handles;  
+}
+
 function clean($string) {
     $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
     return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.

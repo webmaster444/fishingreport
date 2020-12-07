@@ -508,6 +508,7 @@ input[type='checkbox'] ,input[type='radio'] {
 }
 input[type='checkbox']{
     border-radius: 5px;
+    vertical-align: middle;
 }
 input[type="radio"]{
     border-radius: 15px;
@@ -629,10 +630,16 @@ input[type='checkbox']:checked,input[type='radio']:checked {
     overflow: hidden;
     width: 160px;
     height: 160px;
-    margin: 10px;
+    margin: 10px 0;
     border: 1px solid red;
 }
-
+#sample_image{
+    max-height: 350px;
+}
+.modal-buttons-wrapper{
+    margin: 10px;
+    display: flex;
+}
 #modal .img-container{
     padding: 20px;
 }
@@ -722,16 +729,27 @@ h5.modal-title{
 button[disabled] {
     opacity: 0.5;
 }
-
+#modal .img-container .row .col-md-4{
+    display: flex;
+}
 .no-slider .content{
     top: 140px;
 }
 h2{
-    margin-top: 0;
+    margin-top: 10px;
 }
 .slick-slide {
     outline: none;
     padding: 0 3px;
+}
+p,span, body,a,button, label{
+    font-size: 20px;
+}
+input[type="text"]{
+    font-size: 20px;
+}
+.fishing-report-page .your-tackle-box .add_more_tackle i{
+    padding-right: 0;
 }
 @media screen and (max-width:767px){
     h1{

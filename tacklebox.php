@@ -86,6 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>        
             <h1 class="text-center">Tackle box</h1>
+            <div class="back-home"><i class="fas fa-chevron-left"></i></div>
             <div class="content">
                 <div class="scroll-content">
                 <div class="categories-wrapper">
@@ -123,7 +124,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         return $var['sub']==$subcat[0];
                     });
                     if(sizeof($filtered_vars)==0){
-                        echo '<a href="#" class="add_more_tackle btn-primary"><i class="fas fa-plus-circle"></i>Add more tackle</a>';
+                        echo '<a href="#" class="add_more_tackle text-center btn-primary"><i class="fas fa-plus-circle"></i>Add more tackle</a>';
                     }else{
                         echo '<ul class="vertical">';
                         foreach($filtered_vars as $variant){
@@ -137,9 +138,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>   
                 </div>
             </div>
-            <div class="page-footer">
-            <a href="index.php" class="pull-left btn-primary">Back to home</a>
-            <a href="#" class="add_more_tackle pull-right btn-primary"><i class="fas fa-plus-circle"></i>Add more tackle</a>
+            <div class="page-footer">        
+            <a href="#" class="add_more_tackle full btn-primary text-center"><i class="fas fa-plus-circle"></i>Add more tackle</a>
             </div>
             <div class='drawer-bottom'>
                 <div class="drawer-header">

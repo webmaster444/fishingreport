@@ -35,6 +35,7 @@ if(sizeof($loggedin_user_citys)==0){
 
 $sql = 'SELECT attribute_id, attribute_name,image_url FROM advisor_attribute WHERE FIND_IN_SET(attribute_id, (SELECT species FROM member_detail_fishing WHERE email_id = "'.$_SESSION['id'].'" LIMIT 1)) ORDER BY attribute_name';
 $species_result = $conn->query($sql);
+$species = array();
 while($row = $species_result->fetch_array()){
     $species[] = $row;
 }
@@ -48,13 +49,14 @@ while($row = $allspecies_result->fetch_array()){
 
 $sql = 'SELECT attribute_id, attribute_name,image_url FROM advisor_attribute WHERE FIND_IN_SET(attribute_id, (SELECT fishing_types FROM member_detail_fishing WHERE email_id = "'.$_SESSION['id'].'" LIMIT 1))';
 $fishingtype_result = $conn->query($sql);
+$fishing_types = array();
 while($row = $fishingtype_result->fetch_array()){
     $fishing_types[] = $row;
 }
 
 $sql = 'SELECT attribute_id, attribute_name,image_url FROM advisor_attribute WHERE FIND_IN_SET(attribute_id, (SELECT fishing_technique FROM member_detail_fishing WHERE email_id = "'.$_SESSION['id'].'" LIMIT 1))';
 $technique_result = $conn->query($sql);
-
+$techniques = array();
 while($row = $technique_result->fetch_array()){
     $techniques[] = $row;
 }
@@ -144,7 +146,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //fishing_depth
     $metafield = array();
     $metafield['key'] = 'fishing_depth';
-    $metafield['value'] = $_POST['fishingdepth'];
+    $fishing_depth_meta_value = implode("||",$_POST['fishingdepth']);
+    $metafield['value'] = $fishing_depth_meta_value;
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -161,11 +164,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $slider_species_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['species']));
     $slider_fishing_types_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['fishing_types']));
     $slider_fishing_technique_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['fishing_technique']));
-
+    $slider_tacklebox_meta_value = implode("|", getProductsHandleFromGtins($_POST['selected_variants']));
+    
     $species_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['species'])));    
     $fishing_types_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_types'])));
     $fishing_technique_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_technique'])));
-
+    
     //species
     $metafield = array();
     $metafield['key'] = 'species';
@@ -278,6 +282,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield = array();
     $metafield['key'] = 'slider_type';
     $metafield['value'] = $slider_fishing_types_meta_value;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'slider_tackle';
+    $metafield['value'] = $slider_tacklebox_meta_value;
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -495,22 +506,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <label class="form-field-title"> Fishing Depth </label>
                             <div class="flex-wrapper values-wrapper">
                                 <ul class="vertical full">
-                                    <li class="vertical-item"><label><div><input type="radio" name="fishingdepth" value="0-50" /> 0'-50'</div></label></li>
+                                    <li class="vertical-item"><label><div><input type="checkbox" name="fishingdepth[]" value="0-50" /> 0'-50'</div></label></li>
                                     <li class="vertical-item">
                                         <label>
-                                        <div><input type="radio" name="fishingdepth" value="50-80" /> 50'-80'</div>
+                                            <div><input type="checkbox" name="fishingdepth[]" value="50-80" /> 50'-80'</div>
                                         </label>
                                     </li>
                                     <li class="vertical-item"><label><div>
-                                    <input type="radio" name="fishingdepth" value="80-100" /> 80'-100'</div></label></li>
+                                    <input type="checkbox" name="fishingdepth[]" value="80-100" /> 80'-100'</div></label></li>
                                     <li class="vertical-item"><label><div>
-                                    <input type="radio" name="fishingdepth" value="100-300" /> 100'-300'</div></label></li>
+                                    <input type="checkbox" name="fishingdepth[]" value="100-300" /> 100'-300'</div></label></li>
                                     <li class="vertical-item"><label><div>
-                                    <input type="radio" name="fishingdepth" value="300-500" /> 300'-500'</div></label></li>
+                                    <input type="checkbox" name="fishingdepth[]" value="300-500" /> 300'-500'</div></label></li>
                                     <li class="vertical-item"><label><div>
-                                    <input type="radio" name="fishingdepth" value="500-800" /> 500'-800'</div></label></li>
+                                    <input type="checkbox" name="fishingdepth[]" value="500-800" /> 500'-800'</div></label></li>
                                     <li class="vertical-item"><label><div>
-                                    <input type="radio" name="fishingdepth" value="800+" /> 800' or more</div></label></li>
+                                    <input type="checkbox" name="fishingdepth[]" value="800+" /> 800' or more</div></label></li>
                                 </ul>
                             </div>                        
                         </div>
@@ -578,7 +589,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                         <div class="slide your-tackle-box">
                             <div class="scroll-wrapper">
-                            <h2 class="section-title">Your Tacklebox</h2><a href="#" class="add_more_tackle btn-primary"><i class="fas fa-pen"></i>Edit tackle box</a>
+                            <h2 class="section-title">Your Tacklebox</h2><a href="#" class="add_more_tackle btn-primary"><i class="fas fa-pen"></i></a>
                             <p class="err-msg"></p>
                             <div class="values-wrapper">
                             <ul class="vertical full">                
@@ -721,14 +732,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			                		</div>
 			                		<div class="col-md-4">
 			                    		<div class="preview"></div>
+                                        <div class="modal-buttons-wrapper">
+                                            <button type="button" id="crop" class="btn btn-primary">Crop</button>
+			        		                <button type="button" id="close-modal" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        </div>
 			                		</div>
 			            		</div>
 			        		</div>
 			      		</div>
-			      		<div class="modal-footer">
-			      			<button type="button" id="crop" class="btn btn-primary">Crop</button>
-			        		<button type="button" id="close-modal" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-			      		</div>
+			      		<!-- <div class="modal-footer">
+			      			
+			      		</div> -->
 			    	</div>
 			  	</div>
 
@@ -981,7 +995,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 return true;
             }else if(index==4){
-                if($('input[name="fishingdepth"]:checked').val()==undefined){
+                if($('input[name="fishingdepth[]"]:checked').val()==undefined){
                     return "Please fill all required fields";
                 }
                 return true;
