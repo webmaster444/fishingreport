@@ -767,6 +767,9 @@ body {
 html {
 height: -webkit-fill-available;
 }
+.scroll-wrapper{
+    overflow: auto;
+}
 @media screen and (max-width:767px){
     h1{
         font-size: 25px;
