@@ -19,6 +19,7 @@
             top:0;
             left:0;
             right: 0;
+            background: red;
         }
 
         footer{
@@ -27,12 +28,14 @@
             bottom: 0;
             left:0;
             right: 0;
+            background: green;
         }
         main {
             flex: 1;
             overflow: auto;
             max-height: calc(100vh - 200px);
             padding-bottom: 50px;
+            padding-top: 150px;
         }
 
         body {
