@@ -369,11 +369,11 @@ a:active, a:focus{
     overflow: auto;
 }
 .scroll-wrapper{
-    max-height: calc(100vh - 305px) !important;
+    /* max-height: calc(100vh - 305px) !important; */
 }
 
 .drawer-scroll-wrapper{
-    max-height: calc(100vh - 280px) !important;
+    /* max-height: calc(100vh - 280px) !important; */
 }
 .drawer-footer{
     position: absolute;
@@ -415,7 +415,7 @@ a:active, a:focus{
     max-width: 100%;
     height: auto;
 }
-h1.page-title{
+h1{
     font-size: 30px;
     line-height: 32px;
     text-align: center;
