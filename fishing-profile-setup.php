@@ -122,7 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             success: function(result) {
                 if(result.length > 0){                        
                     let selectorHTML='';
-                    selectorHTML+='<div class="scroll-wrapper"><div class="search-input"><input type="text" class="autocomplete"/></div>';
+                    selectorHTML+='<div class="scroll-wrapper"><div class="search-input"><input type="text" class="autocomplete" placeholder="Search" /></div>';
                     selectorHTML+='<ul class="vertical full">';
                     result.forEach(function(d){
                         selectorHTML+='<li class="vertical-item"><label><div>';
