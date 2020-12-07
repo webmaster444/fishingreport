@@ -26,8 +26,11 @@ a{
 a:hover, a:focus, a:active{
     color: #1a81c6;
     text-decoration: none;  
+    outline: none;
 }
-
+button:active, button:hover, button:focus{
+    outline: none;
+}
 .login-header{
     background-color: #0259FE;
     padding: 15px 50px;
@@ -775,7 +778,7 @@ height: -webkit-fill-available;
     }
 
     .tacklebox-page .scroll-wrapper,.fishing-report-page .scroll-wrapper{
-        max-height: calc(100vh - 355px) !important;
+        /* max-height: calc(100vh - 355px) !important; */
     }
 
     h5.modal-title{
