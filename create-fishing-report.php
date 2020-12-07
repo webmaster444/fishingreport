@@ -766,7 +766,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script src="assets/js/dropzone.js"></script>
 		<script src="assets/js/cropper.js"></script>
         <script type="text/javascript">
-            
+            $('.scroll-wrapper').css('max-height',($(window).height()-260));
             <?php $added_gtin = explode(",",$selected_gtins[0]['variants_array']); ?>            
             let added_gtin = new Array();
             <?php foreach($added_gtin as $key => $val){ ?>
