@@ -416,6 +416,8 @@ a:active, a:focus{
     height: auto;
 }
 h1.page-title{
+    font-size: 30px;
+    line-height: 32px;
     text-align: center;
     padding-left: 20px;
     padding-right: 20px;
@@ -610,7 +612,7 @@ input[type='checkbox']:checked,input[type='radio']:checked {
 
 .back-wrapper,.back-home{
     position: absolute;
-    top: 95px;
+    top: 90px;
     left: 30px;
     cursor: pointer;
 }
@@ -736,6 +738,8 @@ button[disabled] {
     top: 140px;
 }
 h2{
+    font-size: 28px;
+    line-height: 30px;
     margin-top: 10px;
 }
 .slick-slide {
@@ -763,6 +767,7 @@ height: -webkit-fill-available;
 @media screen and (max-width:767px){
     h1{
         font-size: 25px;
+        line-height: 30px;
     }
 
     .no-slider .scroll-content form{
