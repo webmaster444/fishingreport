@@ -463,6 +463,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>        
             <h1 class="page-title">Create a fishing report</h1>            
             <div class="back-home"><i class="fas fa-chevron-left"></i></div>
+            <div class="back-wrapper hide"><i class="fas fa-chevron-left"></i></div>        
             <div class="content">
                 <div class="notifications-wrapper">
                     <?php foreach ($notifications as $notification){ ?>
@@ -670,10 +671,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </form>            
             </div>   
             <div class="page-footer">
-            <div class="flex-wrapper space-between slider-buttons-wrapper">
-                <a href="#" class="btn-primary invisible slick-prev">Prev</a>
-                <a href="#" class="btn-primary slick-next">Next</a>            
-                <a href="#" class="btn-primary hide" id="report_submit">Submit</a>         
+            <div class="slider-buttons-wrapper">
+                <a href="#" class="btn-primary pull-right slick-next">Next</a>            
+                <a href="#" class="btn-primary pull-right hide" id="report_submit">Submit</a>         
             </div>         
             </div>
             <div class='drawer-bottom'>
@@ -793,9 +793,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             });
 
             $('.slick-slider-wrapper').on('afterChange', function(event, slick, currentSlide, nextSlide){
-                if(currentSlide==0){
+                if(currentSlide==0){                    
                     $(".slick-prev").addClass('invisible');
+                    $('.back-home').removeClass('hide');
+                    $('.back-wrapper').addClass('hide');
                 }else{
+                    $('.back-wrapper').removeClass('hide');
+                    $('.back-home').addClass('hide');
                     $(".slick-prev").removeClass('invisible');
                 }
                 if(currentSlide == item_length){
@@ -944,17 +948,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
             $("#hidden_rating").val(ratingValue);
         });
-
-        $('.btn-primary.slick-prev').on('click', function(){
-            let currentStep = $('.slick-current').index();
-            $('.slick-slider-wrapper').slick('slickPrev');
-            // if(fishingReportValidation(currentStep)==true){
-            //     $('.slick-slider-wrapper').slick('slickPrev');
-            // }else{
-            //     $('.slick-current .err-msg').html(fishingReportValidation(currentStep));
-            // }
-        })
-
+        
         $('.btn-primary.slick-next').on('click', function(){
             let currentStep = $('.slick-current').index();
             if(fishingReportValidation(currentStep)==true){
@@ -966,8 +960,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $("#report_submit").on('click', function(){
             let currentStep = $('.slick-current').index();
-            if(fishingReportValidation(currentStep)==true){                
+            if(fishingReportValidation(currentStep)==true){                                
                 $('form').submit();
+                $(this).html('Submitting...');
                 $(this).prop('disabled',true);
             }else{
                 $('.slick-current .err-msg').html(fishingReportValidation(currentStep));
@@ -1195,6 +1190,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
             });
         })
+        $(document).on('click','.back-wrapper', function(){
+            $('.slick-slider-wrapper').slick('slickPrev');
+            let cuIndex = $('.slick-current').index();
+            if(cuIndex==0){
+                $("#getTechniqueButton").addClass('hide');
+                $('.back-wrapper').addClass('hide');
+                $('.back-home').removeClass('hide');
+                $("#getFishingTypesButton").removeClass("hide");
+            }else if(cuIndex==1){
+                $("#createTacklebox").addClass('hide');
+                $("#getTechniqueButton").removeClass('hide');
+            }
+        })    
         if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );
         }

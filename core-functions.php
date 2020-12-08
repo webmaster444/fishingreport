@@ -78,7 +78,7 @@ function getProductsHandleFromGtins($gtins){
     $handles = array();
     foreach($variants as $variant){
         $handle = $variant['handle'];
-        $handles[] = $handle;
+        $handles[] = clean($handle);
     }
     return $handles;  
 }

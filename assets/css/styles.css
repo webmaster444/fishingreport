@@ -611,7 +611,7 @@ input[type='checkbox']:checked,input[type='radio']:checked {
     right: 0;
     top: 0;
     bottom: 0;
-    z-index: 101;
+    z-index: 102;
     background: #909090d1;
 }
 
@@ -620,7 +620,7 @@ input[type='checkbox']:checked,input[type='radio']:checked {
     top: 90px;
     left: 30px;
     cursor: pointer;
-    z-index: 150;
+    z-index: 101;
 }
 
 /* crop modal */
@@ -672,7 +672,8 @@ h5.modal-title{
 .your-tackle-box .scroll-wrapper .add_more_tackle{
     position: absolute;
     right: 0;
-    top: -10px;
+    top: 0px;
+    padding: 10px;
 }
 
 .facebook{
@@ -683,6 +684,9 @@ h5.modal-title{
     
 }
 
+.vertical-item .trash i{
+    color: black;
+}
 .social-login{
     width: 100%;
     box-shadow: none;

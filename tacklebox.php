@@ -110,7 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             echo '<li class="">'.$subcat[0];
                             echo '<ul class="sub-vertical">';
                             foreach($filtered_vars as $variant){
-                                echo '<li class="vertical-item"><div><img src="'.$variant['variant_img'].'">'.$variant['brandname'].'-'.$variant['option1_value'].'</div></li>';
+                                echo '<li class="vertical-item" attr-gtin="'.$variant['gtin'].'"><label><div><img src="'.$variant['variant_img'].'">'.$variant['brandname'].'-'.$variant['option1_value'].'</div><a href="#" class="trash"><i class="far fa-trash-alt"></i></a></label></li>';
                             }
                             echo '</ul>';
                             echo '</li>';
@@ -128,7 +128,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     }else{
                         echo '<ul class="vertical">';
                         foreach($filtered_vars as $variant){
-                            echo '<li class="vertical-item"><div><img src="'.$variant['variant_img'].'">'.$variant['brandname'].'-'.$variant['option1_value'].'</div></li>';
+                            echo '<li class="vertical-item" attr-gtin="'.$variant['gtin'].'"><label><div><img src="'.$variant['variant_img'].'">'.$variant['brandname'].'-'.$variant['option1_value'].'</div><a href="#" class="trash"><i class="far fa-trash-alt"></i></a></label></li>';
                         }
                         echo '</ul>';
                     }
@@ -252,7 +252,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if($(this).parent().parent().hasClass('subcat-wrapper')){
                     
                     let pageIndex = $(this).parent().parent().index();
-                    console.log(pageIndex);
                     $('.drawer-slide > .drawer-scroll-wrapper > ul > li:nth-child('+pageIndex+')').trigger('click');
                     // $('.drawer-slick-wrapper').slick('slickGoTo',0);
                 }else{
@@ -350,6 +349,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $("#added_gtin").val(added_gtin.join(","));
             })
 
+            $(document).on('click','a.trash', function(){
+                let gtin = $(this).closest('.vertical-item').attr('attr-gtin');
+                $('li.vertical-item[attr-gtin="'+gtin+'"').remove();
+                console.log(gtin);
+            })
         </script>
     </body>
 </html>

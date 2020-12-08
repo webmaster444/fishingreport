@@ -69,14 +69,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <h1 class="page-title">Create a tackle box</h1>
             <div class="back-home"><i class="fas fa-chevron-left"></i></div>
             <div class="back-wrapper hide"><i class="fas fa-chevron-left"></i></div>
-            <p class="err-msg"></p>
             <div class="content">
                 <div class="scroll-content">                
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
                     <div class="slick-slider-wrapper">
                         <div class="categories-wrapper">
-                        <div class="scroll-wrapper">
+                        <div class="scroll-wrapper">                            
                             <h2 class="section-title">Category</h2>    
+                            <p class="err-msg"></p>
                             <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" /></div>                        
                             <ul class="vertical">                
                             <?php 
@@ -88,8 +88,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                         </div>
                         <div class="brands-wrapper">
-                            <div class="scroll-wrapper">
+                            <div class="scroll-wrapper">                            
                             <h2 class="section-title">Brands</h2>
+                            <p class="err-msg"></p>
                             <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" /></div>
                             <ul class="vertical">
 
@@ -97,8 +98,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                         </div>
                         <div class="products-wrapper">
-                        <div class="scroll-wrapper">
+                        <div class="scroll-wrapper">                            
                             <h2 class="section-title">Products</h2>
+                            <p class="err-msg"></p>
                             <div class="search-input"><input type="text" class="autocomplete"  placeholder="Search" tabindex="0"></div>
                             <ul class="vertical">
 
@@ -106,8 +108,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
                         </div>
                         <div class="variants-wrapper">
-                        <div class="scroll-wrapper">
+                        <div class="scroll-wrapper">                            
                             <h2 class="section-title">Variants</h2>
+                            <p class="err-msg"></p>
                             <div class="search-input"><input type="text" class="autocomplete" placeholder="Search"  /></div>
                             <ul class="vertical"></ul>
                             </div>
@@ -137,7 +140,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 slidesToShow: 1,
             });
 
-            $(document).on('click','li.category', function(){                
+            $(document).on('click','li.category', function(){
+                $('.err-msg').html('');
                 let subCatName = $(this).find('span').html();
                 $('.brands-wrapper h2').html(subCatName);
                 $('.brands-wrapper ul').html("");                
@@ -165,6 +169,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             })
 
             $(document).on('click', '.brands-wrapper li', function(){
+                $('.err-msg').html('');
                 let brandId = $(this).attr('brand-id');
                 let subcatText = $('.brands-wrapper h2').html();
                 $('.products-wrapper ul').html("");
@@ -188,6 +193,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             })
 
             $(document).on('click', '.products-wrapper li', function(){
+                $('.err-msg').html('');
                 let productId = $(this).attr('product-id');                
                 $('.variants-wrapper ul').html("");
                 $('.slick-slider-wrapper').slick('slickNext');
