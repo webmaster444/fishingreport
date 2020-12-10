@@ -452,6 +452,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             "template_suffix" => "report",
             "vendor"       => "FishinMyBestLife",
             "product_type" => "Angler Advisor | Fishing Reports | Catch Logs",
+            "published_scope" => "web",
             "tags"         => "AnglerAdvisor:JotformFishingReports",
             "published"    => false ,
             "images"       =>$product_images,
