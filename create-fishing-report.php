@@ -370,6 +370,55 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafields[] = $metafield;
     $metafield = array();
 
+    $metafield = array();
+    $metafield['key'] = 'Monday';
+    $metafield['value'] = 'Monday;10am - 5pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+    $metafield = array();
+
+    $metafield['key'] = 'Tuesday';
+    $metafield['value'] = 'Tuesday;10am - 5pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Wendesday';
+    $metafield['value'] = 'Wendesday;10am - 5pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Thursday';
+    $metafield['value'] = 'Thursday;10am - 5pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Friday';
+    $metafield['value'] = 'Friday;10am - 5pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Saturday';
+    $metafield['value'] = 'Saturday;10am - 5pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Sunday';
+    $metafield['value'] = "Sunday; Gone Fishin'";
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
     $metafield['key'] = 'box_3_url';
     $metafield['value'] = 'https://www.fishinmybestlife.com/collections/charter-boats';
     $metafield['value_type'] = "string";
