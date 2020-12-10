@@ -454,7 +454,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             "product_type" => "Angler Advisor | Fishing Reports | Catch Logs",
             "published_scope" => "web",
             "tags"         => "AnglerAdvisor:JotformFishingReports",
-            "published"    => false ,
+            "published"    => true ,
             "images"       =>$product_images,
             "status"       => "draft",
             "metafields"   => $metafields
