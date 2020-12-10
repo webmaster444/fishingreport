@@ -350,9 +350,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             })
 
             $(document).on('click','a.trash', function(){
-                let gtin = $(this).closest('.vertical-item').attr('attr-gtin');
-                $('li.vertical-item[attr-gtin="'+gtin+'"').remove();
-                console.log(gtin);
+                $(this).css('pointer-events','none');
+                let gtin = $(this).closest('.vertical-item').attr('attr-gtin');                
+                let added_gtin_str =$("#added_gtin").val();
+                
+                let email_id = '<?php echo $_SESSION['id'];?>';
+                if(added_gtin_str!=""){
+                    
+                    const index = added_gtin.indexOf(gtin);
+                    if (index > -1) {
+                        added_gtin.splice(index, 1);
+                    }
+                    
+                    added_gtin_str = added_gtin.join(",");
+                    $("#added_gtin").val(added_gtin_str);
+
+                    $.ajax({
+                    url: "core.php",
+                    type: "POST",
+                    data: {action: "update-tacklebox-ajax", added_gtin:added_gtin_str, email_id:email_id},
+                    dataType: "json",
+                    success: function(result) {  
+                        $('li.vertical-item[attr-gtin="'+gtin+'"').remove();
+                    }
+                });
+                }                                
             })
         </script>
     </body>

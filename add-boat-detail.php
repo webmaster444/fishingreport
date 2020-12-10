@@ -49,16 +49,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $nickname_err = "Please enter your display name";
     }
 
-    // if(empty(trim($_POST["bio"]))){
-    //     $bio_err = "Please enter your bio";
-    // }
-
-    // if(empty(trim($_POST["address_changed"]))){
-    //     $address_err = "Please enter your address";
-    // }else if($_POST['address_changed']=="inputchanges"){
-    //     $address_err = "Please enter a valid address";
-    // }
-
     $sql = "SELECT city_id FROM advisor_city WHERE city = '".$_POST['city']."'";
     $cityresult = $conn->query($sql);
 
@@ -90,8 +80,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $param_fname = $_POST['fname'];
                 $param_lname = $_POST['lname'];
                 $param_email = $_SESSION["username"];
-                $param_phone = $_POST['phone'];
-                $param_address = $_POST['completeaddress'];
+                $param_phone = $_POST['fname'];
+                $param_address = $_POST['address'];
                 $param_city = $_POST['city'];
                 $param_state = $_POST['state'];
                 $param_postalcode = $_POST['zipcode'];
@@ -112,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Close statement
                 mysqli_stmt_close($stmt);
             }
-        }else{            
+        }else{
             // Prepare an insert statement
             $sql = "UPDATE Member SET first_name=?, last_name=?, email=?, phone=?, address=?,city=?,state=?,postal_code=?,country=?,member_type_id=?,bio=?,shopify_customer_id=?,own_boat=?, nickname=?,active=1 WHERE member_email_id='".$_SESSION['id']."'";
             
@@ -124,8 +114,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $param_fname = $_POST['fname'];
                 $param_lname = $_POST['lname'];
                 $param_email = $_SESSION["username"];
-                $param_phone = $_POST['phone'];
-                $param_address = $_POST['completeaddress'];
+                $param_phone = $_POST['fname'];
+                $param_address = $_POST['address'];
                 $param_city = $_POST['city'];
                 $param_state = $_POST['state'];
                 $param_postalcode = $_POST['zipcode'];
@@ -161,14 +151,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <meta charset="utf-8"> 
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
-        <title>Edit your profile | Fish in My Best Life</title>
+        <title>Add boat detail | Fish in My Best Life</title>
         <link rel="stylesheet" href="assets/css/styles.css">        
         <link rel="stylesheet" href="assets/css/all.min.css">        
     </head>
     <body class="profile-setup no-slider" id="edit-profile-page">
         <div class="login-content page-content">
             <div class="login-header text-center"><a href="index.php"><img src="assets/imgs/logo.png" alt="Fish in my best life" /></a></div>            
-            <h1 class="page-title">Edit your profile</h2>
+            <h1 class="page-title">Your boat info</h2>
             <div class="back-home"><i class="fas fa-chevron-left"></i></div>
             <div class="content">
             <div class="scroll-content">
@@ -225,7 +215,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="hidden" name="country" id="country" required value="<?php echo isset($_POST['country'])?$_POST['country']:(isset($loggedin_users[0])?$loggedin_users[0]['country']:""); ?>"/>
                     <input type="hidden" name="address_changed" id="address_changed" value="<?php echo isset($_POST['address_changed'])?$_POST['address_changed']:'autocompleted' ?>" />
                     <div class="form-control">
-                        <label for="ownboat"><input type="checkbox" name="ownboat" id="ownboat" <?php echo isset($_POST['ownboat'])?'checked':((isset($loggedin_users[0])&&($loggedin_users[0]['own_boat']!='0'))?'checked':'');?> />Own boat</label>
+                        <label for="ownboat"><input type="checkbox" name="ownboat" id="ownboat" <?php echo isset($_POST['ownboat'])?'checked':''?> />Own boat</label>                        
                     </div>
                     <button type="submit" class="btn-primary">Save</button>    
                 </div>                                                                                

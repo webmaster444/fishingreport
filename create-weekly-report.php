@@ -140,6 +140,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $fishing_types_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_types'])));
     $fishing_technique_meta_value = implode("||",array_map(function($d){return $d['attribute_name'];}, getAttributeNamesFromIds($_POST['fishing_technique'])));
 
+    $slider_species_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['species']));
+    $slider_fishing_types_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['fishing_types']));
+    $slider_fishing_technique_meta_value = implode("|", getAdvisorProductHandlesFromIds($_POST['fishing_technique']));
+    $slider_tacklebox_meta_value = implode("|", getProductsHandleFromGtins($_POST['selected_variants']));
+
     //species
     $metafield = array();
     $metafield['key'] = 'species';
@@ -210,16 +215,59 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $formated_trip_date = date_format(date_create($_POST['trip_date']),"n/j/y");
 
-    $title = $location_city.' Fishing Report '.$formated_trip_date.' | Fishing Forecast';
+    $title_tag_str = $location_city.' Fishing Report '.$formated_trip_date.' | Fishing Forecast';
 
     $metafield = array();
     $metafield['key'] = 'title_tag';
-    $metafield['value'] = $title;
+    $metafield['value'] = trim($title_tag_str);
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "global";
     $metafields[] = $metafield;
     
     $selected_gtins_str = implode(",", $_POST['selected_variants']);    
+
+    $metafield = array();
+    $metafield['key'] = 'slider_species';
+    $metafield['value'] = $slider_species_meta_value;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    // seo
+    $metafield = array();
+    $metafield['key'] = 'hidden';
+    $metafield['value'] = 1;
+    $metafield['value_type'] = "integer";
+    $metafield['namespace'] = "seo";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'slider_type';
+    $metafield['value'] = $slider_fishing_types_meta_value;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'slider_tackle';
+    $metafield['value'] = $slider_tacklebox_meta_value;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'slider_technique';
+    $metafield['value'] = $slider_fishing_technique_meta_value;
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'slider_charters';
+    $metafield['value'] = 'charter-fishing-boats-us-fl-jupiter-bottom-fishing|charter-fishing-boats-us-fl-jupiter-deep-sea-fishing|charter-fishing-boats-us-fl-jupiter-inshore-fishing|charter-fishing-boats-us-fl-boynton-beach-bottom-fishing|charter-fishing-boats-us-fl-palm-beach-deep-sea-fishing|charter-fishing-boats-us-fl-palm-beach-inshore-fishing|charter-fishing-boats-us-fl-palm-beach-bottom-fishing|charter-fishing-boats-us-fl-boynton-beach-deep-sea-fishing';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
     // store it to db
     // $sql = "INSERT INTO member_fishing_report (member_email_id,trip_date,used_gtin,city) VALUES (?,?,?,?)";
     // if($stmt = mysqli_prepare($conn, $sql)){
@@ -855,6 +903,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script src="assets/js/dropzone.js"></script>
 		<script src="assets/js/cropper.js"></script>
         <script type="text/javascript">
+            $('.scroll-wrapper').css('max-height',($(window).height()-260));
+            $('.drawer-scroll-wrapper').css('max-height',($(window).height()-240));
             <?php $added_gtin = explode(",",$selected_gtins[0]['variants_array']); ?>            
             let added_gtin = new Array();
             <?php foreach($added_gtin as $key => $val){ ?>

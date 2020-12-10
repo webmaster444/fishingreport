@@ -253,8 +253,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     $metafield = array();
     $metafield['key'] = 'sortDate';
-    $today = new DateTime();
-    $metafield['value'] = $today->format('Y-m-d');
+    // $today = new DateTime();
+    // $metafield['value'] = $today->format('Y-m-d');
+    $metafield['value'] = $_POST['trip_date'];    
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "global";
     $metafields[] = $metafield;
@@ -767,6 +768,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<script src="assets/js/cropper.js"></script>
         <script type="text/javascript">
             $('.scroll-wrapper').css('max-height',($(window).height()-260));
+            $('.drawer-scroll-wrapper').css('max-height',($(window).height()-240));
             <?php $added_gtin = explode(",",$selected_gtins[0]['variants_array']); ?>            
             let added_gtin = new Array();
             <?php foreach($added_gtin as $key => $val){ ?>

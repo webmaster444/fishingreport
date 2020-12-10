@@ -80,7 +80,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_fname = $_POST['fname'];
             $param_lname = $_POST['lname'];
             $param_email = $_SESSION["username"];
-            $param_phone = $_POST['fname'];
+            $param_phone = $_POST['phone'];
             $param_address = $_POST['address'];
             $param_city = $_POST['city'];
             $param_state = $_POST['state'];

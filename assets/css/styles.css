@@ -475,6 +475,7 @@ h1{
     display: flex;
     font-size: 20px;
     font-weight: bold;
+    overflow: hidden;
 }
 
 input.autocomplete{
@@ -763,7 +764,7 @@ h2{
 p,span, body,a,button, label{
     font-size: 20px;
 }
-input[type="text"]{
+input[type="text"],input[type="email"]{
     font-size: 20px;
 }
 .fishing-report-page .your-tackle-box .add_more_tackle i{
@@ -777,6 +778,10 @@ body {
 html{
     height: -webkit-fill-available;
 }
+.vertical-item input[type="checkbox"],.vertical-item input[type="radio"]{
+    min-width: 30px;
+}
+
 @media screen and (max-width:767px){
     h1{
         font-size: 25px;
@@ -796,5 +801,21 @@ html{
     }
     .thumbnail img {
         max-height: calc(100vh - 300px);
+    }
+
+    .tacklebox-page .sub-vertical{
+        padding-left: 10px;    
+    }
+    .vertical-item .trash i{
+        padding-left: 10px;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .content{
+        padding: 0 10px;
+    }
+    .vertical-item img{
+        margin-left: 5px;
     }
 }
