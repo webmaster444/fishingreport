@@ -10,6 +10,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "db.php";
 require_once "core-functions.php";
 require_once "config.php";
+require_once('vendor/PHPMailer/PHPMailerAutoload.php');
 // get all subcategories
 global $conn;
 
@@ -439,6 +440,62 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
+    $metafield = array();
+    $metafield['key'] = 'employee_1_name';
+    $metafield['value'] = 'Alex King';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_2_name';
+    $metafield['value'] = 'Chase Mako';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_3_name';
+    $metafield['value'] = 'Megan Powell';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_4_name';
+    $metafield['value'] = 'Dru Pio';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_1_image';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/AlexKing-headshot.jpg?v=1598369017';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_2_image';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/ChaseMako-Headshot.jpg?v=1598369017';    
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_3_image';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/MeganPowell-Headshot.jpg?v=1598369017';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'employee_4_image';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/DruPio-Headshot.jpg?v=1598369017';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
     $description = $_POST['description'];
     $product_images =  array();
     $tmp_image = array();
@@ -490,7 +547,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }else{
         $notification = 'Successfully added report to store';
         $notifications[] = $notification;
-        mail('jlmobile710@gmail.com','Fishing Report Submission',"One report is created");
+        
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'tls';
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = '587';
+        $mail->isHTML();
+        $mail->Username = 'jlmobile710@gmail.com';
+        $mail->Password = 'eoqldir111';
+        $mail->SetFrom('drupio@gmail.com','Dru Pio');
+        $mail->Subject = "Approve new catch log";
+        $mail->Body = '<p>A catch log named "'.trim($title_tag_str).'"</p><a href="https://dru-pio.myshopify.com/admin/products?selectedView=all&product_type=Angler%20Advisor%20%7C%20Fishing%20Reports%20%7C%20Catch%20Logs&order=created_at%20desc">Approve new catch log</a>';
+
+        $mail->AddAddress('info@fishinmybestlife.com');
+
+        $result = $mail->Send();        
+        if($result == 1){
+            
+        }else{
+            
+        }
     }    
 }
 

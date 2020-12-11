@@ -4,17 +4,17 @@ require_once('vendor/PHPMailer/PHPMailerAutoload.php');
 $mail = new PHPMailer();
 $mail->isSMTP();
 $mail->SMTPAuth = true;
-$mail->SMTPSecure = 'ssl';
+$mail->SMTPSecure = 'tls';
 $mail->Host = 'smtp.gmail.com';
-$mail->Port = '465';
+$mail->Port = '587';
 $mail->isHTML();
 $mail->Username = 'jlmobile710@gmail.com';
-$mail->Password = '#aaaa';
-$mail->SetFrom('your-email-id@gmail.com','Your Name To Be Displayed');
-$mail->Subject = "Your email Subject";
-$mail->Body = 'Any HTML content';
+$mail->Password = 'eoqldir111';
+$mail->SetFrom('drupio@gmail.com','Dru Pio');
+$mail->Subject = "Approve new catch log";
+$mail->Body = '<a href="https://dru-pio.myshopify.com/admin/products?selectedView=all&product_type=Angler%20Advisor%20%7C%20Fishing%20Reports%20%7C%20Catch%20Logs&order=created_at%20desc">Approve new catch log</a>';
 
-$mail->AddAddress('jlmobile710@gmail.com');
+$mail->AddAddress('devwork8888@gmail.com');
 
 $result = $mail->Send();
 echo $mail->ErrorInfo;
