@@ -530,10 +530,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $tmp_image['src'] = $_POST['image_uploaded'];
     $tmp_image['alt'] = $location_city.', Fl Fishing Report '.$formated_trip_date.' | What\'s Biting | Fishing Forecast';
     $product_images[] = $tmp_image;
-    $handle = preg_replace('/\s+/', '-', strtolower($title));
+    $handle = preg_replace('/\s+/', '-', strtolower($title_tag_str));
     $products_array = array(
         "product" => array( 
-            "title"        => $title,
+            "title"        => trim($title_tag_str),
             "body_html"    => "",
             "handle"       => $handle,
             "template_suffix" => "tackel-shop",

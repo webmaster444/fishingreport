@@ -68,6 +68,7 @@ button:active, button:hover, button:focus{
     border: none;
     padding: 15px 20px;    
     cursor: pointer;
+    line-height: 20px;
     display: inline-block;
 }
 
@@ -619,7 +620,7 @@ input[type='checkbox']:checked,input[type='radio']:checked {
 .back-wrapper,.back-home{
     position: absolute;
     top: 90px;
-    left: 30px;
+    left: 15px;
     cursor: pointer;
     z-index: 101;
 }
@@ -788,6 +789,9 @@ html{
         line-height: 30px;
     }
 
+    .page-footer{
+        padding: 10px;
+    }
     .no-slider .scroll-content form{
         padding-bottom: 50px;
     }
@@ -811,10 +815,23 @@ html{
     }
 }
 
-@media screen and (max-width: 400px){
-    .content{
-        padding: 0 10px;
+@media screen and (max-width: 767px) and (max-height: 815px){
+    .scroll-wrapper{
+        max-height: 600px;
     }
+}
+
+@media screen and (max-width: 767px) and (max-height: 740px){
+    .scroll-wrapper{
+        max-height: 525px;
+    }
+}
+@media screen and (max-width: 767px) and (max-height: 670px){
+    .scroll-wrapper{
+        max-height: 455px;
+    }
+}
+@media screen and (max-width: 400px){
     .vertical-item img{
         margin-left: 5px;
     }
