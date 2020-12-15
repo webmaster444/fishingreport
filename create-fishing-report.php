@@ -559,7 +559,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mail->Password = 'eoqldir111';
         $mail->SetFrom('drupio@gmail.com','Dru Pio');
         $mail->Subject = "Approve new catch log";
-        $mail->Body = '<p>A catch log named "'.trim($title_tag_str).'"</p><a href="https://dru-pio.myshopify.com/admin/products?selectedView=all&product_type=Angler%20Advisor%20%7C%20Fishing%20Reports%20%7C%20Catch%20Logs&order=created_at%20desc">Approve new catch log</a>';
+        $mail->Body = '<p>A catch log named "'.trim($title_tag_str).'" has been created.</p><a href="https://dru-pio.myshopify.com/admin/products?selectedView=all&product_type=Angler%20Advisor%20%7C%20Fishing%20Reports%20%7C%20Catch%20Logs&order=created_at%20desc">Approve new catch log</a>';
 
         $mail->AddAddress('info@fishinmybestlife.com');
 
