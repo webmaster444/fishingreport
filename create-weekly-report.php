@@ -10,6 +10,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "db.php";
 require_once "core-functions.php";
 require_once "config.php";
+require_once('vendor/PHPMailer/PHPMailerAutoload.php');
 // get all subcategories
 global $conn;
 
@@ -328,14 +329,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
-    // seo
-    $metafield = array();
-    $metafield['key'] = 'hidden';
-    $metafield['value'] = 1;
-    $metafield['value_type'] = "integer";
-    $metafield['namespace'] = "seo";
-    $metafields[] = $metafield;
-
     $metafield = array();
     $metafield['key'] = 'book_url';
     $metafield['value'] = 'https://www.fishinmybestlife.com/collections/charter-boats';
@@ -531,11 +524,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $tmp_image['alt'] = $location_city.', Fl Fishing Report '.$formated_trip_date.' | What\'s Biting | Fishing Forecast';
     $product_images[] = $tmp_image;
     $handle = preg_replace('/\s+/', '-', strtolower($title_tag_str));
+        
     $products_array = array(
         "product" => array( 
             "title"        => trim($title_tag_str),
             "body_html"    => "",
-            "handle"       => $handle,
             "template_suffix" => "tackel-shop",
             "vendor"       => "FishinMyBestLife",
             "product_type" => "Angler Advisor | Fishing Reports | Weekly Reports",
@@ -571,6 +564,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     curl_close ($curl);
 
     if(array_key_exists('errors', json_decode($response))){
+        var_dump($response);
         $notification = 'Failed to create report on shopify store';
         $notifications[] = $notification;
     }else{
@@ -734,7 +728,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                         <div class="slide your-tackle-box">
                             <div class="scroll-wrapper">
-                            <h2 class="section-title">Your Tacklebox</h2><a href="#" class="add_more_tackle btn-primary"><i class="fas fa-pen"></i>Edit tackle box</a>
+                            <h2 class="section-title">Your Tacklebox</h2><a href="#" class="add_more_tackle btn-primary"><i class="fas fa-pen"></i></a>
                             <p class="err-msg"></p>
                             <div class="values-wrapper">
                             <ul class="vertical full">                
@@ -766,7 +760,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <ul class="vertical full">                
                                 <?php 
                                     foreach($bodies_of_water as $body){                                                                                                        
-                                        echo '<li><label><div><input type="radio" name="body_of_water" value="'.$body['body_of_water_id'].'" />'.$body['body_of_water'].'</div></label></li>';
+                                        echo '<li class="vertical-item"><label><div><input type="radio" name="body_of_water" value="'.$body['body_of_water_id'].'" />'.$body['body_of_water'].'</div></label></li>';
                                     }
                                 ?>
                                 </ul>
@@ -831,10 +825,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </form>            
             </div>   
             <div class="page-footer">
-            <div class="flex-wrapper space-between slider-buttons-wrapper">
-                <a href="#" class="btn-primary invisible slick-prev">Prev</a>
-                <a href="#" class="btn-primary slick-next">Next</a>            
-                <a href="#" class="btn-primary hide" id="report_submit">Submit</a>         
+            <div class="slider-buttons-wrapper">
+                <!-- <a href="#" class="btn-primary invisible slick-prev">Prev</a> -->
+                <a href="#" class="btn-primary pull-right slick-next">Next</a>            
+                <a href="#" class="btn-primary pull-right hide" id="report_submit">Submit</a>           
             </div>         
             </div>
             <div class='drawer-bottom'>
