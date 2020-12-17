@@ -121,6 +121,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
     
+    $metafield = array();
+    $metafield['key'] = 'sortDate';
+    $metafield['value'] = $_POST['trip_date'];
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'AboutUs';
+    $metafield['value'] = '<span>We have the largest inventory available in the State of Florida. Our endless aisle shopping experience provides over 5000 products in store and over 110,000 products using our online site for your convenience. We are the leader for relevant Palm Beach fishing information. Come visit our retail store for all your local fishing tackle and bait needs. We work closely with local captains and will make you a better a better angler and give you exactly what you need to catch fish and tell you where to catch them. You can even book a trip with a local captain at our shop if you desire. We have all the top name fishing brands from Shimano, Daiwa, Penn, Accurate, Avet to Rapala, Nomad, Black Bart, Boone, and Yozuri.</span>';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
     //fishing_depth
     $metafield = array();
     $metafield['key'] = 'fishing_depth';
@@ -216,7 +230,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $formated_trip_date = date_format(date_create($_POST['trip_date']),"n/j/y");
 
-    $title_tag_str = $location_city.' Fishing Report '.$formated_trip_date.' | Fishing Forecast';
+    $title_formated_trip_date = date_format(date_create($_POST['trip_date']),"Y-m-d");
+
+    $title_tag_str = $location_city.' Fishing Report '.$title_formated_trip_date.' | Fishing Forecast';
 
     $metafield = array();
     $metafield['key'] = 'title_tag';
@@ -533,7 +549,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             "vendor"       => "FishinMyBestLife",
             "product_type" => "Angler Advisor | Fishing Reports | Weekly Reports",
             "tags"         => "AnglerAdvisor:JotformFishingReports",
-            "published"    => false ,
+            "published_scope" => "web",
+            "published"    => true ,
             "images"       =>$product_images,
             "status"       => "draft",
             "metafields"   => $metafields
@@ -582,11 +599,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mail->Password = 'eoqldir111';
         $mail->SetFrom('drupio@gmail.com','Dru Pio');
         $mail->Subject = "Approve new weekly report";
-        $mail->Body = '<p>A weekly named "'.trim($title_tag_str).'" has been created.</p><a href="https://dru-pio.myshopify.com/admin/products?selectedView=all&product_type=Angler%20Advisor%20%7C%20Fishing%20Reports%20%7C%20Weekly%20Reports&order=created_at%20desc">Approve new weekly report</a>';
+        $mail->Body = '<p>A weekly report named "'.trim($title_tag_str).'" has been created.</p><a href="https://dru-pio.myshopify.com/admin/products?selectedView=all&product_type=Angler%20Advisor%20%7C%20Fishing%20Reports%20%7C%20Weekly%20Reports&order=created_at%20desc">Approve new weekly report</a>';
 
         $mail->AddAddress('info@fishinmybestlife.com');
 
-        $result = $mail->Send();        
+        // $result = $mail->Send();        
         if($result == 1){
             
         }else{

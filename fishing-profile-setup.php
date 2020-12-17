@@ -102,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <script src="assets/js/common.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function(){
-        $('.scroll-wrapper').css('max-height',($(window).height()-260));
+        // $('.scroll-wrapper').css('max-height',($(window).height()-260));
         $('.slick-slider-wrapper').slick({
             dots: false,
             infinite: false,

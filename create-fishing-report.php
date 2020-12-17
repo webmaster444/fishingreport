@@ -563,7 +563,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         $mail->AddAddress('info@fishinmybestlife.com');
 
-        $result = $mail->Send();        
+        // $result = $mail->Send();        
         if($result == 1){
             
         }else{

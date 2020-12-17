@@ -116,7 +116,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <script src="assets/js/common.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function(){
-        $('.scroll-wrapper').css('max-height',($(window).height()-260));
+        // $('.scroll-wrapper').css('max-height',($(window).height()-260));
         <?php $selected_species = explode(",",$user_fishing_detail[0]['species']); ?>            
         let selected_species = new Array();
         <?php foreach($selected_species as $key => $val){ ?>
