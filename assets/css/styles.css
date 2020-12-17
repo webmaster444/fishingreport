@@ -772,12 +772,12 @@ input[type="text"],input[type="email"]{
     padding-right: 0;
 }
 body {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     /* mobile viewport bug fix */
-    min-height: -webkit-fill-available;
+    /* min-height: -webkit-fill-available; */
 }  
 html{
-    height: -webkit-fill-available;
+    /* height: -webkit-fill-available; */
 }
 .vertical-item input[type="checkbox"],.vertical-item input[type="radio"]{
     min-width: 30px;
