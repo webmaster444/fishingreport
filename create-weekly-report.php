@@ -604,11 +604,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mail->AddAddress('info@fishinmybestlife.com');
 
         // $result = $mail->Send();        
-        if($result == 1){
+        // if($result == 1){
             
-        }else{
+        // }else{
             
-        }
+        // }
     }    
 }
 
