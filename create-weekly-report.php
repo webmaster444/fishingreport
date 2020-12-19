@@ -125,7 +125,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['key'] = 'sortDate';
     $metafield['value'] = $_POST['trip_date'];
     $metafield['value_type'] = "string";
-    $metafield['namespace'] = "report";
+    $metafield['namespace'] = "global";
     $metafields[] = $metafield;
 
     $metafield = array();
@@ -230,7 +230,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $formated_trip_date = date_format(date_create($_POST['trip_date']),"n/j/y");
 
-    $title_formated_trip_date = date_format(date_create($_POST['trip_date']),"Y-m-d");
+    $title_formated_trip_date = date_format(date_create($_POST['trip_date']),"M d, Y");
 
     $title_tag_str = $location_city.' Fishing Report '.$title_formated_trip_date.' | Fishing Forecast';
 
