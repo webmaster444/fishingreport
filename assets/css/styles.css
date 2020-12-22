@@ -53,12 +53,12 @@ button:active, button:hover, button:focus{
 .full{
     width: 100%;
 }
-.form-control input{
+.ct-form-control input{
     width: 100%;
     padding: 10px 15px;
 }
 
-.form-control{
+.ct-form-control{
     margin: 5px 0;
 }
 
@@ -485,6 +485,7 @@ input.autocomplete{
     width: 100%;
     font-size: 20px;
     border: 1px solid black;
+    margin-bottom: 0;
 }
 
 .search-input:after{
@@ -505,6 +506,7 @@ input.autocomplete{
     width: 100%;
 }
 #description{
+    max-height: 500px;
     resize: none;
     font-size: 20px;
 }
@@ -525,7 +527,9 @@ input[type="radio"]{
 input[type='checkbox']:checked,input[type='radio']:checked {
     background: #abd;
 }
-
+input[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus{
+    outline: none;
+}
 ::-webkit-scrollbar {
     width: 8px;
 }

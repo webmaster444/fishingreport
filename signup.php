@@ -121,17 +121,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="full">
                     <span>Sign up with your email and password</span>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
-                        <div class="form-control">
+                        <div class="ct-form-control">
                             <label for="email">Email</label>
                             <input type="email" name="email" id="email" required value="<?php echo isset($_POST['email'])?$_POST['email']:'' ?>"/>
                             <p class="err-msg"><?php echo $username_err; ?></p>
                         </div>
-                        <div class="form-control">
+                        <div class="ct-form-control">
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" required/>
                             <p class="err-msg"><?php echo $password_err; ?></p>
                         </div>
-                        <div class="form-control">
+                        <div class="ct-form-control">
                             <label for="confirm_password">Confirm Password</label>
                             <input type="password" name="confirm_password" id="confirm_password" required/>
                             <p class="err-msg"><?php echo $confirm_password_err; ?></p>

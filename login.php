@@ -130,12 +130,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="full">
                     <span>Sign in with your email and password</span>
                     <form action="login.php" method="POST">
-                        <div class="form-control">
+                        <div class="ct-form-control">
                             <label for="email">Email</label>
                             <input type="email" name="email" id="email" required value="<?php isset($_POST['email'])?$_POST['email']:""; ?>"/>
                             <p class="err-msg"><?php echo $username_err;?></p>
                         </div>
-                        <div class="form-control">
+                        <div class="ct-form-control">
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" required/>
                             <p class="err-msg"><?php echo $password_err;?></p>

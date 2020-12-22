@@ -128,32 +128,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
             <div class="login-form-container flex-wrapper">            
                 <div class="full">
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="fname">First name <span class="required">*</span></label>
                         <input type="text" name="fname" id="fname" required  value="<?php echo isset($_POST['fname'])?$_POST['fname']:'' ?>"/>
                         <p class="err-msg"><?php echo $fname_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="lname">Last name <span class="required">*</span></label>
                         <input type="text" name="lname" id="lname" required  value="<?php echo isset($_POST['lname'])?$_POST['lname']:'' ?>"/>
                         <p class="err-msg"><?php echo $lname_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="phone">Phone<span class="required">*</span></label>
                         <input type="text" name="phone" id="phone" required  value="<?php echo isset($_POST['phone'])?$_POST['phone']:'' ?>"/>
                         <p class="err-msg"><?php echo $phone_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="completeaddress">Address<span class="required">*</span></label>
                         <input type="text" name="completeaddress" id="autocomplete" onFocus="geolocate()" required  value="<?php echo isset($_POST['completeaddress'])?$_POST['completeaddress']:'' ?>"/>
                         <p class="err-msg"><?php echo $address_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="nickname">Display name<span class="required">*</span></label>
                         <input type="text" name="nickname" id="nickname" required  value="<?php echo isset($_POST['nickname'])?$_POST['nickname']:'' ?>"/>
                         <p class="err-msg"><?php echo $nickname_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="nickname">Member Type<span class="required">*</span></label>
                         <select name="membertype" id="membertype">
                             <?php
@@ -164,7 +164,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             ?>
                         </select>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="nickname">Bio</label>
                         <textarea name="bio" id="bio"><?php echo isset($_POST['bio'])?$_POST['bio']:'' ?></textarea>
                         <p class="err-msg"><?php echo $bio_err; ?></p>
@@ -175,7 +175,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="hidden" name="address" id="route" required value="<?php echo isset($_POST['address'])?$_POST['address']:'' ?>"/>
                     <input type="hidden" name="country" id="country" required value="<?php echo isset($_POST['country'])?$_POST['country']:'' ?>"/>
                     <input type="hidden" name="address_changed" id="address_changed" value="<?php echo isset($_POST['address_changed'])?$_POST['address_changed']:'' ?>" />
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="ownboat"><input type="checkbox" name="ownboat" id="ownboat" <?php echo isset($_POST['ownboat'])?'checked':''?> />Own boat</label>                        
                     </div>
                     <button type="submit" class="btn-primary">Save</button>    
@@ -270,7 +270,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //         dataType: "json",
     //         success: function(result) {
     //             if(result.length > 0){
-    //                 let selectorHTML = '<div class="form-control"><label>Select city</label><select id="citySelect" name="city">';
+    //                 let selectorHTML = '<div class="ct-form-control"><label>Select city</label><select id="citySelect" name="city">';
     //                 result.forEach(function(d){
     //                     selectorHTML+='<option value="'+d.city_id + '">'+d.city+'</option>';
     //                 });

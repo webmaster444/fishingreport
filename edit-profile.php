@@ -177,32 +177,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="login-form-container flex-wrapper">            
                 <div class="full">
                     <?php echo isset($page_msg)?$page_msg:"";?>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="fname">First name <span class="required">*</span></label>                        
                         <input type="text" name="fname" id="fname" required  value="<?php echo isset($_POST['fname'])?$_POST['fname']:(isset($loggedin_users[0])?$loggedin_users[0]['first_name']:""); ?>"/>
                         <p class="err-msg"><?php echo $fname_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="lname">Last name <span class="required">*</span></label>
                         <input type="text" name="lname" id="lname" required  value="<?php echo isset($_POST['lname'])?$_POST['lname']:(isset($loggedin_users[0])?$loggedin_users[0]['last_name']:""); ?>"/>
                         <p class="err-msg"><?php echo $lname_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="phone">Phone<span class="required">*</span></label>
                         <input type="text" name="phone" id="phone" required  value="<?php echo isset($_POST['phone'])?$_POST['phone']:(isset($loggedin_users[0])?$loggedin_users[0]['phone']:""); ?>"/>
                         <p class="err-msg"><?php echo $phone_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="completeaddress">Address<span class="required">*</span></label>
                         <input type="text" name="completeaddress" id="autocomplete" onFocus="geolocate()" required  value="<?php echo isset($_POST['completeaddress'])?$_POST['completeaddress']:(isset($loggedin_users[0])?$loggedin_users[0]['address'].' '.$loggedin_users[0]['city'].' '.$loggedin_users[0]['state'].' '.$loggedin_users[0]['country']:""); ?>"/>
                         <p class="err-msg"><?php echo $address_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="nickname">Display name<span class="required">*</span></label>
                         <input type="text" name="nickname" id="nickname" required  value="<?php echo isset($_POST['nickname'])?$_POST['nickname']:(isset($loggedin_users[0])?$loggedin_users[0]['nickname']:""); ?>"/>
                         <p class="err-msg"><?php echo $nickname_err; ?></p>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="nickname">Member Type<span class="required">*</span></label>
                         <select name="membertype" id="membertype">
                             <?php
@@ -213,7 +213,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             ?>
                         </select>
                     </div>
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="nickname">Bio</label>
                         <textarea name="bio" id="bio"><?php echo isset($_POST['bio'])?$_POST['bio']:(isset($loggedin_users[0])?$loggedin_users[0]['bio']:""); ?></textarea>
                         <p class="err-msg"><?php echo $bio_err; ?></p>
@@ -224,7 +224,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <input type="hidden" name="address" id="route" required value="<?php echo isset($_POST['address'])?$_POST['address']:(isset($loggedin_users[0])?$loggedin_users[0]['address']:""); ?>"/>
                     <input type="hidden" name="country" id="country" required value="<?php echo isset($_POST['country'])?$_POST['country']:(isset($loggedin_users[0])?$loggedin_users[0]['country']:""); ?>"/>
                     <input type="hidden" name="address_changed" id="address_changed" value="<?php echo isset($_POST['address_changed'])?$_POST['address_changed']:'autocompleted' ?>" />
-                    <div class="form-control">
+                    <div class="ct-form-control">
                         <label for="ownboat"><input type="checkbox" name="ownboat" id="ownboat" <?php echo isset($_POST['ownboat'])?'checked':((isset($loggedin_users[0])&&($loggedin_users[0]['own_boat']!='0'))?'checked':'');?> />Own boat</label>
                     </div>
                     <button type="submit" class="btn-primary">Save</button>    

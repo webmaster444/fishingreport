@@ -236,7 +236,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'title_tag';
-    $metafield['value'] = trim($title_tag_str);
+    $metafield['value'] = mb_convert_encoding($title_tag_str, 'UTF-8', 'UTF-8');
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "global";
     $metafields[] = $metafield;
@@ -309,6 +309,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // $metafield['namespace'] = "report";
     // $metafields[] = $metafield;
 
+    
     $metafield = array();
     $metafield['key'] = 'ad_block_1';
     $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/files/imgpsh_fullsize_anim.png?v=1595929216';    
@@ -540,7 +541,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $tmp_image['alt'] = $location_city.', Fl Fishing Report '.$formated_trip_date.' | What\'s Biting | Fishing Forecast';
     $product_images[] = $tmp_image;
     $handle = preg_replace('/\s+/', '-', strtolower($title_tag_str));
-        
+
+    // var_dump($title_tag_str);
+
+    // var_dump($metafields);
+    // exit;
     $products_array = array(
         "product" => array( 
             "title"        => trim($title_tag_str),
@@ -553,6 +558,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             "published"    => true ,
             "images"       =>$product_images,
             "status"       => "draft",
+            "metafields_global_title_tag" => $title_tag_str,
             "metafields"   => $metafields
         )
     );
@@ -642,7 +648,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="slick-slider-wrapper">
                         <div class="slide">
                             <p class="err-msg"></p>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="trip_date">Upload Image<span class="required">*</span></label>
                                 <input id="report_image" type="file" name="report_image" accept="image/x-png,image/gif,image/jpeg"/>
                                 <img src="assets/imgs/loader.gif" alt="Loading" class="img-loader loader hide"/>
@@ -651,7 +657,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                         <div class="slide">
                             <p class="err-msg"></p>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="trip_date">Trip date</label>
                                 <input id="trip_date" type="text" name="trip_date" data-toggle="datepicker" />
                             </div>
@@ -788,35 +794,35 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="scroll-wrapper">
                             <h2 class="section-title">Fill the content</h2>
                             <p class="err-msg"></p>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="trip_date">Header 1</label>
                                 <input id="header1" type="text" name="header1" />
                             </div>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="headertext1">Header Text 1</label>
                                 <input id="headertext1" type="text" name="headertext1" />
                             </div>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="header2">Header 2</label>
                                 <input id="header2" type="text" name="header2" />
                             </div>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="headertext2">Header Text 2</label>
                                 <input id="headertext2" type="text" name="headertext2" />
                             </div>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="header3">Header 3</label>
                                 <input id="header3" type="text" name="header3" />
                             </div>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="headertext3">Header Text 3</label>
                                 <input id="headertext3" type="text" name="headertext3" />
                             </div>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="header4">Header 4</label>
                                 <input id="header4" type="text" name="header4" />
                             </div>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="headertext4">Header Text 4</label>
                                 <input id="headertext4" type="text" name="headertext4" />
                             </div>
@@ -909,7 +915,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			      		<div class="modal-body">
 			        		<div class="img-container">
 			            		<div class="row">
-			                		<div class="col-md-8">
+			                		<div class="col-sm-12">
 			                    		<img src="" id="sample_image" />
 			                		</div>
 			                		<div class="col-md-4">
@@ -935,8 +941,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script src="assets/js/dropzone.js"></script>
 		<script src="assets/js/cropper.js"></script>
         <script type="text/javascript">
-            $('.scroll-wrapper').css('max-height',($(window).height()-260));
-            $('.drawer-scroll-wrapper').css('max-height',($(window).height()-240));
+            // $('.scroll-wrapper').css('max-height',($(window).height()-260));
+            // $('.drawer-scroll-wrapper').css('max-height',($(window).height()-240));
             <?php $added_gtin = explode(",",$selected_gtins[0]['variants_array']); ?>            
             let added_gtin = new Array();
             <?php foreach($added_gtin as $key => $val){ ?>

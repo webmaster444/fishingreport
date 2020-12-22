@@ -585,6 +585,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<link href="assets/css/cropper.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="assets/css/all.min.css">
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+        		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link href="assets/css/editor.css" type="text/css" rel="stylesheet"/>
         <link rel="stylesheet" href="assets/css/styles.css">                       
     </head>
     <body class="fishing-report-page" id="create-fishing-report-page">
@@ -603,7 +606,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="slick-slider-wrapper">
                         <div class="slide">
                             <p class="err-msg"></p>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="trip_date">Upload Image<span class="required">*</span></label>
                                 <input id="report_image" type="file" name="report_image" accept="image/x-png,image/gif,image/jpeg"/>
                                 <img src="assets/imgs/loader.gif" alt="Loading" class="img-loader loader hide"/>
@@ -612,7 +615,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </div>
                         <div class="slide">
                             <p class="err-msg"></p>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                                 <label for="trip_date">Trip date</label>
                                 <input id="trip_date" type="text" name="trip_date" data-toggle="datepicker" />
                             </div>
@@ -771,11 +774,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="slide memo-box">
                             <h2 class="section-title">Your Memo</h2>
                             <p class="err-msg"></p>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                             <label for="description">Description</label>
                             <textarea id="description" name="description"></textarea>
                             </div>
-                            <div class="form-control">
+                            <div class="ct-form-control">
                             <label for="description">Video</label>
                             <input type="file" id="memo_video" name="memo_video" accept="video/mp4,video/x-m4v,video/*"/>
                             </div>
@@ -866,7 +869,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			      		<div class="modal-body">
 			        		<div class="img-container">
 			            		<div class="row">
-			                		<div class="col-md-8">
+			                		<div class="col-sm-12">
 			                    		<img src="" id="sample_image" />
 			                		</div>
 			                		<div class="col-md-4">
@@ -892,6 +895,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
         <script type="text/javascript" src="assets/js/jquery.popupoverlay.js"></script>
         <script type="text/javascript" src="assets/js/common.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="assets/js/editor.js"></script>
         <script src="assets/js/dropzone.js"></script>
 		<script src="assets/js/cropper.js"></script>
         <script type="text/javascript">
@@ -943,6 +948,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             
         $(document).ready(function(){
+            $("#description").Editor();
             $('[data-toggle="datepicker"]').datepicker({'format':'yyyy-mm-dd'});
             $('[data-toggle="datepicker"]').datepicker('setDate', new Date());
 
@@ -1161,8 +1167,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 return true;
             }else if(index==10){
+                $("#description").val($("#description").Editor("getText"));
                 if($("#hidden_memo_uploaded").val()=="false"){
-                    if($("#description").val()==""){
+                    if($("#description").val()==""){                        
                         return "Sorry but failed to upload memo, could you upload it again please?";
                     }else{
                         return true;
