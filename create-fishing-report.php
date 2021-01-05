@@ -116,8 +116,9 @@ while($row = $bodies_result->fetch_array()){
 }
 
 $notifications = array();
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){ 
-        
+    
     $metafields = array();
 
     //trip_date;
@@ -540,7 +541,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $response = curl_exec ($curl);
     curl_close ($curl);
-
+    
     if(array_key_exists('errors', json_decode($response))){
         $notification = 'Failed to create report on shopify store';
         $notifications[] = $notification;
@@ -602,7 +603,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="notification"><?php echo $notification;?></div>
                     <?php } ?>       
                 </div>
-                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="fishing-report-form">
                     <div class="slick-slider-wrapper">
                         <div class="slide">
                             <p class="err-msg"></p>
@@ -1097,7 +1098,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $("#report_submit").on('click', function(){
             let currentStep = $('.slick-current').index();
             if(fishingReportValidation(currentStep)==true){                                
-                $('form').submit();
+                $('#fishing-report-form').submit();
                 $(this).html('Submitting...');
                 $(this).prop('disabled',true);
             }else{
