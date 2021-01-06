@@ -478,7 +478,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'employee_2_image';
-    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/ChaseMako-Headshot.jpg?v=1598369017';    
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/ChaseMako-Headshotcopy_100x.jpg?v=1607697353';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -497,6 +497,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
+    $metafield = array();
+    $metafield['key'] = 'AboutUs';
+    $metafield['value'] = '<span>We have the largest inventory available in the State of Florida. Our endless aisle shopping experience provides over 5000 products in store and over 110,000 products using our online site for your convenience. We are the leader for relevant Palm Beach fishing information. Come visit our retail store for all your local fishing tackle and bait needs. We work closely with local captains and will make you a better a better angler and give you exactly what you need to catch fish and tell you where to catch them. You can even book a trip with a local captain at our shop if you desire. We have all the top name fishing brands from Shimano, Daiwa, Penn, Accurate, Avet to Rapala, Nomad, Black Bart, Boone, and Yozuri.</span>';    
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "global";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'AboutUs';
+    $metafield['value'] = '<span>We have the largest inventory available in the State of Florida. Our endless aisle shopping experience provides over 5000 products in store and over 110,000 products using our online site for your convenience. We are the leader for relevant Palm Beach fishing information. Come visit our retail store for all your local fishing tackle and bait needs. We work closely with local captains and will make you a better a better angler and give you exactly what you need to catch fish and tell you where to catch them. You can even book a trip with a local captain at our shop if you desire. We have all the top name fishing brands from Shimano, Daiwa, Penn, Accurate, Avet to Rapala, Nomad, Black Bart, Boone, and Yozuri.</span>';    
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Address';
+    $metafield['value'] = '807 US-1 STE 8 WEST PALM BEACH, FL 33403';    
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Addressiframe';
+    $metafield['value'] = '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14245.071665710575!2d-80.0552835!3d26.7995966!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfb8ba543d2f448e6!2sFishin&#39;%20My%20Best%20Life!5e0!3m2!1sen!2sus!4v1594918202017!5m2!1sen!2sus" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>';    
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
     $description = $_POST['description'];
     $product_images =  array();
     $tmp_image = array();
