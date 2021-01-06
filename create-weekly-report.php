@@ -135,6 +135,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
+    $metafield = array();
+    $metafield['key'] = 'AboutUs';
+    $metafield['value'] = '<span>We have the largest inventory available in the State of Florida. Our endless aisle shopping experience provides over 5000 products in store and over 110,000 products using our online site for your convenience. We are the leader for relevant Palm Beach fishing information. Come visit our retail store for all your local fishing tackle and bait needs. We work closely with local captains and will make you a better a better angler and give you exactly what you need to catch fish and tell you where to catch them. You can even book a trip with a local captain at our shop if you desire. We have all the top name fishing brands from Shimano, Daiwa, Penn, Accurate, Avet to Rapala, Nomad, Black Bart, Boone, and Yozuri.</span>';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "global";
+    $metafields[] = $metafield;
+
     //fishing_depth
     $metafield = array();
     $metafield['key'] = 'fishing_depth';
