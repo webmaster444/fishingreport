@@ -334,14 +334,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'box_1_url';
-    $metafield['value'] = 'https://form.jotform.com/201472484667058';
+    $metafield['value'] = 'https://report.fishinmybestlife.com/fishingreport/login.php';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
     $metafield = array();
     $metafield['key'] = 'box_2_url';
-    $metafield['value'] = 'https://www.fishinmybestlife.com/collections/fishing-report';
+    $metafield['value'] = 'https://www.fishinmybestlife.com/collections/fishing-reports';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -362,7 +362,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'Address';
-    $metafield['value'] = '807 US-1 STE 8 WEST PALM BEACH, FL 33403';
+    $metafield['value'] = '804 US-1 STE 8 WEST PALM BEACH, FL 33403';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -412,6 +412,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $metafield = array();
     $metafield['key'] = 'Sunday';
     $metafield['value'] = 'Sunday;8am - 5pm';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Collections';
+    $metafield['value'] = 'Shimano;Daiwa;Penn;Fishing-Reels;Fishing-Rods';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -516,21 +523,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'employee_2_image';
-    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/ChaseMako-Headshot.jpg?v=1598369017';    
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/ChaseMako-Headshotcopy_100x.jpg?v=1607697353';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
     $metafield = array();
     $metafield['key'] = 'employee_3_image';
-    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/MeganPowell-Headshot.jpg?v=1598369017';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/MeganPowell-Headshot_100x.jpg?v=1608236108';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
     $metafield = array();
     $metafield['key'] = 'employee_4_image';
-    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/DruPio-Headshot.jpg?v=1598369017';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/DruPio-Headshotcopy_100x.jpg?v=1607697333';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -549,10 +556,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $product_images[] = $tmp_image;
     $handle = preg_replace('/\s+/', '-', strtolower($title_tag_str));
 
-    // var_dump($title_tag_str);
-
-    // var_dump($metafields);
-    // exit;
     $products_array = array(
         "product" => array( 
             "title"        => trim($title_tag_str),
@@ -560,7 +563,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             "template_suffix" => "tackel-shop",
             "vendor"       => "FishinMyBestLife",
             "product_type" => "Angler Advisor | Fishing Reports | Weekly Reports",
-            "tags"         => "AnglerAdvisor:JotformFishingReports",
+            "tags"         => "",
             "published_scope" => "web",
             "published"    => true ,
             "images"       =>$product_images,

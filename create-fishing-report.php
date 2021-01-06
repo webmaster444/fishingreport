@@ -359,18 +359,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'box_1_url';
-    $metafield['value'] = 'https://form.jotform.com/201472484667058';
+    $metafield['value'] = 'https://report.fishinmybestlife.com/fishingreport/login.php';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
     $metafield = array();
     $metafield['key'] = 'box_2_url';
-    $metafield['value'] = 'https://www.fishinmybestlife.com/collections/fishing-report';
+    $metafield['value'] = 'https://www.fishinmybestlife.com/collections/fishing-reports';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
+
     $metafield = array();
+    $metafield['key'] = 'Collections';
+    $metafield['value'] = 'Shimano;Daiwa;Penn;Fishing-Reels;Fishing-Rods';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
+
+    $metafield = array();
+    $metafield['key'] = 'Specialities';
+    $metafield['value'] = 'Fishing Reels|https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-fishing-reels;Fishing Rods|https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-fishing-rods;Fishing Reel Repair| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-fishing-reel-repairs;Fishing Line Spooling| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-fishing-line|Fishing Advice;Fishing Hot Spots| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-fishing-hot-spots; Fishing Lures| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-lures;Fishing Licenses| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-fishing-license|;Fishing Tackle| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-t;Frozen Bait| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-bait;Fishing Reports| https://www.fishinmybestlife.com/products/fishing-reports-us-fl-west-palm-beach;Live Bait| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-live-bait; Used Fishing Reel Trade-In| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-fishing-reel-trade-ins;Shimano Rods and Reels| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-shimano-reels; Daiwa Fishing Rods and Reels| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-bait-daiwa-reels; Penn Rods and Reels| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-penn-reels; Nomad DTX Lures| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-nomad-lures; Rapala Lures| https://www.fishinmybestlife.com/products/west-palm-beach-fl-bait-and-tackle-shop-rapala-lures; Book A Charter Fishing Boat| https://www.fishinmybestlife.com/products/fishing-charters-us-fl-west-palm-beach';
+    $metafield['value_type'] = "string";
+    $metafield['namespace'] = "report";
+    $metafields[] = $metafield;
 
     $metafield = array();
     $metafield['key'] = 'Monday';
@@ -485,14 +498,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'employee_3_image';
-    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/MeganPowell-Headshot.jpg?v=1598369017';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/MeganPowell-Headshot_100x.jpg?v=1608236108';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
 
     $metafield = array();
     $metafield['key'] = 'employee_4_image';
-    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/DruPio-Headshot.jpg?v=1598369017';
+    $metafield['value'] = 'https://cdn.shopify.com/s/files/1/0084/4785/2604/products/DruPio-Headshotcopy_100x.jpg?v=1607697333';
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -513,7 +526,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $metafield = array();
     $metafield['key'] = 'Address';
-    $metafield['value'] = '807 US-1 STE 8 WEST PALM BEACH, FL 33403';    
+    $metafield['value'] = '804 US-1 STE 8 WEST PALM BEACH, FL 33403';    
     $metafield['value_type'] = "string";
     $metafield['namespace'] = "report";
     $metafields[] = $metafield;
@@ -528,6 +541,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $product_images =  array();
     $tmp_image = array();
     $tmp_image['src'] = $_POST['image_uploaded'];
+    $tmp_image['alt'] = trim($title_tag_str);
     $product_images[] = $tmp_image;
     $products_array = array(
         "product" => array( 
@@ -538,7 +552,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             "vendor"       => "FishinMyBestLife",
             "product_type" => "Angler Advisor | Fishing Reports | Catch Logs",
             "published_scope" => "web",
-            "tags"         => "AnglerAdvisor:JotformFishingReports",
+            "tags"         => "",
             "published"    => true ,
             "images"       =>$product_images,
             "status"       => "draft",
