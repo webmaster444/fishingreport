@@ -627,9 +627,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		<link href="assets/css/cropper.min.css" rel="stylesheet"/>
         <link rel="stylesheet" href="assets/css/all.min.css">
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-        		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<link href="assets/css/editor.css" type="text/css" rel="stylesheet"/>
+        		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">    
+		<!-- <link href="assets/css/editor.css" type="text/css" rel="stylesheet"/> -->
         <link rel="stylesheet" href="assets/css/styles.css">                       
     </head>
     <body class="fishing-report-page" id="create-fishing-report-page">
@@ -940,7 +941,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="assets/js/editor.js"></script>
         <script src="assets/js/dropzone.js"></script>
-		<script src="assets/js/cropper.js"></script>
+        <script src="assets/js/cropper.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script type="text/javascript">
             // $('.scroll-wrapper').css('max-height',($(window).height()-260));
             // $('.drawer-scroll-wrapper').css('max-height',($(window).height()-240));
@@ -990,7 +992,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             
         $(document).ready(function(){
-            $("#description").Editor();
+            // $("#description").Editor();
+            $("#description").summernote({
+        tabsize: 2,
+        height: 120,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
             $('[data-toggle="datepicker"]').datepicker({'format':'yyyy-mm-dd'});
             $('[data-toggle="datepicker"]').datepicker('setDate', new Date());
 
@@ -1209,7 +1224,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
                 return true;
             }else if(index==10){
-                $("#description").val($("#description").Editor("getText"));
+                // $("#description").val($("#description").Editor("getText"));
                 if($("#hidden_memo_uploaded").val()=="false"){
                     if($("#description").val()==""){                        
                         return "Sorry but failed to upload memo, could you upload it again please?";
