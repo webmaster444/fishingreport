@@ -509,6 +509,8 @@ input.autocomplete{
     max-height: 500px;
     resize: none;
     font-size: 20px;
+    -webkit-user-select: initial;
+    user-select: initial;
 }
 input[type='checkbox'] ,input[type='radio'] {
     -webkit-appearance:none;

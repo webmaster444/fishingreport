@@ -994,6 +994,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $(document).ready(function(){
             // $("#description").Editor();
             $("#description").summernote({
+                contenteditable:true,
         tabsize: 2,
         height: 120,
         toolbar: [
