@@ -512,6 +512,10 @@ input.autocomplete{
     -webkit-user-select: initial;
     user-select: initial;
 }
+.note-editable{
+    -webkit-user-select: initial;
+    user-select: initial;
+}
 input[type='checkbox'] ,input[type='radio'] {
     -webkit-appearance:none;
     width:30px;
