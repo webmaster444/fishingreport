@@ -13,8 +13,9 @@ require_once "db.php";
 
 global $conn;
 
-// $sql = "SELECT member_type_id, member_type FROM membertype WHERE active = 1";
-$sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1";
+
+// $sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1";
+$sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1 AND member_type NOT IN ('Super','Administrator');";
 $membertypes = $conn->query($sql);
 
 while($row = $membertypes->fetch_array()){

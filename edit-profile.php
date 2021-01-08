@@ -21,8 +21,22 @@ while($row = $loggedin_user->fetch_array()){
     $loggedin_users[] = $row;
 }
 
-// $sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1 AND member_type NOT IN ('Super','Administrator');";
-$sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1";
+$sql = "SELECT member_type FROM MemberType WHERE member_type_id IN (SELECT member_type_id FROM Member WHERE member_email_id = ".$_SESSION['id'].")";
+$loggedin_user_type = $conn->query($sql);
+$loggedin_users_type=[];
+while($row = $loggedin_user_type->fetch_array()){
+    $loggedin_users_type[] = $row;
+}
+$cu_user_type = $loggedin_users_type[0][0];
+
+if($cu_user_type=="Super"){
+    $sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1";
+}else if($cu_user_type=="Administrator"){
+    $sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1 AND member_type NOT IN ('Super');";    
+}else{
+    $sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1 AND member_type NOT IN ('Super','Administrator');";
+}
+
 $membertypes = $conn->query($sql);
 
 while($row = $membertypes->fetch_array()){

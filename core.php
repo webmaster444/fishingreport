@@ -268,6 +268,31 @@ function ajaxSocialLogin(){
     }
 };
 
+// reset password ajax
+function ajaxResetPassword(){
+    global $conn;
+    $sql = "UPDATE memberemails SET password = ? WHERE id = ?";
+        
+    if($stmt = mysqli_prepare($conn, $sql)){
+        // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "si", $param_password, $param_id);
+        
+        // Set parameters
+        $param_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $param_id = $_POST["id"];
+        
+        // Attempt to execute the prepared statement
+        if(mysqli_stmt_execute($stmt)){
+            // Password updated successfully. Destroy the session, and redirect to login page
+            return true;            
+        } else{
+            echo "Oops! Something went wrong. Please try again later.";
+        }
+
+        // Close statement
+        mysqli_stmt_close($stmt);
+    }
+}
 if($_POST['action']=="getAllCities"){
     getAllCities();
 }else if($_POST['action']=="getFishingTypes"){
@@ -356,6 +381,14 @@ if($_POST['action']=="getAllCities"){
         header('HTTP/1.1 500 Internal Server Booboo');
         header('Content-Type: application/json; charset=UTF-8');
         die(json_encode(array('message' => 'email is required', 'code' => 1337)));
+    }
+}else if($_POST['action']=='reset-password-ajax'){
+    if(isset($_POST['id'])){
+        ajaxResetPassword();
+    }else{
+        header('HTTP/1.1 500 Internal Server Booboo');
+        header('Content-Type: application/json; charset=UTF-8');
+        die(json_encode(array('message' => 'id is required', 'code' => 1337)));
     }
 }
 ?>

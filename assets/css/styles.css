@@ -806,6 +806,10 @@ html{
 .dataTables_wrapper .dataTables_paginate .paginate_button{
     padding: 10px;
 }
+#change-pwd-modal{
+    background: white;
+    padding: 20px;
+}
 @media screen and (max-width:767px){
     h1{
         font-size: 25px;

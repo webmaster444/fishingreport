@@ -74,9 +74,9 @@ if($member_type_query!=false){
                     <a class="btn-primary full" href="create-weekly-report.php">Create a weekly report</a>
                 <?php } ?>
 
-                <!-- <?php if($member_role == 'Super'){?>
+                <?php if($member_role == 'Super'){?>
                     <a class="btn-primary full" href="manage-users.php">Manage Users</a>
-                <?php } ?> -->
+                <?php } ?>
 
                 <a class="btn-secondary full" href="logout.php">Log out</a>
             </div>
