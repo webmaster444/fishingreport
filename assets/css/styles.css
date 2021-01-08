@@ -792,7 +792,20 @@ html{
 .vertical-item input[type="checkbox"],.vertical-item input[type="radio"]{
     min-width: 30px;
 }
+/* Manage Users Page*/
+#member-emails-table_length{
+    display: none;
+}
 
+#member-emails-table_filter{
+    float: left;
+}
+.dataTables_wrapper .dataTables_paginate{
+    float: left;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    padding: 10px;
+}
 @media screen and (max-width:767px){
     h1{
         font-size: 25px;

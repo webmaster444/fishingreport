@@ -21,6 +21,7 @@ while($row = $loggedin_user->fetch_array()){
     $loggedin_users[] = $row;
 }
 
+// $sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1 AND member_type NOT IN ('Super','Administrator');";
 $sql = "SELECT member_type_id, member_type FROM MemberType WHERE active = 1";
 $membertypes = $conn->query($sql);
 

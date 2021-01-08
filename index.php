@@ -70,9 +70,14 @@ if($member_type_query!=false){
                     <a class="btn-primary full" href="create-fishing-report.php">Create a fishing report</a>
                 <?php } ?>                
 
-                <?php if($member_role == 'Administrator'){?>
+                <?php if($member_role == 'Administrator'||$member_role=="Super"){?>
                     <a class="btn-primary full" href="create-weekly-report.php">Create a weekly report</a>
                 <?php } ?>
+
+                <!-- <?php if($member_role == 'Super'){?>
+                    <a class="btn-primary full" href="manage-users.php">Manage Users</a>
+                <?php } ?> -->
+
                 <a class="btn-secondary full" href="logout.php">Log out</a>
             </div>
         </div>
