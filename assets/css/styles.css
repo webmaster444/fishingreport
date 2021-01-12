@@ -350,10 +350,11 @@ a:active, a:focus{
 }
 
 .page-footer{
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    padding:20px;
     width: 100%;
+    padding: 20px;
+    max-width: 600px;
 }
 .btn-primary:hover, .btn-primary:focus{
     background: #0259FE;
@@ -401,10 +402,11 @@ a:active, a:focus{
 }
 
 .content{
-    padding: 0px 20px;
+    padding: 140px 20px 80px;
     position: absolute;
-    top: 140px;
+    top: 0px;
     width: 100%;
+    height: 100%;
 }
 .scroll-content{
     overflow-y: auto;    
@@ -758,7 +760,7 @@ button[disabled] {
     display: flex;
 }
 .no-slider .content{
-    top: 140px;
+    /* top: 140px; */
 }
 .login-form-container.content{
     padding-bottom: 20px;
