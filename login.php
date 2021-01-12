@@ -180,7 +180,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         function attachSignin(element) {
             auth2.attachClickHandler(element, {},
             function(googleUser) {
-                let email = googleUser.wt.cu;
+                let email = googleUser.Mt.tu;
                 $.ajax({
                     url: "core.php",
                     type: "POST",
