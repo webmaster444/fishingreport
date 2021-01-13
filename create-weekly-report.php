@@ -576,7 +576,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     global $apiKey;
     global $password;
     global $domain;
-    global $mail;
+    global $mail_address;
     global $mail_pwd;
     $SHOPIFY_API = "https://".$apiKey.":".$password."@".$domain."/admin/products.json";
     $curl = curl_init();
@@ -613,7 +613,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mail->Host = 'smtp.gmail.com';
         $mail->Port = '587';
         $mail->isHTML();
-        $mail->Username = $mail;
+        $mail->Username = $mail_address;
         $mail->Password = $mail_pwd;
         $mail->SetFrom('drupio@gmail.com','Dru Pio');
         $mail->Subject = "Approve new weekly report";

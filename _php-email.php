@@ -1,7 +1,7 @@
 <?php
 require_once('vendor/PHPMailer/PHPMailerAutoload.php');
 require_once "config.php";
-global $mail;
+global $mailaddress;
 global $mail_pwd;
 $mail = new PHPMailer();
 $mail->isSMTP();
@@ -10,7 +10,7 @@ $mail->SMTPSecure = 'tls';
 $mail->Host = 'smtp.gmail.com';
 $mail->Port = '587';
 $mail->isHTML();
-$mail->Username = $mail;
+$mail->Username = $mail_address;
 $mail->Password = $mail_pwd;
 $mail->SetFrom('drupio@gmail.com','Dru Pio');
 $mail->Subject = "Approve new catch log";
