@@ -19,7 +19,7 @@ $mail->Body = '<a href="https://dru-pio.myshopify.com/admin/products?selectedVie
 $mail->AddAddress('devwork8888@gmail.com');
 
 $result = $mail->Send();
-echo $mail->ErrorInfo;
+echo '<br/>Error:'.$mail->ErrorInfo.'<br/>';
 if($result == 1){
     echo "OK Message";
 }
