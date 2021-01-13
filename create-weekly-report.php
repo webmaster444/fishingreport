@@ -576,6 +576,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     global $apiKey;
     global $password;
     global $domain;
+    global $mail;
+    global $mail_pwd;
     $SHOPIFY_API = "https://".$apiKey.":".$password."@".$domain."/admin/products.json";
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $SHOPIFY_API);
@@ -611,8 +613,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $mail->Host = 'smtp.gmail.com';
         $mail->Port = '587';
         $mail->isHTML();
-        $mail->Username = 'jlmobile710@gmail.com';
-        $mail->Password = 'eoqldir111';
+        $mail->Username = $mail;
+        $mail->Password = $mail_pwd;
         $mail->SetFrom('drupio@gmail.com','Dru Pio');
         $mail->Subject = "Approve new weekly report";
         $mail->Body = '<p>A weekly report named "'.trim($title_tag_str).'" has been created.</p><a href="https://dru-pio.myshopify.com/admin/products?selectedView=all&product_type=Angler%20Advisor%20%7C%20Fishing%20Reports%20%7C%20Weekly%20Reports&order=created_at%20desc">Approve new weekly report</a>';
